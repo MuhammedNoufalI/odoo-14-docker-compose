@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- journal entry Inherit Form View to Modify it -->
+        <record id="view_payment_search_inherit" model="ir.ui.view">
+            <field name="name">view.account.payment.search.inherit</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="ref" string="Memo" filter_domain="[('ref', 'ilike', self)]"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_payment_tree_inherit" model="ir.ui.view">
+            <field name="name">view.account.payment.tree.inherit</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="after">
+                    <field name="ref" string="Memo" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_account_payment_form" model="ir.ui.view">
+            <field name="name">view.account.payment.tree.inherit</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_bank_id']" position="after">
+                    <field name="bank_category"  />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

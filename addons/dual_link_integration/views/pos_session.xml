@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="inherit_view_pos_session_form" model="ir.ui.view">
+        <field name="name">inherit_view_pos_session_form</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_session_form" />
+        <field name="model">pos.session</field>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button type="object" name="close_dl_session" string="Close Session" attrs="{'invisible': [('state', '!=', 'opened')]}" />
+            </xpath>
+            <xpath expr="//field[@name='stop_at']" position="after">
+                <field name="dl_worker_open" />
+                <field name="dl_worker_close" />
+                <field name="user_id" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

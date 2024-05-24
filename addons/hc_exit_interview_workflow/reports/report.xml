@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_new_custom_new" model="report.paperformat">
+         <field name="name">US Letter</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">47</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">3</field>
+        <field name="margin_right">3</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">42</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_hc_business_transfer_letter_form" model="ir.actions.report">
+        <field name="name">Exit Interview Workflow</field>
+        <field name="model">exit.interview</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hc_exit_interview_workflow.report_exit_workflow</field>
+        <field name="report_file">hc_exit_interview_workflow.report_exit_workflow</field>
+        <field name="binding_model_id" ref="hc_exit_interview_workflow.model_exit_interview"/>
+        <field name="paperformat_id" ref="hc_exit_interview_workflow.paperformat_new_custom_new"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

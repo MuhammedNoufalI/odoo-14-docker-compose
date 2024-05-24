@@ -1,0 +1,59 @@
+<odoo>
+    <data>
+        <record id="view_asset_transfer_form" model="ir.ui.view">
+            <field name="name">view_asset_transfer_form</field>
+            <field name="model">asset.transfer</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                        <button name="button_confirm" string="Confirm" class="btn-primary" groups="asset_request_management.wh_manager" type="object" attrs="{'invisible':[('state','!=','draft')]}"/>
+                        <button name="button_reject" string="Reject" class="btn-primary" groups="asset_request_management.wh_manager" type="object" attrs="{'invisible':[('state','!=','draft')]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,reject"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"  attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="location_from_id"  attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="employee_from_id"  attrs="{'readonly':[('state','!=','draft')]}"/>
+                            </group>
+                            <group>
+                                <field name="asset_id"  attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="location_to_id"  attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="employee_to_id"  attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="asset_request_id"  attrs="{'readonly':[('state','!=','draft')]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_asset_transfer_tree" model="ir.ui.view">
+            <field name="name">view_asset_transfer_tree</field>
+            <field name="model">asset.transfer</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="asset_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_asset_transfer_view" model="ir.actions.act_window">
+            <field name="name">Asset Transfer</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">asset.transfer</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+
+              </p><p>
+
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_asset_transfer_view" name="Asset Transfer" parent="asset_request_management.menu_asset_request_management_categ" action="action_asset_transfer_view" sequence="3"/>
+    </data>
+</odoo>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="budget_approval_matrix_view_form_allow" model="ir.ui.view">
+            <field name="name">budget_approval_matrix_view_form_allow</field>
+            <field name="model">budget.approval.matrix</field>
+            <field name="inherit_id" ref="budget_approval.budget_approval_matrix_view_form"/>
+            <field name="groups_id" eval="[(4, ref('budget_approval.allow_view_all_budget_lines'))]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='matrix_line_ids']/tree//field[@name='type']" position="attributes">
+                    <attribute name="attrs">{'readonly': 0}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='matrix_line_ids']/tree//field[@name='percent']" position="attributes">
+                    <attribute name="attrs">{'readonly': 0,'required': [('type','=','percent')],'invisible': [('type','!=','percent')]}</attribute>
+                </xpath>
+                <xpath expr="//notebook/page/field[@name='matrix_line_ids']/tree//field[@name='date_from']" position="attributes">
+                    <attribute name="attrs">{'readonly': 0, 'invisible': [('type','!=','percent')]}</attribute>
+                </xpath>
+                <xpath expr="//notebook/page/field[@name='matrix_line_ids']/tree//field[@name='date_to']" position="attributes">
+                    <attribute name="attrs">{'readonly': 0, 'invisible': [('type','!=','percent')]}</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="budget_approval_matrix_view_form" model="ir.ui.view">
+            <field name="name">budget.approval.matrix.form</field>
+            <field name="model">budget.approval.matrix</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" required="1" placeholder="e.g. ABC"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="general_approval_id" required="1"
+                                       options="{'no_create':True,'no_open':True}"/>
+                                <field name="company_id" readonly="1" groups="base.group_multi_company"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="active" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="date_from" required="1"/>
+                                <field name="date_to" required="1"/>
+                                <field name="limit" required="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Lines">
+                                <field name="matrix_line_ids">
+                                    <tree editable="bottom">
+                                        <field name="approval_id" required="1" optional="show"
+                                               options="{'no_create':True,'no_open':True}" width="3%"/>
+                                        <field name="categ_id" required="1" optional="show"
+                                               options="{'no_create':True,'no_open':True}" width="3%"/>
+                                        <field name="type" attrs="{'readonly': [('type', '=', 'percent')]}" required="1" optional="show" width="3%"/>
+                                        <field name="percent" optional="show"
+                                               attrs="{'readonly': [('type', '=', 'percent')], 'required': [('type','=','percent')],'invisible': [('type','!=','percent')]}" width="3%"/>
+                                        <field name="analytic_account" />
+                                        <field name="budget_line_id_domain" invisible="1" />
+                                        <field name="budget_line_id" domain="budget_line_id_domain" />
+                                        <field name="date_from" optional="show"
+                                               attrs="{'readonly': [('type', '=', 'percent')]}" width="3%"/>
+                                        <field name="date_to" optional="show"
+                                               attrs="{'readonly': [('type', '=', 'percent')]}" width="3%"/>
+                                        <field name="sales_amount" attrs="{'invisible': [('type','!=','percent')]}" optional="show" widget="monetary" width="3%"/>
+                                        <field name="planned_amount" optional="show" required="1" widget="monetary" width="3%"/>
+                                        <field name="actual_amount" optional="hide" required="1" widget="monetary" width="3%"/>
+                                        <field name="remain_amount" optional="hide" required="1" widget="monetary" width="3%"/>
+                                        <field name="company_id"  readonly="1" invisible="1" groups="base.group_multi_company" width="3%"/>
+                                        <field name="currency_id" invisible="1" width="3%"/>
+
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="budget_approval_matrix_view_tree" model="ir.ui.view">
+            <field name="name">budget.approval.matrix.tree</field>
+            <field name="model">budget.approval.matrix</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="company_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="budget_approval_matrix_window_action" model="ir.actions.act_window">
+            <field name="name">Budget Approval Matrix</field>
+            <field name="res_model">budget.approval.matrix</field>
+            <field name="view_mode">tree,form,search</field>
+            <field name="target">current</field>
+        </record>
+
+
+        <menuitem id="approval_matrix_menu"
+                  name="Budget Approval Matrix"
+                  parent="purchase.menu_procurement_management"
+                  action="budget_approval_matrix_window_action"
+                  sequence="14"/>
+
+
+    </data>
+</odoo>

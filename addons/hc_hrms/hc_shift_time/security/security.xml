@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <record id="make_invisible" model="res.groups">
+        <field name="name">Invisible</field>
+    </record>
+
+    <!--    <record id="resource_calendar_admin" model="ir.rule">-->
+    <!--        <field name="name">Resource Calendar Admin</field>-->
+    <!--        <field name="global" eval="True"/>-->
+    <!--        <field name="model_id" ref="resource.model_resource_calendar"/>-->
+    <!--        <field name="perm_write" eval="False"/>-->
+    <!--        <field name="perm_read" eval="False"/>-->
+    <!--        <field name="perm_create" eval="False"/>-->
+    <!--        <field name="perm_unlink" eval="False"/>-->
+    <!--    </record>-->
+</odoo>

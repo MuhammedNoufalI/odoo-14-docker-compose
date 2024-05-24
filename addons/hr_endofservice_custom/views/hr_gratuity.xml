@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="inherit_employee_gratuity_form" model="ir.ui.view">
+            <field name="name">inherit_employee_gratuity_form</field>
+            <field name="model">hr.gratuity</field>
+            <field name="inherit_id" ref="hr_gratuity_settlement.employee_gratuity_form"/>
+                <field name="arch" type="xml">
+                    <xpath expr="//field[@name='employee_gratuity_amount']" position="after">
+                        <field name="leave_balance"/>
+                        <field name="leave_balance_amount"/>
+                        <field name="last_salary"/>
+                        <field name="payslip_id" readonly="1" />
+                        <field name="gratuity_date"/>
+                    </xpath>
+
+                </field>
+        </record>
+    </data>
+</odoo>

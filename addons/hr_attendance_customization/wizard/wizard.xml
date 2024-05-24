@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_attendance_report_form" model="ir.ui.view">
+            <field name="name">Employee Attendance Report</field>
+            <field name="model">hr.employee.attendance.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="employee_ids" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="date_from"/>
+                        </group>
+                        <group>
+                            <field name="date_to"/>
+                        </group>
+                    </group>
+                    <group>
+                        <footer>
+                            <button type="object" name="print_report" string="Print Report"
+                                    class="oe_highlight"/>
+                            <button string="Cancel" class="btn btn-default" special="cancel"/>
+                        </footer>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="hr_attendance_report_action" model="ir.actions.act_window">
+            <field name="name">Employee Attendance Report</field>
+            <field name="res_model">hr.employee.attendance.report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="hr_attendance_report_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="hr_employee_attendance_report" name="Employee's Attendance Report"
+                  action="hr_attendance_report_action"
+                  parent="hr_attendance.menu_hr_attendance_manage_attendances"
+                  sequence="1"/>
+    </data>
+</odoo>

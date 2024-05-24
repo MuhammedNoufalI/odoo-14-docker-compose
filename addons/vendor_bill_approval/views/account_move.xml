@@ -1,0 +1,23 @@
+<odoo>
+  <data>
+     <!-- Inherit Form View to Modify it -->
+     <record id="view_inherit_view_move_form" model="ir.ui.view">
+         <field name="name">view_inherit_view_move_form</field>
+         <field name="model">account.move</field>
+         <field name="inherit_id" ref="account.view_move_form"/>
+         <field name="arch" type="xml">
+             
+             <!-- position: after|before|replace|attributes|inside -->
+             <xpath expr="//button[@name='action_post']" position="after">
+                 <field name="request_approval_show" invisible="1"/>
+                 <button name="request_approval_button" string="Request Approval" class="btn-primary" type="object" attrs="{'invisible':['|','|', ('state','!=','draft'), ('request_approval_show','=',True),('move_type','!=','in_invoice')]}"/>
+             </xpath>
+           <!-- position: after|before|replace|attributes|inside -->
+             <xpath expr="//button[@name='action_post'][2]" position="attributes">
+               <attribute name="groups">vendor_bill_approval.finance_manager</attribute>
+             </xpath>
+             
+         </field>
+     </record>
+  </data>
+</odoo>

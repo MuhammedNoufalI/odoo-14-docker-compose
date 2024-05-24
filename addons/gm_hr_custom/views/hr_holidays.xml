@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_inherit_hr_leave_view_form_deduction" model="ir.ui.view">
+            <field name="name">view_inherit_hr_leave_view_form_deduction</field>
+            <field name="model">hr.leave</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>
+            <field name="arch" type="xml">
+                
+                <!-- position: after|before|replace|attributes|inside -->
+                <xpath expr="//field[@name='employee_id']" position="after">
+                    <field name="permission_type" attrs="{'invisible':[('is_hours','=',False),('request_unit_hours','=',False)],'required':[('is_hours','=',True),('request_unit_hours','=',True)]}"/>
+                    <field name="is_hours" invisible="1"/>
+                </xpath>
+                
+            </field>
+        </record>
+    </data>
+</odoo>

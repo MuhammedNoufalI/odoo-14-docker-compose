@@ -1,0 +1,61 @@
+<odoo>
+    <data>
+
+        <record id="employee_doctype_form" model="ir.ui.view">
+            <field name="name">employee.doctype.form</field>
+            <field name="model">employee.doctype</field>
+            <field name="arch" type="xml">
+                <form string="Employee Doc Type">
+                    <sheet string="Employee Doc Type">
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="is_expiry_applicable"/>
+                                <field name="is_employee_mandatory"/>
+                                <field name="employee_ids" widget="many2many_tags"/>
+                                <field name="default_validitys"/>
+                                <field name="application_fee"/>
+                            </group>
+                            <group>
+                                <field name="application_fee_express"/>
+                                <field name="renewal_fee"/>
+                                <field name="max_p_time"/>
+                                <field name="renewal_alert"/>
+                                <field name="batch_renewal" invisible="1"/>
+                                <field name="alert_due"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="employee_doctype_list">
+            <field name="name">employee.doctype.tree</field>
+            <field name="model">employee.doctype</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="employee_ids" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="employee_doctype_action_window">
+            <field name="name">Employee Doc Type</field>
+            <field name="res_model">employee.doctype</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- menu -->
+        <menuitem name="Employee Doc Type" id="menu_documents_type_one" parent="hr.menu_human_resources_configuration"
+                  action="employee_doctype_action_window"/>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="hr_attend_rule_ded" model="hr.salary.rule">
+            <field name="name">Deduction</field>
+            <field name="sequence" eval="50"/>
+            <field name="code">DED</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result=bool(payslip.deduction_amount)</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -(payslip.deduction_amount)
+            </field>
+            <field name="struct_id" ref="salary_structure_demo.structure_worker1_001"/>
+        </record>
+        <record id="hr_attend_rule_absent" model="hr.salary.rule">
+            <field name="name">Absent</field>
+            <field name="sequence" eval="50"/>
+            <field name="code">ABS</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result=bool(payslip.absent_amount)</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -(payslip.absent_amount)
+            </field>
+            <field name="struct_id" ref="salary_structure_demo.structure_worker1_001"/>
+        </record>
+        <record id="hr_attend_rule_over_time" model="hr.salary.rule">
+            <field name="name">Over Time</field>
+            <field name="sequence" eval="50"/>
+            <field name="code">OVT</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="condition_select">python</field>
+<!--            <field name="condition_python">result=bool(payslip.work_day_over_time and payslip.public_leave_over_time)-->
+<!--            </field>-->
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = payslip.overtime_amount
+            </field>
+            <field name="struct_id" ref="salary_structure_demo.structure_worker1_001"/>
+        </record>
+
+    </data>
+</odoo>

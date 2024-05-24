@@ -1,0 +1,3 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_certificate_type,certificate.type,model_certificate_type,,1,1,1,1
+access_certificate_request,certificate.request,model_certificate_request,,1,1,1,1

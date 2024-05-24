@@ -1,0 +1,70 @@
+<odoo>
+    <data>
+        <record id="hr_attendance_tree_inherit" model="ir.ui.view">
+            <field name="name">hr_attendance_tree_inherit_to_hide_some_fields</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='checkin_date']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='checkout_date']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='employee_id']" position="before">
+                    <field name="employee_badge_no"/>
+                </xpath>
+                <xpath expr="//field[@name='employee_id']" position="after">
+                    <field name="employee_department"/>
+                    <field name="business_unit"/>
+                </xpath>
+                <xpath expr="//field[@name='check_out']" position="after">
+                    <field name="login_device_id"/>
+                    <field name="logout_device_id"/>
+                </xpath>
+
+            </field>
+        </record>
+        <record id="gm_attendance_tree_inherit" model="ir.ui.view">
+            <field name="name">gm_attendance_tree_inherit_to_hide_some_fields</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="gm_hr_custom.hr_attendance_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='late']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='early']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='over_time']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="to_attendance_device_tree_inherit" model="ir.ui.view">
+            <field name="name">to_attendance_tree_inherit_to_hide_some_fields</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="to_attendance_device.view_attendance_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='activity_id']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="inherit_hr_attendance_tree_to_device" model="ir.ui.view">
+            <field name="name">Hide Device check in and check out</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="to_attendance_device.view_attendance_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='checkin_device_id']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='checkout_device_id']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+            </field>
+        </record>
+<!--         <menuitem id="hc_shift_time.menu_hr_attendance_view_attendances" name="Attendances" parent="menu_hr_attendance_manage_attendances"-->
+<!--                   sequence="1" groups="hr_attendance.group_hr_attendance_user" action="hr_attendance.hr_attendance_action"/>-->
+    </data>
+</odoo>

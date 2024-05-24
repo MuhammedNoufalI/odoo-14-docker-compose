@@ -1,0 +1,72 @@
+<odoo>
+    <data>
+
+
+        
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_inherit_view_bank_statement_form" model="ir.ui.view">
+            <field name="name">view_inherit_view_bank_statement_form</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_form"/>
+            <field name="arch" type="xml">
+                
+                <!-- position: after|before|replace|attributes|inside -->
+                <xpath expr="//notebook/page/field/tree/field[@name='date']" position="after">
+                    <field name="payslip_id" invisible="1"/>
+                </xpath>
+                
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_inherit_employee_journal_form" model="ir.ui.view">
+            <field name="name">view_inherit_employee_journal_form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+
+                <!-- position: after|before|replace|attributes|inside -->
+                <xpath expr="//field[@name='work_phone']" position="after">
+                    <field name="journal_id"/>
+                </xpath>
+
+            </field>
+        </record>
+
+       <!--<act_window id="create_multi_statements" name="Create Statement"-->
+            <!--key2="client_action_multi" res_model="payment.payslip.statement"-->
+            <!--src_model="hr.payslip" view_mode="form" target="new"-->
+             <!--/>-->
+
+        <record id="create_multi_statements" model="ir.actions.act_window">
+            <field name="name">Create Statement"</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">payment.payslip.statement</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <!--<field name="groups_id" eval="[(4,ref('sales_team.group_sale_salesman'))]"/>-->
+            <!-- TODO: check if we need this -->
+            <field name="binding_model_id" ref="hr_payroll.model_hr_payslip" />
+            <field name="binding_view_types">list</field>
+        </record>
+
+
+    <record id="view_create_multi_statements_form" model="ir.ui.view">
+        <field name="name">view_create_multi_statements_form</field>
+        <field name="model">payment.payslip.statement</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group string="Press Create Statement Button To Create Statment For every Journal">
+
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Create Statement" type="object" name="create_Statements" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+
+    </record>
+    </data>
+</odoo>

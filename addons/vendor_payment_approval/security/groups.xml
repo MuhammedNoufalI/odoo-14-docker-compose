@@ -1,0 +1,10 @@
+<odoo>
+    <data>
+        <record id="hod_manager" model="res.groups">
+            <field name="name">HOD Approvals</field>
+        </record>
+        <record id="ceo_manager" model="res.groups">
+            <field name="name">CEO Approvals</field>
+        </record>
+    </data>
+</odoo>

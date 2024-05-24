@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hc_attd_api_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">hc.attd.api.res.config.settings.view.form.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="80"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@data-key='hr_attendance']" position="before">
+                <div class="app_settings_block" data-string="Attendance API Credentials" string="Attendance API"
+                     data-key="hc_attd_api" groups="hr_attendance.group_hr_attendance_manager">
+                    <h2>API Credentials</h2>
+                    <div class="row mt16 o_settings_container" name="hc_attendance_api_url_key">
+                        <div class="col-12 col-lg-6 o_setting_box" id="hc_attendance_api_url">
+                            <div class="o_setting_left_pane">
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="api_url" string="Attendance API URL"/>
+                                <field name="api_url"/>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="hc_attendance_api_key">
+                            <div class="o_setting_left_pane">
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="api_key" string="API KEY"/>
+                                <field name="api_key"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!--    <menuitem id="hr_attendance.menu_hr_attendance_settings" name="Configuration" parent="menu_hr_attendance_root"-->
+    <!--        sequence="99" action="hr_attendance.action_hr_attendance_settings" groups="hr_attendance.group_hr_attendance_manager"/>-->
+
+</odoo>

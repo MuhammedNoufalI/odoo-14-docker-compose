@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_gm_hr_custom_gm_hr_custom01,gm_hr_custom.gm_hr_custom01,model_hr_attendance_bonus,,1,1,1,1
+access_gm_hr_custom_gm_hr_custom00,gm_hr_custom.gm_hr_custom00,model_hr_attendance_deduction,,1,1,1,1
+access_gm_hr_custom_gm_hr_custom02,gm_hr_custom.gm_hr_custom02,model_hr_attendance_structure,,1,1,1,1
+
+access_gm_hr_custom_gm_hr_custom03,gm_hr_custom.gm_hr_custom03,model_hr_public_holiday,,1,1,1,1
+
+access__model_hr_payslip_rule1,gm_hr_custom._model_hr_payslip_rul1,model_hr_payslip_rule,,1,1,1,1
+
+access__model_hr_emoployee_rule1,gm_hr_custom._model_hr_emoployee_rul1,model_hr_employee,base.group_user,1,1,1,1
+access_working_time_wiz,working_time_wiz,model_working_time_wiz,base.group_user,1,1,1,1

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="paperformat_hr_summary_report" model="report.paperformat">
+            <field name="name">Hr Summary Report</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">300</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">30</field>
+            <field name="margin_bottom">23</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+
+
+        <report
+                id="action_report_hr_payroll"
+                string="Hr Payroll Report"
+                model="hr.payslip"
+                name="payslip_report.hr_payslip_report"
+                report_type="qweb-pdf"
+                file="payslip_report.hr_payslip_report"
+                paperformat="payslip_report.paperformat_hr_summary_report"
+                menu="False"
+        />
+
+        <report
+                id="action_report_hr_payroll_xlsx"
+                model="hr.payslip"
+                string="Hr Payroll Report"
+                report_type="xlsx"
+                name="payslip_report.action_report_hr_payroll_xlsx"
+                file="payslip_report.action_report_hr_payroll_xlsx"
+                attachment_use="False"
+                menu="False"
+        />
+
+        <record id="paperformat_hr_payroll_module" model="report.paperformat">
+            <field name="name">BOM</field>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">30</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">30</field>
+            <field name="dpi">100</field>
+        </record>
+
+        <record id="action_report_hr_payroll" model="ir.actions.report">
+            <field name="paperformat_id" ref="payslip_report.paperformat_hr_payroll_module"/>
+        </record>
+    </data>
+</odoo>

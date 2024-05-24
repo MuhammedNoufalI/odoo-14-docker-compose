@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="exit_interview_list">
+            <field name="name">Exit Interview Workflow</field>
+            <field name="model">exit.interview</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="resignation_id" invisible="1"/>
+                    <field name="employee_name"/>
+                    <field name="employee_code"/>
+                    <field name="job_title"/>
+                    <field name="department"/>
+                    <field name="last_working_day"/>
+                </tree>
+            </field>
+        </record>
+        <record id="exit_interview_form" model="ir.ui.view">
+            <field name="name">Exit Interview Workflow</field>
+            <field name="model">exit.interview</field>
+            <field name="arch" type="xml">
+                <form string="Exit Interview Workflow">
+                    <header>
+                        <button string="Confirm" name="button_confirm" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('state', 'in',['confirm','canceled'])]}"/>
+                        <button string="Reset to Draft" name="button_reset_to_draft" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('state', 'in', ['draft'])]}"/>
+                        <button string="cancel" name="button_cancel" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('state', '==', 'canceled')]}"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,confirm,cancel"/>
+                    </header>
+                    <sheet string="Business Transfer Letter">
+                        <div class="oe_title">
+                            <h1 class="d-flex">
+                                <field name="employee_name" placeholder="Employee's Name" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="employee_code" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                                <field name="job_title" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                                <field name="joining_date" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                            </group>
+                            <group>
+                                <field name="date" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                                <field name="reporting_to" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}"/>
+                                <field name="department" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                                <field name="last_working_day" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+
+                            </group>
+                        </group>
+                        <t style="font-size:15px;">Please indicate if any of the following are main factors in your
+                            decision to leave the
+                            company
+                        </t>
+                        <group>
+                            <group id="" string="Benefits">
+                                <field name="remuneration_scale" string="Remuneration(Salary)" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                                <field name="accommodation" string="Company Accommodation " attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                                <field name="transportation" string="Company Transportation" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                                <field name="medical_insurance" string="Medical Insurance" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                                <field name="bonus" string="Bonus" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                                <field name="tips" string="Tips" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                            </group>
+                            <group>
+                                <field name="remuneration_remarks" placeholder="Remarks" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}"/>
+                                <field name="accommodation_remarks" placeholder="Remarks" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}"/>
+                                <field name="transportation_remarks" placeholder="Remarks" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}"/>
+                                <field name="medical_insurance_remarks" placeholder="Remarks" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}"/>
+                                <field name="bonus_remarks" placeholder="Remarks" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}"/>
+                                <field name="tips_remarks" placeholder="Remarks" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group id="" string="Job Satisfaction">
+                                <field name="line_manager" string="Line Manger" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                                <field name="career_development" string="Career Development" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                                <field name="training" string="Training" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                                <field name="performance" string="Performance" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                                <field name="management_support" string="Management Support" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                            </group>
+                            <group>
+                                <field name="line_manager_remarks" placeholder="Remarks" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}"/>
+                                <field name="career_development_remarks" placeholder="Remarks" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}"/>
+                                <field name="training_remarks" placeholder="Remarks" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}"/>
+                                <field name="performance_remarks" placeholder="Remarks" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}"/>
+                                <field name="management_support_remarks" placeholder="Remarks" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group id="" string="Others">
+                                <field name="working_hr" string="Working Hr" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                                <field name="working_evr" string="Working Environment" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                                <field name="discipline_policies" string="Discipline Policies" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                                <field name="physical_working_condition" string="Physical Working" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                            </group>
+                            <group>
+                                <field name="working_hr_remarks" placeholder="Remarks" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}"/>
+                                <field name="working_evr_remarks" placeholder="Remarks" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}"/>
+                                <field name="discipline_policies_remarks" placeholder="Remarks" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}"/>
+                                <field name="physical_working_condition_remarks" placeholder="Remarks" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}"/>
+                            </group>
+                        </group>
+                        <div>
+                            <t>• If you are leaving to accept another job, what does the new position offer that this
+                                one does not?
+                            </t>
+                            <field name="remarks1" no_label="1" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                        </div>
+                        <div>
+                            <t>• How would you describe the culture or 'feel' of the organization?</t>
+                            <field name="remarks2" no_label="1" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                        </div>
+                        <div>
+                            <t>• Did the Company met your expecation prior and after joining?</t>
+                            <field name="remarks3" no_label="1" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                        </div>
+                        <div>
+                            <t>•What would you say about how you were motivated, and how that could have been
+                                improved?
+                            </t>
+                            <field name="remarks4" no_label="1" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                        </div>
+                        <div>
+                            <t>• Could the company have made any improvement that might have influenced you to stay on
+                                the job?
+                            </t>
+                            <field name="remarks5" no_label="1" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                        </div>
+                        <div>
+                            <t>•Please make any comments you would like to add:</t>
+                            <field name="remarks6" no_label="1" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_exit_interview_form">
+            <field name="name">Exit Interview Workflow</field>
+            <field name="res_model">exit.interview</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('resignation_id','=',active_id)]</field>
+        </record>
+    </data>
+
+</odoo>

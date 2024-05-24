@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_leave_allocation_view_form" model="ir.ui.view">
+            <field name="name">hr.leave.allocation.form</field>
+            <field name="model">hr.leave.allocation</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_allocation_view_form"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='notes']" position="before">
+                   <group>
+                        <group>
+                        <field name="accumulated_leave_balance"/>
+                            <field name="negative_balance"/>
+                            <field name="sixth_month_compleat"/>
+                            <field name="one_year_bonus"/>
+                    </group>
+                       <group/>
+                   </group>
+                </xpath>
+                <xpath expr="//group[@name='alloc_right_col']" position="inside">
+<!--                    <field name="recurring_leave"/>-->
+                    <field name="schedule_allocation"/>
+                    <field name="period_type"
+                           attrs="{'invisible':[('schedule_allocation','=',False)],'required':[('schedule_allocation','=',True)]}"/>
+                    <field name="period"
+                           attrs="{'invisible':[('schedule_allocation','=',False)],'required':[('schedule_allocation','=',True)]}"/>
+                    <field name="day"
+                           attrs="{'invisible':[('schedule_allocation','=',False)],'required':[('schedule_allocation','=',True)]}"/>
+                    <field name="month"
+                           attrs="{'invisible':[('period_type','!=','annual')],'required':[('period_type','=','annual')]}"/>
+                    <field name="notified_user_ids" widget="many2many_tags"/>
+                </xpath>
+
+            </field>
+        </record>
+        <record id="hr_leave_allocation_view_form_manager" model="ir.ui.view">
+            <field name="name">hr.leave.allocation.form</field>
+            <field name="model">hr.leave.allocation</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_allocation_view_form_manager"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                        <button name="post_close" string="Post And Close" class="oe_highlight" attrs="{'invisible': ['|',('active', '=', False),('state', '!=', 'validate')]}" type="object"/>
+
+                </xpath>
+                <xpath expr="//button[@name='action_refuse']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|','|', ('active', '=', False), ('can_approve', '=', False), ('state', 'not in', ('confirm','validate','validate1'))]}</attribute>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="before">
+                    <widget name="web_ribbon" title="Expired" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='employee_id']" position="after">
+                    <field name="active" invisible="1"/>
+                    <field name="date_from" required="1"/>
+                    <field name="date_to" required="0"/>
+                </xpath>
+                <xpath expr="//field[@name='employee_id']" position="before">
+                    <field name="gender"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

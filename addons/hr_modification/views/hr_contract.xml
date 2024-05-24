@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_contract_from_inherit" model="ir.ui.view">
+        <field name="name">hr_contract_form_inherit</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+
+<!--            <xpath expr="//field[@name='first_contract_date']" position="after">-->
+<!--                <field name="extra_days_to_pay"/>-->
+<!--                <field name="extra_days_to_deduct"/>-->
+<!--                <field name="extra_days_paid"/>-->
+<!--                <field name="already_deducted"/>-->
+<!--            </xpath>-->
+
+            <xpath expr="//group" position="after">
+                <xpath expr="//group" position="after">
+                    <group>
+                        <label for="date_from" string="Period"/>
+                        <div>
+                            <field name="date_from" class="oe_inline"/>
+                        </div>
+                    </group>
+                </xpath>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+<!--        <record id="hc_payroll_data_cron_job" model="ir.cron">-->
+<!--            <field name="name">Payroll</field>-->
+<!--            <field name="model_id" ref="model_hc_raw_attendance"/>-->
+<!--            <field name="state">code</field>-->
+<!--            <field name="code">model.()</field>-->
+<!--            <field name="interval_number">1</field>-->
+<!--            <field name="interval_type">days</field>-->
+<!--            <field name="numbercall">-1</field>-->
+<!--            <field name="doall" eval="True"/>-->
+<!--        </record>-->
+
+    </data>
+</odoo>

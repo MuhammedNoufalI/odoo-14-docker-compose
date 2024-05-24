@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="hc_branch_form_view" model="ir.ui.view">
+            <field name="name">hc.branch.form.view</field>
+            <field name="model">hc.branch</field>
+            <field name="arch" type="xml">
+                <form string="Branch">
+                    <header>
+                        <button name="action_branch_navigate_location" string="Locate Branch" type="object"
+                                class="oe_highlight" invisible="1"/>
+
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="company_id"/>
+                                <field name="code"/>
+                                <field name="latitude" invisible="1"/>
+                                <field name="longitude" invisible="1"/>
+
+<!--                                <group>-->
+                                    <label for="street" string="Address"/>
+                                    <div class="o_address_format">
+                                        <field name="street" placeholder="Street..." class="o_address_street"/>
+                                        <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                        <field name="city" placeholder="City" class="o_address_city"/>
+                                        <field name="zip_code" placeholder="ZIP" class="o_address_zip"/>
+
+                                        <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True}" context="{'country_id': country_id, 'zip': zip_code}"/>
+                                        <field name="country_id" placeholder="Country" class="o_address_country" options="{'no_open': True, 'no_create': True}"/>
+                                    </div>
+<!--                                </group>-->
+
+
+                            </group>
+                            <group>
+                                <field name="email"/>
+                                <field name="phone"/>
+                                <field name="working_schedule_ids" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="attendance_devices" string="Attendance Devices">
+                                <field name="attendance_device_ids" readonly='1'>
+                                    <tree readonly="1" create="false" delete="false">
+                                        <field name="name"/>
+                                        <field name="device_id"/>
+                                        <field name="branch_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="hc_key_holder" string="Key Holder" invisible="1">
+                                <group>
+                                    <group>
+                                        <field name="kh_allowed_late"/>
+                                        <field name="kh_max_warning"/>
+                                    </group>
+                                    <group>
+                                        <field name="penalty"/>
+                                    </group>
+                                </group>
+                                <field name="key_holder_ids">
+                                    <tree editable="bottom">
+                                        <field name="employee_id"/>
+                                        <field name="date_from"/>
+                                        <field name="date_to"/>
+                                        <field name="kh_warning_count" optional="hide"
+                                               groups="hr.group_hr_manager"/>
+                                        <!--                                        <field name="state" readonly="1"/ attrs="{'readonly': [('state', '!=', 'draft')]}" >-->
+                                        <!--                                        <button name="action_confirm" type="object" class="btn-link" string="Confirm" states="draft"/>-->
+                                        <!--                                        <button name="set_to_draft" type="object" class="tn-link" string="Cancel" states="confirmed"/>-->
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="hc_attendance_policies" string="Attendance Policies">
+                                <group>
+                                    <group>
+                                        <field name="allowed_late_time" widget="float_time"/>
+                                        <field name="allowed_checkin_from" widget="float_time"/>
+                                        <field name="allowed_checkin_to" widget="float_time"/>
+                                        <!--                                        <field name="is_special_approval"/>-->
+                                    </group>
+                                    <group>
+                                        <field name="allowed_missed_punch_count"/>
+                                        <field name="total_hours_absence_limit" widget="float_time"/>
+                                        <field name="late_checkin_for_approval"/>
+                                        <!--                                        <field name="flexible_break_time_limit"/>-->
+                                    </group>
+                                    <group string="Weekend Special Pay">
+                                        <field name="is_weekend_special_pay"/>
+                                        <field name="max_weekends_eligible"/>
+                                        <field name="amount"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <!--                            <page name="hc_deduction_policies" string="Deduction Policies" invisible="1">-->
+                            <!--                                <group>-->
+                            <!--                                    <group string="Actions">-->
+                            <!--                                        <field name="first_month"/>-->
+                            <!--                                        <field name="second_month"/>-->
+                            <!--                                        <field name="third_month"/>-->
+                            <!--                                        <field name="fourth_month"/>-->
+                            <!--                                        <field name="fifth_month"/>-->
+                            <!--                                        <field name="sixth_month"/>-->
+                            <!--                                    </group>-->
+                            <!--                                </group>-->
+                            <!--                            </page>-->
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="hc_branch_tree_view" model="ir.ui.view">
+            <field name="name">hc.branch.tree.view</field>
+            <field name="model">hc.branch</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="latitude"/>
+                    <field name="longitude"/>
+                    <field name="code"/>
+                    <field name="company_id"/>
+                    <field name="working_schedule_ids" widget="many2many_tags"/>
+                    <field name="attendance_device_ids" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_hc_branch" model="ir.actions.act_window">
+            <field name="name">Branch</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hc.branch</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--    <menuitem id="menu_hc_attendance_policies"-->
+        <!--              name="Attendance Policy"-->
+        <!--              action="action_hc_branch"-->
+        <!--              parent="hr.menu_human_resources_configuration"-->
+        <!--    />-->
+
+        <menuitem id="menu_hc_branch"
+                  name="Branch"
+                  groups="hr.group_hr_manager"
+                  action="action_hc_branch"
+                  parent="hr.menu_human_resources_configuration"
+        />
+
+        <menuitem id="hc_branch_menu_resource_calendar"
+                  parent="hr.menu_human_resources_configuration"
+                  groups="hr.group_hr_manager"
+                  action="resource.action_resource_calendar_form"
+                  sequence="1"
+        />
+
+        <menuitem id="hc_branch_base_menu" name="Branch"
+            parent="base.menu_users" sequence="2"
+            action="action_hc_branch"/>
+
+
+    </data>
+</odoo>
+
+

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+         <record id="report_balance_leave_xlsx" model="ir.actions.report">
+            <field name="name">Balance Leave Report</field>
+            <field name="model">leave.balance.wiz</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">hc_balance_leave_report.general_ledger_xlsx</field>
+            <field name="report_file">hc_balance_leave_report.general_ledger_xlsx</field>
+            <field name="binding_model_id" ref="model_leave_balance_wiz"/>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>

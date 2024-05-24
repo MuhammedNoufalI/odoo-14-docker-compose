@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_exit_workflow">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h4>
+                            <center>EXIT INTERVIEW FORM</center>
+                        </h4>
+                        <br/>
+                        <div align="center">
+                            <table width="100%">
+                                <t t-set="benefits" t-value="o.get_benefits_totals()"/>
+                                <t t-set="job_satisfaction" t-value="o.compute_job_satisfaction_count()"/>
+                                <t t-set="others" t-value="o.compute_other_satisfaction_count()"/>
+                                <tr>
+                                    <td width="50%">
+                                        <table>
+                                            <tr>
+                                                <td width="25%">
+                                                    Name of Employee
+                                                </td>
+                                                <td width="25%">
+                                                    :<span t-field="o.employee_name"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="25%">
+                                                    Staff ID No.
+                                                </td>
+                                                <td width="25%">
+                                                    :
+                                                    <span t-field="o.employee_code"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="25%">
+                                                    Designation
+                                                </td>
+                                                <td width="25%">
+                                                    :
+                                                    <span t-field="o.job_title"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="25%">
+                                                    Joining Date
+                                                </td>
+                                                <td width="25%">
+                                                    :
+                                                    <span t-field="o.joining_date"/>
+                                                </td>
+
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td width="50%">
+                                        <table>
+                                            <tr>
+                                                <td width="25%">
+                                                    Date
+                                                </td>
+                                                <td width="25%">
+                                                    :<span t-field="o.date"/>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+
+                                                <td width="25%">
+                                                    Reporting To
+                                                </td>
+                                                <td width="25%">
+                                                    :
+                                                    <span t-field="o.reporting_to"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="25%">
+                                                    Department
+                                                </td>
+                                                <td width="25%">
+                                                    :
+                                                    <span t-field="o.department"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="25%">
+                                                    Last Working Day
+                                                </td>
+                                                <td width="25%">
+                                                    :
+                                                    <span t-field="o.last_working_day"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <br></br>
+                        <br/>
+                        <p>
+                            Please indicate if any of the following are main factors in your decision to leave the
+                            company?
+                        </p>
+                        <table width="100%" class="table table-bordered"
+                               style="width:100%;padding-top:20px;border-color: black;border-style: solid;">
+                            <tr style="margin:2px;border-color: black;padding:2px;background-color:#D3D3D3;">
+                                <td colspan="4" style="padding:2px;margin:2px;border-color: black;">
+                                    <t>
+                                        Kindly mention (1) in the Rating Scale if you are Satisfied or No Satisfied
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;background-color:#D3D3D3;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    <center>Benefits</center>
+                                </td>
+                                <td colspan="2" style="margin:2px;border-color: black;padding:2px;">
+                                    <center>Rating Scale</center>
+                                </td>
+                                <td rowspan="2" style="margin:2px;border-color: black;padding:2px;">
+                                    <br/>
+                                    <center>Remarks</center>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;background-color:#D3D3D3;">
+                                <td style="padding:2px;margin:2px;border-color: black;padding:2px;">
+                                    Reason
+                                </td>
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    <center>Not Satisfied</center>
+                                </td>
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    <center>Satisfied</center>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;width:250px;">
+                                    Remuneration ( Salary)
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.remuneration_scale == 'not_satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.remuneration_scale == 'satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;">
+                                    <span t-field="o.remuneration_remarks"/>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;">
+                                <td style="margin:2px;border-color: black;width:250px;">
+                                    Company Accommodation
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.accommodation == 'not_satisfied'" style="font-size:15px;">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.accommodation == 'satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;">
+                                    <span t-field="o.accommodation_remarks"/>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;">
+                                <td style="margin:2px;border-color: black;width:250px;">
+                                    Company Transportation
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.transportation == 'not_satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.transportation == 'satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;">
+                                    <span t-field="o.transportation_remarks"/>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;">
+                                <td style="margin:2px;border-color: black;width:250px;">
+                                    Medical Insurance
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.medical_insurance == 'not_satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.medical_insurance == 'satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;">
+                                    <span t-field="o.medical_insurance_remarks"/>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;">
+                                <td style="margin:2px;border-color: black;width:250px;">
+                                    Bonus (if applicable)
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.bonus == 'not_satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.bonus == 'satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;">
+                                    <span t-field="o.bonus_remarks"/>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;">
+                                <td style="margin:2px;border-color: black;width:250px;">
+                                    Tips (if applicable)
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.tips == 'not_satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.tips == 'satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;">
+                                    <span t-field="o.tips_remarks"/>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;background-color:#C9BB8E;">
+                                <td style="margin:2px;border-color: black;" class="text-right">
+                                    Total
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;" class="text-center">
+                                    <span t-esc="benefits[0]['benefit_not_satisfied']"/>
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;" class="text-center">
+                                    <span t-esc="benefits[0]['benefit_satisfied']"/>
+                                </td>
+                                <td style="margin:2px;border-color: black;">
+                                    Percentage
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;background-color:#D3D3D3;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    <center>Job Satisfaction</center>
+                                </td>
+                                <td colspan="2" style="margin:2px;border-color: black;padding:2px;">
+                                    <center>Rating Scale</center>
+                                </td>
+                                <td rowspan="2" style="margin:2px;border-color: black;padding:2px;">
+                                    <br/>
+                                    <center>Remarks</center>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;background-color:#D3D3D3;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Reason
+                                </td>
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    <center>Not Satisfied</center>
+                                </td>
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    <center>Satisfied</center>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;">
+                                <td style="margin:2px;border-color: black;width:250px;">
+                                    Line Manager Communication
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.line_manager == 'not_satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.line_manager == 'satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;">
+                                    <span t-field="o.line_manager_remarks"/>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;">
+                                <td style="margin:2px;border-color: black;width:250px;">
+                                    Career Development
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.career_development == 'not_satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.career_development == 'satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;">
+                                    <span t-field="o.career_development_remarks"/>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;">
+                                <td style="margin:2px;border-color: black;width:250px;">
+                                    Trainings Provided
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.training == 'not_satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.training == 'satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;">
+                                    <span t-field="o.training_remarks"/>
+                                </td>
+                            </tr>
+
+                            <tr style="margin:2px;border-color: black;">
+                                <td style="margin:2px;border-color: black;width:250px;">
+                                    Performance Review
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.performance == 'not_satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.performance == 'satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;">
+                                    <span t-field="o.performance_remarks"/>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;">
+                                <td style="margin:2px;border-color: black;width:250px;">
+                                    Management Support
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.management_support == 'not_satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.management_support == 'satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;">
+                                    <span t-field="o.management_support_remarks"/>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;background-color:#C9BB8E;">
+                                <td style="margin:2px;border-color: black;" class="text-right">
+                                    Total
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;" class="text-center">
+                                    <span t-esc="job_satisfaction[0]['job_not_satisfied']"/>
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;" class="text-center">
+                                    <span t-esc="job_satisfaction[0]['job_satisfaction']"/>
+                                </td>
+                                <td style="margin:2px;border-color: black;">
+                                    Percentage
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;background-color:#D3D3D3;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    <center>Others</center>
+                                </td>
+                                <td colspan="2" style="margin:2px;border-color: black;padding:2px;">
+                                    <center>Rating Scale</center>
+                                </td>
+                                <td rowspan="2" style="margin:2px;border-color: black;padding:2px;">
+                                    <br/>
+                                    <center>Remarks</center>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;background-color:#D3D3D3;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Reason
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;padding:2px;">
+                                    <center>Not Satisfied</center>
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;padding:2px;">
+                                    <center>Satisfied</center>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;">
+                                <td style="margin:2px;border-color: black;width:250px;">
+                                    Working Hours
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.working_hr == 'not_satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.working_hr == 'satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;">
+                                    <span t-field="o.working_hr_remarks"/>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;">
+                                <td style="margin:2px;border-color: black;width:250px;">
+                                    Working Environment
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.working_evr == 'not_satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.working_evr == 'satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;">
+                                    <span t-field="o.working_evr_remarks"/>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;">
+                                <td style="margin:2px;border-color: black;width:250px;">
+                                    Discipline Policies and Practices
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.discipline_policies == 'not_satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.discipline_policies == 'satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;">
+                                    <span t-field="o.discipline_policies_remarks"/>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;">
+                                <td style="margin:2px;border-color: black;width:250px;">
+                                    Physical Working Conditions
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.physical_working_condition == 'not_satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;">
+                                    <t t-if="o.physical_working_condition == 'satisfied'">
+                                        <center>
+                                            ✔
+                                        </center>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;">
+                                    <span t-field="o.physical_working_condition_remarks"/>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;background-color:#C9BB8E;">
+                                <td style="margin:2px;border-color: black;" class="text-right">
+                                    Total
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;" class="text-center">
+                                    <span t-esc="others[0]['other_not_satisfied']"/>
+                                </td>
+                                <td style="margin:2px;border-color: black;width:150px;" class="text-center">
+                                    <span t-esc="others[0]['other_satisfaction']"/>
+                                </td>
+                                <td style="margin:2px;border-color: black;">
+                                    Percentage
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <div>
+                            <p>
+                                • If you are leaving to accept another job, what does the new position offer that this
+                                one does not?
+                            </p>
+                            <div>
+                                Remarks :
+                                <p>
+                                    <span t-field="o.remarks1"/>
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <p>
+                                • How would you describe the culture or 'feel' of the organization?
+                            </p>
+                            <div>
+                                Remarks :
+                                <p>
+                                    <span t-field="o.remarks2"/>
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <p>
+                                • Did the Company met your expectation prior and after joining?
+                            </p>
+                            <div>
+                                Remarks :
+                                <p>
+                                    <span t-field="o.remarks3"/>
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <p>
+                                • What would you say about how you were motivated, and how that could have been
+                                improved?
+                            </p>
+                            <div>
+                                Remarks :
+                                <p>
+                                    <span t-field="o.remarks4"/>
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <p>
+                                • Could the company have made any improvement that might have influenced you to stay on
+                                the job?
+                            </p>
+                            <div>
+                                Remarks :
+                                <p>
+                                    <span t-field="o.remarks5"/>
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <p>
+                                • Please make any comments you would like to add:
+                            </p>
+                            <div>
+                                Remarks :
+                                <p>
+                                    <span t-field="o.remarks6"/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

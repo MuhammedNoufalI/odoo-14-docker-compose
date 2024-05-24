@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="loan_request_menu2" model="website.menu">
+            <field name="name">Loan Request</field>
+            <field name="url">/my/loan/requests</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">12</field>
+        </record>
+        <record id="salary_advance_request_menu" model="website.menu">
+            <field name="name">Salary Advance</field>
+            <field name="url">/my/salary/advance/requests</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">13</field>
+        </record>
+        <template id="my_account_link" name="Link to frontend portal" inherit_id="portal.user_dropdown">
+            <xpath expr="//*[@id='o_logout_divider']" position="before">
+                <a href="/my/loan/requests" role="menuitem" class="dropdown-item">Loan Request</a>
+                <a href="/my/salary/advance/requests" role="menuitem" class="dropdown-item">Salary Advance</a>
+            </xpath>
+        </template>
+
+
+
+
+    </data>
+</odoo>

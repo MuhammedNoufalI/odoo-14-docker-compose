@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="joiners_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col" style="width:33%;">
+                                    <t t-if="not o" t-set="o" t-value="doc"/>
+                                    <t t-if="not company">
+                                        <t t-if="company_id">
+                                            <t t-set="company" t-value="company_id"/>
+                                        </t>
+                                        <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                                            <t t-set="company" t-value="o.company_id.sudo()"/>
+                                        </t>
+                                        <t t-else="else">
+                                            <t t-set="company" t-value="res_company"/>
+                                        </t>
+                                    </t>
+                                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 80px;" alt="Logo"/>
+                                </div>
+                                <div class="col" style="width:33%;">
+                                    <br/>
+                                    <div class="text-center">
+                                        <u><h5>Employee Joiners Report</h5></u>
+                                    </div>
+                                </div>
+                                <div class="col" style="width:33%;">
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="text-center">
+                                <t t-if="doc.from_date">
+                                    <span>From&#160;&#160;</span>
+                                    <span t-field="doc.from_date" t-options="{'widget': 'date','format': 'dd-MM-yyyy'}"/>&#160;&#160;To&#160;&#160;
+                                </t>
+                                <t t-else="">
+                                    <span>Till&#160;&#160;</span>
+                                </t>
+                                <span t-field="doc.to_date" t-options="{'widget': 'date','format': 'dd-MM-yyyy'}"/>
+                            </div>
+                            <br/>
+                            <table style="border: 1px solid black;font-size:12px;">
+                                <thead>
+                                    <th style="border: 1px solid grey;text-align:center; padding:3px; width:1%;">Sl.No.</th>
+                                    <th style="border: 1px solid grey;text-align:center; padding:3px; width:3%;">EMP. CODE</th>
+                                    <th style="border: 1px solid grey;text-align:center; padding:3px; width:8%; ">BUSINESS UNIT NAME</th>
+                                    <th style="border: 1px solid grey;text-align:center; padding:3px; width:8%; ">VISA SPONSOR</th>
+                                    <th style="border: 1px solid grey;text-align:center; padding:3px; width:5%;">FULL NAME</th>
+                                    <th style="border: 1px solid grey;text-align:center; padding:3px; width:5%;">FIRST NAME</th>
+                                    <th style="border: 1px solid grey;text-align:center; padding:3px; width:5%;">MIDDLE NAME</th>
+                                    <th style="border: 1px solid grey;text-align:center; padding:3px; width:5%;">LAST NAME</th>
+                                    <th style="border: 1px solid grey;text-align:center; padding:3px; width:5%;">DEPARTMENT</th>
+                                    <th style="border: 1px solid grey;text-align:center; padding:3px; width:5%;">DESIGNATION</th>
+                                    <th style="border: 1px solid grey;text-align:center; padding:3px; width:5%;">CONTRACT TYPE</th>
+                                    <th style="border: 1px solid grey;text-align:center; padding:3px; width:5%;">DATE OF JOINING</th>
+                                    <th style="border: 1px solid grey;text-align:center; padding:3px; width:5%;">END OF PROBATION</th>
+                                    <th style="border: 1px solid grey;text-align:center; padding:3px; width:5%;">SALARY</th>
+                                    <th style="border: 1px solid grey;text-align:center; padding:3px; width:8%;">EMAIL ADDRESS</th>
+                                    <th style="border: 1px solid grey;text-align:center; padding:3px; width:5%;">CONTACT NUMBER</th>
+                                    <th style="border: 1px solid grey;text-align:center; padding:3px; width:5%;">NATIONALITY</th>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="doc.employees" t-as="employee">
+                                        <td style="border: 1px solid grey;text-align:left; padding:3px; width:1%;"> <span t-esc="employee_index+1"/></td>
+                                        <td style="border: 1px solid grey;text-align:left; padding:3px; width:3%;"> <span t-field="employee.oe_emp_sequence"/></td>
+                                        <td style="border: 1px solid grey;text-align:left; padding:3px; width:8%;"> <span t-field="employee.company_id.name"/></td>
+                                        <td style="border: 1px solid grey;text-align:left; padding:3px; width:8%;"> <span t-field="employee.sponsor_id"/></td>
+                                        <td style="border: 1px solid grey;text-align:left; padding:3px; width:5%;"> <span t-field="employee.name"/></td>
+                                        <td style="border: 1px solid grey;text-align:left; padding:3px; width:5%;"> <span t-field="employee.firstname"/></td>
+                                        <td style="border: 1px solid grey;text-align:left; padding:3px; width:5%;"> <span t-field="employee.lastname"/></td>
+                                        <td style="border: 1px solid grey;text-align:left; padding:3px; width:5%;"> <span t-field="employee.lastname2"/></td>
+                                        <td style="border: 1px solid grey;text-align:left; padding:3px; width:5%;"> <span t-field="employee.department_id" /></td>
+                                        <td style="border: 1px solid grey;text-align:left; padding:3px; width:5%;"> <span t-field="employee.job_title" /></td>
+                                        <td style="border: 1px solid grey;text-align:left; padding:3px; width:5%;"> <span t-field="employee.contract_type" /></td>
+                                        <td style="border: 1px solid grey;text-align:left; padding:3px; width:5%;"> <span t-field="employee.joining_date" t-options="{'widget': 'date','format': 'dd-MM-yyyy'}"/></td>
+                                        <td style="border: 1px solid grey;text-align:left; padding:3px; width:5%;"> <span t-field="employee.contract_id.probation_id.end_date" t-options="{'widget': 'date','format': 'dd-MM-yyyy'}"/></td>
+                                        <td style="border: 1px solid grey;text-align:left; padding:3px; width:5%;"> <span t-field="employee.contract_id.wage" /></td>
+                                        <td style="border: 1px solid grey;text-align:left; padding:3px; width:8%;"> <span t-field="employee.work_email" /></td>
+                                        <td style="border: 1px solid grey;text-align:left; padding:3px; width:5%;"> <span t-field="employee.mobile_phone" /></td>
+                                        <td style="border: 1px solid grey;text-align:left; padding:3px; width:5%;"> <span t-field="employee.country_id.name" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <div class="row" style="font-size:8;text-align:center;">
+                            <div class="col">
+                                Page <span class="page"/> of <span class="topage"/>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

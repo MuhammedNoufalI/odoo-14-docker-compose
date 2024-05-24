@@ -1,0 +1,56 @@
+<odoo>
+    <record id="compassionate_leave_request_form" model="ir.ui.view">
+        <field name="name">compassionate_leave_request_form</field>
+        <field name="model">compassionate_leave.request</field>
+        <field name="arch" type="xml">
+            <form string="Bereavement Leave Request">
+                <header>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,manager_approved,approve,reject"/>
+                    <button name="manager_approve" string="Manager Approve" class="oe_highlight"
+                            type="object" attrs="{'invisible':[('state','!=','draft')]}"
+                            groups="compassionate_leaves.bereavement_first_leaves_approval_group"/>
+                    <button name="approve" string="HR Approve" class="oe_highlight"
+                            type="object" attrs="{'invisible':[('state','not in',('draft', 'manager_approved'))]}"
+                            groups="compassionate_leaves.bereavement_second_leaves_approval_group"/>
+                    <button name="reject" string="Reject" type="object"
+                            attrs="{'invisible':[('state','not in',('draft', 'manager_approved'))]}"
+                            groups="compassionate_leaves.bereavement_second_leaves_approval_group"/>
+                    <button name="manager_reject" string="Reject" type="object"
+                            attrs="{'invisible':[('state','not in',('draft'))]}"
+                            groups="compassionate_leaves.bereavement_first_leaves_approval_group"/>
+                    <button name="draft" string="Reset To Draft" type="object"
+                            attrs="{'invisible':[('state','=','draft')]}"
+                            groups="compassionate_leaves.bereavement_first_leaves_approval_group,compassionate_leaves.bereavement_second_leaves_approval_group"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <div class="oe_title" name="title">
+                                <h2>
+                                    <field name="employee_id" nolabel="1" placeholder="Employee"/>
+                                </h2>
+                            </div>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="in_bereavement_of"/>
+                            <field name="date_from"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="compassionate_leave_request_action" model="ir.actions.act_window">
+        <field name="name">Bereavement Leave Request</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">compassionate_leave.request</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="compassionate_menu_id" name="Bereavement Leave Request"
+              parent="hr_holidays.menu_hr_holidays_root"
+              action="compassionate_leave_request_action"
+              sequence="4"/>
+</odoo>

@@ -1,0 +1,72 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data noupdate="0">
+        <record model="mail.template" id="email_template_due_renewal">
+            <field name="name">Document Expiry Due Renewal...!!</field>
+            <field name="email_from">${ctx.get('email_from')}</field>
+            <field name="subject">Document Expiry Due</field>
+            <field name="model_id" ref="hc_emp_docs.model_employee_documents"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="email_to">${ctx.get('email_to')}</field>
+            <field name="body_html">
+                <![CDATA[
+<p>Hi,</p>This Email Is To Remind You That Following Documents Are Due On Today.<br><br>
+<table width="771" cellspacing="1" cellpadding="4" border="1" height="73">
+    <tbody>
+        <tr style="font-weight:bold;">
+            <th style="background-color:#9b9da0 !important;">Document Type</th>
+            <th style="background-color:#9b9da0 !important;">Document Number</th>
+            <th style="background-color:#9b9da0 !important;">Employee</th>
+<!--            <th style="background-color:#9b9da0 !important;">Employee ID</th>-->
+            <th style="background-color:#9b9da0 !important;">Expiry Date</th>
+        </tr>
+        % if ctx.get('doc_details_lists'):
+        	% for values in ctx['doc_details_lists']
+		        <tr>
+		            <td valign="middle" align="center">${values['doc_type']}</td>
+		            <td valign="middle" align="center">${values['doc_num']}</td>
+		            <td valign="middle" align="center">${values['employee']}<br></td>
+<!--		            <td valign="middle" align="center">${values['employee_id']}<br></td>-->
+		            <td valign="middle" align="center">${values['expiry']}<br></td>
+		        </tr>
+       	 	% endfor
+       	 % endif
+    </tbody>
+</table><br>
+]]></field>
+        </record>
+
+
+
+        <record model="mail.template" id="email_template_due_renewal_for_employee">
+            <field name="name">Document Expiry Due Renewal...!!</field>
+            <field name="email_from">${ctx.get('email_from')}</field>
+            <field name="subject">Document Expiry Due</field>
+            <field name="model_id" ref="hc_emp_docs.model_employee_documents"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="email_to">${ctx.get('email_to')}</field>
+            <field name="body_html">
+                <![CDATA[
+<p>Hi,</p>This Email Is To Remind You That Following Documents Are Due On Today.<br><br>
+<table width="771" cellspacing="1" cellpadding="4" border="1" height="73">
+    <tbody>
+        <tr style="font-weight:bold;">
+            <th style="background-color:#9b9da0 !important;">Document Type</th>
+            <th style="background-color:#9b9da0 !important;">Document Number</th>
+            <th style="background-color:#9b9da0 !important;">Expiry Date</th>
+        </tr>
+        % if ctx.get('doc_details_list'):
+        	% for values in ctx['doc_details_list']
+		        <tr>
+		            <td valign="middle" align="center">${values['doc_type']}</td>
+		            <td valign="middle" align="center">${values['doc_num']}</td>
+		            <td valign="middle" align="center">${values['expiry']}<br></td>
+		        </tr>
+       	 	% endfor
+       	 % endif
+    </tbody>
+</table><br>
+]]></field>
+        </record>
+    </data>
+</odoo>

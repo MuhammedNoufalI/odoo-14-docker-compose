@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dual_link,dual.link,model_dual_link,,1,1,1,1
+access_dual_link_place,dual.link.place,model_dual_link_place,,1,1,1,1
+access_dual_link_log,dual.link.log,model_dual_link_log,,1,1,1,1
+access_dual_link_log_lines,dual.link.log.lines,model_dual_link_log_lines,,1,1,1,1

@@ -1,0 +1,45 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<odoo>-->
+<!--    <record id="cost_center_code_form_view" model="ir.ui.view">-->
+<!--        <field name="name">cost.center.code.form.view</field>-->
+<!--        <field name="model">hc.cost.center.code</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <form string="Cost Center Code">-->
+<!--                <sheet>-->
+<!--                    <group>-->
+<!--                        <group>-->
+<!--                            <field name="name"/>-->
+<!--                        </group>-->
+<!--                        <group>-->
+<!--                            <field name="notes" widget="text"/>-->
+<!--                        </group>-->
+<!--                    </group>-->
+<!--                </sheet>-->
+<!--            </form>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <record id="cost_center_code_tree_view" model="ir.ui.view">-->
+<!--        <field name="name">cost.center.code.tree.view</field>-->
+<!--        <field name="model">hc.cost.center.code</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <tree string="Cost Center Code">-->
+<!--                <field name="name"/>-->
+<!--            </tree>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <record id="action_cost_center_code" model="ir.actions.act_window">-->
+<!--        <field name="name">Cost Center Code</field>-->
+<!--        <field name="type">ir.actions.act_window</field>-->
+<!--        <field name="res_model">hc.cost.center.code</field>-->
+<!--        <field name="view_mode">tree,form</field>-->
+<!--    </record>-->
+
+<!--    <menuitem id="menu_cost_center_code"-->
+<!--              name="Cost Center Code"-->
+<!--              action="action_cost_center_code"-->
+<!--              parent="hr.menu_human_resources_configuration"-->
+<!--    />-->
+
+<!--</odoo>-->

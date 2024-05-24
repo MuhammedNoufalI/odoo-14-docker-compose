@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_joiners_report_form" model="ir.ui.view">
+        <field name="name">hr.joiners.report.form</field>
+        <field name="model">hr.joiners.report</field>
+        <field name="arch" type="xml">
+            <form string="Details">
+                <group>
+                    <field name="from_date"  t-options="{'widget': 'date','format': 'dd-MM-yyyy'}"/>
+                    <field name="to_date"  t-options="{'widget': 'date','format': 'dd-MM-yyyy'}"/>
+                    <field name="employees" widget="many2many_tags" domain="['&amp;',('joining_date', '&lt;=', to_date),('joining_date', '&gt;=', from_date)]"/>
+                </group>
+                <footer>
+                    <button name="action_print_joiners_report_pdf" string="Print" help="Print Joiners Report" type="object" icon="fa-print" class="btn-primary mr8"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

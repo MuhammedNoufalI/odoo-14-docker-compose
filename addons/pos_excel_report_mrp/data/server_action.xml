@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="model_pos_excel_report_order" model="ir.actions.server">
+            <field name="name">Excel Report</field>
+            <field name="model_id" ref="point_of_sale.model_pos_order"/>
+            <field name="binding_model_id" ref="point_of_sale.model_pos_order"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = record.get_report_values()</field>
+        </record>
+
+        <record id="model_pos_session_excel_report_order" model="ir.actions.server">
+            <field name="name">Order Excel Report</field>
+            <field name="model_id" ref="point_of_sale.model_pos_session"/>
+            <field name="binding_model_id" ref="point_of_sale.model_pos_session"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = record.get_order_report_values()</field>
+        </record>
+    </data>
+</odoo>

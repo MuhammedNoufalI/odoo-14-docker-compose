@@ -1,0 +1,48 @@
+<odoo>
+  <data>
+
+    <record id="certificate_type_form" model="ir.ui.view">
+        <field name="name">certificate.type.form</field>
+        <field name="model">certificate.type</field>
+        <field name="arch" type="xml">
+            <form string="Certification Type">
+         
+            <sheet string="Certification Type">
+               <group>
+                <group>
+                    <field name="name"/>
+                    <field name="reviewer"/>
+                    <field name="approver"/>
+                </group>
+                </group>
+                <field name="content" widget="html"  options="{'style-inline': true, 'codeview': true }"/>
+            </sheet>
+    
+            </form>
+        </field>
+    </record>
+      
+      
+    <record model="ir.ui.view" id="certificate_type_list">
+      <field name="name">certificate.type.tree</field>
+        <field name="model">certificate.type</field>
+      <field name="arch" type="xml">
+        <tree>
+                    <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="certificate_type_action_window">
+      <field name="name">Certificate Type</field>
+      <field name="res_model">certificate.type</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- menu -->
+   <menuitem name="Certificate Type" id="menu_certificate_type" parent="hr.menu_hr_employee_payroll" action="certificate_type_action_window" groups="hr.group_hr_user"/>
+
+      
+  </data>
+</odoo>

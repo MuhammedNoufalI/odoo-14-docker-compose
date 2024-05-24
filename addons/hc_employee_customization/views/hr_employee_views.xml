@@ -1,0 +1,102 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<odoo>-->
+
+<!--    <record id="hr_employee_view_form_employee_contract_customization_ext" model="ir.ui.view">-->
+<!--        <field name="name">hr.employee.view.employee.contract.customization.ext</field>-->
+<!--        <field name="model">hr.employee</field>-->
+<!--        <field name="inherit_id" ref="hr.view_employee_form"/>-->
+<!--        <field name="arch" type="xml">-->
+
+<!--            &lt;!&ndash;            <xpath expr="//field[@name='partner_id']" position="attributes">&ndash;&gt;-->
+<!--            &lt;!&ndash;                <attribute name="string">Contact</attribute>&ndash;&gt;-->
+<!--            &lt;!&ndash;                <attribute name="help">Contact of the Same Employee in the System (res.partner)</attribute>&ndash;&gt;-->
+<!--            &lt;!&ndash;            </xpath>&ndash;&gt;-->
+
+<!--            <xpath expr="//field[@name='address_home_id']" position="attributes">-->
+<!--                <attribute name="string">Private Contact</attribute>-->
+<!--                <attribute name="help">Private Contact Details Can be Added Here and Save it to the Master-->
+<!--                    Res.Partner`-->
+<!--                </attribute>-->
+<!--            </xpath>-->
+
+<!--            <xpath expr="//field[@name='department_id']" position="attributes">-->
+<!--                <attribute name="required">1</attribute>-->
+<!--            </xpath>-->
+
+<!--            <xpath expr="//field[@name='department_id']" position="before">-->
+<!--                <field name="att_card_number"/>-->
+<!--            </xpath>-->
+
+<!--            &lt;!&ndash;            <xpath expr="//field[@name='flexible_hours']" position="attributes">&ndash;&gt;-->
+<!--            &lt;!&ndash;                <attribute name="invisible">1</attribute>&ndash;&gt;-->
+<!--            &lt;!&ndash;            </xpath>&ndash;&gt;-->
+
+<!--            <xpath expr="//field[@name='department_id']" position="after">-->
+<!--                <field name="job_id"/>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//field[@name='department_id']" position="after">-->
+<!--                <field name="hc_private_email"/>-->
+<!--                <field name="cost_center_code_id"/>-->
+<!--            </xpath>-->
+<!--            &lt;!&ndash;            <xpath expr="//field[@name='has_work_permit']" position="after">&ndash;&gt;-->
+<!--            &lt;!&ndash;                <field name="hc_private_email"/>&ndash;&gt;-->
+<!--            &lt;!&ndash;                <field name="cost_center_code_id"/>&ndash;&gt;-->
+<!--            &lt;!&ndash;            </xpath>&ndash;&gt;-->
+
+<!--            <xpath expr="//field[@name='job_id']" position="attributes">-->
+<!--                <attribute name="required">1</attribute>-->
+<!--            </xpath>-->
+
+<!--            <xpath expr="//field[@name='birthday']" position="attributes">-->
+<!--                <attribute name="required">1</attribute>-->
+<!--            </xpath>-->
+
+<!--            <xpath expr="//field[@name='gender']" position="attributes">-->
+<!--                <attribute name="required">1</attribute>-->
+<!--            </xpath>-->
+
+<!--            <xpath expr="//field[@name='country_id']" position="attributes">-->
+<!--                <attribute name="required">1</attribute>-->
+<!--            </xpath>-->
+
+<!--            <xpath expr="//group[@name='active_group']//field[@name='job_id']" position="attributes">-->
+<!--                <attribute name="invisible">1</attribute>-->
+<!--            </xpath>-->
+
+<!--            <xpath expr="//field[@name='mobile_phone']" position="before">-->
+<!--                <field name="employee_id" required="1"/>-->
+<!--            </xpath>-->
+
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <record id="view_employee_filter_inherit_employee_id" model="ir.ui.view">-->
+<!--        <field name="name">hr.employee.search.inherit.employee_id</field>-->
+<!--        <field name="model">hr.employee</field>-->
+<!--        <field name="inherit_id" ref="hr.view_employee_filter"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='name']" position="after">-->
+<!--                <field name="employee_id"/>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//field[@name='name']" position="attributes">-->
+<!--                <attribute name="filter_domain">-->
+<!--                    ['|','|', ('work_email', 'ilike', self), ('name', 'ilike', self), ('employee_id', 'ilike', self)]-->
+<!--                </attribute>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <record id="hr_employee_tree_inherit_hc_employee_customization" model="ir.ui.view">-->
+<!--        <field name="name">hr.employee.view.tree.inherit.hc.branch</field>-->
+<!--        <field name="model">hr.employee</field>-->
+<!--        <field name="inherit_id" ref="hr.view_employee_tree"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='name']" position="before">-->
+<!--                <field name="employee_id"/>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+<!--</odoo>-->
+
+
+

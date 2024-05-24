@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--        <record model="ir.rule" id="approval_matrix_rule">-->
+<!--            <field name="name">Budget Approval Matrix</field>-->
+<!--            <field name="model_id" ref="budget_approval.model_budget_approval_matrix"/>-->
+<!--            <field name="domain_force">[('matrix_line_ids.approval_id','=',user.id)]</field>-->
+<!--        </record>-->
+<!--        <record model="ir.rule" id="approval_matrix_all_rule">-->
+<!--            <field name="name">Budget Approval Matrix all</field>-->
+<!--            <field name="model_id" ref="budget_approval.model_budget_approval_matrix"/>-->
+<!--            <field name="domain_force">[(1,'=',1)]</field>-->
+<!--            <field name="groups" eval="[(4, ref('base.group_system'))]"/>-->
+
+<!--        </record>-->
+        <record id="edit_purchase_order_price" model="res.groups">
+            <field name="name">Allow Edit Purchase order lines price</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+        <record id="draft_journal_entries" model="res.groups">
+            <field name="name">Allow Reset Draft Journal Entries</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+        <record id="disable_edit_journal_entries" model="res.groups">
+            <field name="name">Disable Edit Journal Entries</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+        <record id="allow_view_all_budget_lines" model="res.groups">
+            <field name="name">Allow View All Budget Approval Lines</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+        <record id="allow_view_all_budget_lines_rule" model="ir.rule">
+            <field name="name">Allow View All Budget Approval Lines Rule</field>
+            <field ref="model_approval_matrix_line" name="model_id"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('budget_approval.allow_view_all_budget_lines'))]"/>
+        </record>
+        <record id="approval_matrix_line_rule" model="ir.rule">
+            <field name="name">Budget Approval Matrix Line</field>
+            <field ref="model_approval_matrix_line" name="model_id"/>
+            <field name="domain_force">[('approval_id','=',user.id)]</field>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+<!--        <record model="ir.rule" id="approval_matrix_line_all_rule">-->
+<!--            <field name="name">Budget Approval Matrix Line</field>-->
+<!--            <field name="model_id" ref="budget_approval.model_approval_matrix_line"/>-->
+<!--             <field name="domain_force">[(1,'=',1)]</field>-->
+<!--            <field name="groups" eval="[(4, ref('base.group_system'))]"/>-->
+<!--        </record>-->
+
+</odoo>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_sync_test_two_orders" model="ir.actions.server">
+        <field name="name">Sync Taxes</field>
+        <field name="model_id" ref="model_dual_link"/>
+        <field name="binding_model_id" ref="dual_link_integration.model_dual_link"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">
+            record.sync_dl_taxes()
+        </field>
+    </record>
+    <record id="action_sync_all" model="ir.actions.server">
+        <field name="name">Sync All</field>
+        <field name="model_id" ref="model_dual_link"/>
+        <field name="binding_model_id" ref="dual_link_integration.model_dual_link"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">
+            record.sync_all()
+        </field>
+    </record>
+    <record id="action_sync_payment_methods" model="ir.actions.server">
+        <field name="name">Sync Payment Methods</field>
+        <field name="model_id" ref="model_dual_link"/>
+        <field name="binding_model_id" ref="dual_link_integration.model_dual_link"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">
+            record.sync_dl_payment_methods()
+        </field>
+    </record>
+    <record id="action_sync_products" model="ir.actions.server">
+        <field name="name">Sync Products</field>
+        <field name="model_id" ref="model_dual_link"/>
+        <field name="binding_model_id" ref="dual_link_integration.model_dual_link"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">
+            record.sync_dl_products()
+        </field>
+    </record>
+    <record id="action_sync_products_bydate" model="ir.actions.server">
+        <field name="name">Sync Products by date</field>
+        <field name="model_id" ref="model_dual_link"/>
+        <field name="binding_model_id" ref="dual_link_integration.model_dual_link"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">
+            record.sync_dl_products_bydate()
+        </field>
+    </record>
+    <record id="action_sync_categories" model="ir.actions.server">
+        <field name="name">Sync Categories</field>
+        <field name="model_id" ref="model_dual_link"/>
+        <field name="binding_model_id" ref="dual_link_integration.model_dual_link"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">
+            record.sync_dl_categories()
+        </field>
+    </record>
+    <record id="action_sync_orders" model="ir.actions.server">
+        <field name="name">Sync Orders</field>
+        <field name="model_id" ref="model_dual_link"/>
+        <field name="binding_model_id" ref="dual_link_integration.model_dual_link"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">
+            record.sync_dl_orders()
+        </field>
+    </record>
+    <record id="action_sync_cash_desks" model="ir.actions.server">
+        <field name="name">Sync Cash Desks</field>
+        <field name="model_id" ref="model_dual_link"/>
+        <field name="binding_model_id" ref="dual_link_integration.model_dual_link"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">
+            record.sync_dl_cash_desks()
+        </field>
+    </record>
+    <record id="action_sync_workers" model="ir.actions.server">
+        <field name="name">Sync Workers</field>
+        <field name="model_id" ref="model_dual_link"/>
+        <field name="binding_model_id" ref="dual_link_integration.model_dual_link"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">
+            record.sync_dl_workers()
+        </field>
+    </record>
+    <record id="action_sync_specific_product" model="ir.actions.server">
+        <field name="name">Sync Specific Product</field>
+        <field name="model_id" ref="model_dual_link"/>
+        <field name="binding_model_id" ref="dual_link_integration.model_dual_link"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">
+            record.sync_specific_product()
+        </field>
+    </record>
+    
+     <record id="action_sync_specific_date_order" model="ir.actions.server">
+        <field name="name">Sync Specific Date Orders</field>
+        <field name="model_id" ref="model_dual_link"/>
+        <field name="binding_model_id" ref="dual_link_integration.model_dual_link"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">
+            record.sync_specific_date_orders()
+        </field>
+    </record>
+
+    <record id="action_sync_specific_order" model="ir.actions.server">
+        <field name="name">Sync Specific Order</field>
+        <field name="model_id" ref="model_dual_link"/>
+        <field name="binding_model_id" ref="dual_link_integration.model_dual_link"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">
+            record.sync_specific_order()
+        </field>
+    </record>
+    <record id="view_dual_link_form" model="ir.ui.view">
+        <field name="name">view_dual_link_form</field>
+        <field name="model">dual.link</field>
+        <field name="arch" type="xml">
+            <form string="Dual Link Configuration">
+                <header>
+                    <button name="get_access_token_info" type="object" string="Refresh Access Token"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_categories" type="object" class="oe_stat_button" icon="fa-list">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="categories_count" readonly="1"/>
+                                </span>
+                                <span class="o_stat_text">Categories</span>
+                            </div>
+                        </button>
+                        <button name="action_view_products" type="object" class="oe_stat_button"
+                                icon="fa-pencil-square-o">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="products_count" readonly="1"/>
+                                </span>
+                                <span class="o_stat_text">Products</span>
+                            </div>
+                        </button>
+                        <button name="action_view_orders" type="object" class="oe_stat_button"
+                                icon="fa-pencil-square-o">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="orders_count" readonly="1"/>
+                                </span>
+                                <span class="o_stat_text">Orders</span>
+                            </div>
+                        </button>
+                        <button name="action_view_pos_config" type="object" class="oe_stat_button" icon="fa-laptop">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="cashdesk_count" readonly="1"/>
+                                </span>
+                                <span class="o_stat_text">Cash Desks</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="username"/>
+                            <field name="password"/>
+                            <!-- <field name="difference_account"/>
+                            <field name="income_account"/>
+                            <field name="outcome_account"/> -->
+                        </group>
+                        <group>
+                            <field name="auth_server_url"/>
+                            <field name="server_url"/>
+                            <field name="business_id"/>
+                            <field name="pos_config_id"/>
+                            <field name="last_product_sync"/>
+                            <field name="get_product_name"></field>
+                            <field name="specific_date_orders"></field>
+                            <field name="specific_enddate_orders"></field>
+                            <field name="get_order_id"/>
+                            <field name="is_close_session" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_dual_link_tree" model="ir.ui.view">
+        <field name="name">view_dual_link_form.tree</field>
+        <field name="model">dual.link</field>
+        <field name="arch" type="xml">
+            <tree string="Dual Link Configuration">
+                <field name="name"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_dual_link_view" model="ir.actions.act_window">
+        <field name="name">Dual Link Configuration</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dual.link</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

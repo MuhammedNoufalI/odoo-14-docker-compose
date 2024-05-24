@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="structure_view_form_inherit_hc_payroll_without_attendance" model="ir.ui.view">
+        <field name="name">structure.view.form.inherit.hc.payroll.without.attendance</field>
+        <field name="model">hr.payroll.structure</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_employee_grade_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='country_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='country_id']" position="after">
+                <field name="is_attendance_based"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,65 @@
+<odoo>
+
+
+    <template id="website_hr_payslip_history" name="Attendances">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Payslip History</t>
+            </t>
+
+            <t>
+                <h4 style="color:green;">Payslip History</h4>
+            </t>
+            <t t-if="not payslip_history">
+                <p>There are currently no payslip for your account.</p>
+            </t>
+            <t t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th class="text-left">Reference</th>
+                        <th class="text-left">Employee</th>
+                        <th class="text-left">Payslip Name</th>
+                        <th class="text-center">Date From</th>
+                        <th class="text-center">Date To</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Print</th>
+
+                    </tr>
+                </thead>
+                <t t-foreach="payslip_history" t-as="line">
+                    <tr>
+                        <td class="text-left">
+                            <span t-esc="line.number"/>
+                        </td>
+                        <td class="text-left">
+                            <span t-esc="line.employee_id.name"/>
+                        </td>
+                        <td class="text-left">
+                            <span t-esc="line.name"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-esc="line.date_from"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-esc="line.date_to"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-esc="line.state"/>
+                        </td>
+                        <td class="text-center">
+                            <t t-set="url" t-value="'/my/payslip/history/id={}'.format(line.id)"/>
+                            <a t-att-href="url" target="_new">
+                                <button style="margin:5px;" type="button"
+                                        class="btn btn-secondary btn-block o_download_btn oe_inline">Payslips
+                                </button>
+                            </a>
+                        </td>
+
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

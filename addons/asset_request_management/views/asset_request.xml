@@ -1,0 +1,104 @@
+<odoo>
+  <data>
+    <record id="view_asset_request_form" model="ir.ui.view">
+        <field name="name">view_asset_request_form</field>
+        <field name="model">asset.request</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <header>
+                    <button name="send_doo_approvals" string="Send Doo approval" class="btn-primary" type="object" attrs="{'invisible':[('show_send_doo_button','=',True)]}"/>
+                    <button name="button_confirm" string="Confirm" class="btn-primary" type="object" groups="asset_request_management.doo_approvals" attrs="{'invisible':[('state','!=','draft')]}"/>
+                    <button name="button_cancel" string="Cancel" class="btn-primary" type="object" groups="asset_request_management.doo_approvals"  attrs="{'invisible':[('state','!=','draft')]}"/>
+                    <button name="create_purchase_order" string="Create PO" class="btn-primary" type="object"  groups="asset_request_management.doo_approvals" attrs="{'invisible':['|',('state','!=','draft'),('po_count','!=',0)]}"/>
+                    <button name="create_asset_transfer" string="Asset Transfer" class="btn-primary" type="object"  groups="asset_request_management.doo_approvals" attrs="{'invisible':['|',('state','!=','draft'),('asset_transfer_count','!=',0)]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,cancel"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                              <button name="open_related_purchase_orders" type="object" attrs="{'invisible':[('po_count','=',0)]}" class="oe_stat_button" icon="fa-home" string="PO">
+                              </button>
+                              <button name="open_related_asset_transfer" type="object" attrs="{'invisible':[('asset_transfer_count','=',0)]}" class="oe_stat_button" icon="fa-list" string="Transfers">
+                              </button>
+                         </div>
+                    <group >
+                        <group>
+                          <field name="name" attrs="{'readonly':[('state','!=','draft')]}"/>
+                          <field name="asset_group_id" readonly="1" attrs="{'readonly':[('state','!=','draft')],'invisible':[('show_send_doo_button','=',False)]}"/>
+                          <field name="asset_id" readonly="1" domain="[('asset_group_id','=',asset_group_id),('employee_id','=',False)]" attrs="{'readonly':[('state','!=','draft')],'invisible':[('show_send_doo_button','=',False)]}"/>
+                          <field name="location_id" readonly="1" attrs="{'readonly':[('state','!=','draft')],'invisible':[('show_send_doo_button','=',False)]}"/>
+                          <field name="employee_id" readonly="1" attrs="{'readonly':[('state','!=','draft')],'invisible':[('show_send_doo_button','=',False)]}"/>
+                        </group>
+                        <group>
+                            <field name="show_send_doo_button" invisible="1"/>
+                            <field name="po_count" invisible="1"/>
+                            <field name="asset_transfer_count" invisible="1"/>
+                            <field name="po_state" />
+                            <field name="bill_state" />
+                            <field name="asset_state"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+      <!-- Inherit Form View to Modify it -->
+      <record id="view_inherit_view_asset_request_form_form" model="ir.ui.view">
+          <field name="name">view.inherit..form</field>
+          <field name="model">asset.request</field>
+          <field name="groups_id" eval="[(4, ref('asset_request_management.doo_approvals'))]"/>
+          <field name="inherit_id" ref="asset_request_management.view_asset_request_form"/>
+          <field name="arch" type="xml">
+
+              <!-- position: after|before|replace|attributes|inside -->
+              <xpath expr="//field[@name='asset_group_id']" position="attributes">
+                  <attribute name="readonly">0</attribute>
+              </xpath>
+              <!-- position: after|before|replace|attributes|inside -->
+              <xpath expr="//field[@name='asset_id']" position="attributes">
+                  <attribute name="readonly">0</attribute>
+              </xpath>
+              <!-- position: after|before|replace|attributes|inside -->
+              <xpath expr="//field[@name='location_id']" position="attributes">
+                  <attribute name="readonly">0</attribute>
+              </xpath>
+              <!-- position: after|before|replace|attributes|inside -->
+              <xpath expr="//field[@name='employee_id']" position="attributes">
+                  <attribute name="readonly">0</attribute>
+              </xpath>
+
+          </field>
+      </record>
+
+    <record id="view_asset_request_tree" model="ir.ui.view">
+        <field name="name">view_asset_request_tree</field>
+        <field name="model">asset.request</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name"/>
+                <field name="asset_group_id"/>
+                <field name="asset_id"/>
+                <field name="location_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_asset_request_view" model="ir.actions.act_window">
+        <field name="name">Asset Request</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">asset.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+
+          </p><p>
+
+          </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_asset_request_management_categ" name="Asset Request Management" parent="" sequence="10"/>
+    <menuitem id="menu_asset_request_view" name="Asset Request" parent="menu_asset_request_management_categ" action="action_asset_request_view" sequence="2"/>
+  </data>
+</odoo>

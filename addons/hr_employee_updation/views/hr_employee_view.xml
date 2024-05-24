@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="employee_report_menu" name="Reports" sequence="30"
+                  groups="hr.group_hr_manager,hr.group_hr_user"/>
+        <menuitem id="menu_hr_management" name="HR Management" parent="hr.menu_hr_root" sequence="5"
+                  groups="hr.group_hr_manager,hr.group_hr_user"/>
+        <record model="ir.ui.view" id="hr_employee_inherit_form_view">
+
+            <field name="name">hr.employee.form.view</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='personal_information']/group/group/field[@name='bank_account_id']" position="attributes">
+                    <attribute name="attrs">{'required':[('address_home_id', '!=', False)]}</attribute>
+                </xpath>
+                <xpath expr="//page[@name='personal_information']/group/group[3]/field[@name='marital']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//page[@name='personal_information']/group" position="after">
+                    <group name="fam_ids" colspan="4" string="Dependence Details">
+                        <field name="fam_ids">
+                            <tree editable="bottom">
+                                <field name="member_name" required="1"/>
+                                <field name="relation_id" required="1"/>
+                                <field name="member_contact"/>
+                                <field name="birth_date"/>
+                            </tree>
+                        </field>
+                    </group>
+                </xpath>
+                <field name="user_id" position="after">
+                    <field name="joining_date" required="1"/>
+                    <field name="present_joining_date"/>
+                </field>
+                <field name="identification_id" position="replace"/>
+                <field name="passport_id" position="replace"/>
+                <xpath expr="//page[@name='personal_information']/group/group[1]" position="after">
+                    <group name="identification_id">
+                        <field name="identification_id" string="Emirates ID"/>
+                        <field name="oe_id_issue_date" groups="hr.group_hr_user" attrs="{'invisible': [('identification_id', 'in', [None,False])]}"/>
+                        <field name="id_expiry_date" groups="hr.group_hr_user" attrs="{'invisible': [('identification_id', 'in', [None,False])]}"/>
+                        <field name="id_attachment_id" groups="hr.group_hr_user" widget="many2many_binary" class="oe_inline" attrs="{'invisible': [('identification_id', 'in', [None,False])]}"/>
+                    </group>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Passport/Visa Information" name="Passport_information">
+                        <group>
+                            <group name="passport_id">
+                                <field name="passport_id"/>
+                                <field name="passport_issue_date" required="0" groups="hr.group_hr_user"/>
+                                <field name="passport_expiry_date" groups="hr.group_hr_user"/>
+                                <field name="passport_attachment_id" groups="hr.group_hr_user" widget="many2many_binary" class="oe_inline"/>
+                            </group>
+                            <group name="identification_id">
+                                <field name="oe_unique_id"/>
+                                <field name="visa_file_no"/>
+                                <field name="visa_no"/>
+                                <field name="permit_no"/>
+                                <field name="visa_issue_date"/>
+                                <field name="visa_expire" string="Visa Expire Date"/>
+                                <field name="visa_expiry_date" string="Visa Expiry Date"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="hr_gamification.hr_hr_employee_view_form" model="ir.ui.view">
+            <field name="name">hr.employee.view.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+<!--                <xpath expr="//field[@name='mobile_phone']" position="attributes">-->
+<!--                    <attribute name="required">1</attribute>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='work_email']" position="attributes">-->
+<!--                    <attribute name="required">1</attribute>-->
+<!--                </xpath>-->
+                <xpath expr="//field[@name='department_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//page[@name='public']" position="after">
+                    <page string="Received Badges" attrs="{'invisible': [('user_id', '=', False)]}">
+                        <div name="badges" groups="hr.group_hr_user">
+                            <field name="has_badges" invisible="1"/>
+                            <button string="Grant a Badge" type="action" name="%(hr_gamification.action_reward_wizard)d"/> to reward this employee for a good action
+                            <div class="oe_view_nocontent" attrs="{'invisible': [('has_badges', '=', True)]}">
+                                <p class="oe_view_nocontent_create">
+                                    Click to grant this employee his first badge
+                                </p><p class="oe_grey">
+                                    Badges are rewards of good work. Give them to people you believe deserve it.
+                                </p>
+                            </div>
+                        </div>
+                        <field name="badge_ids" widget="many2many_kanban" />
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_employee_tree">
+            <field name="name">hr.employee.tree.view</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </field>
+                <field name="work_phone" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </field>
+                <field name="work_email" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </field>
+                <field name="company_id" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </field>
+                <field name="department_id" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </field>
+                <field name="job_id" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </field>
+                <field name="parent_id" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </field>
+            </field>
+        </record>
+
+<!--        <record model="ir.ui.view" id="payroll_hr_employee_view_form_oe_inherit">-->
+<!--            <field name="name">payroll.hr.employee.view.form.oe_inherit</field>-->
+<!--            <field name="model">hr.employee</field>-->
+<!--            <field name="inherit_id" ref="hr_payroll.payroll_hr_employee_view_form"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <field name="registration_number" position="attributes">-->
+<!--                    <attribute name="string">Employee Number</attribute>-->
+<!--                </field>-->
+<!--                <field name="registration_number" position="attributes">-->
+<!--                <attribute name="invisible">1</attribute>-->
+<!--                </field>-->
+<!--            </field>-->
+<!--        </record>-->
+
+    </data>
+</odoo>

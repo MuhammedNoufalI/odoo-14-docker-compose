@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="hc_attendance_device_form_view" model="ir.ui.view">
+            <field name="name">hc.attendance.device.form.view</field>
+            <field name="model">hc.attendance.device</field>
+            <field name="arch" type="xml">
+                <form string="Attendance Device">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="device_id"/>
+                            </group>
+                            <group>
+                                <field name="branch_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="hc_attendance_device_tree_view" model="ir.ui.view">
+            <field name="name">hc.attendance.device.tree.view</field>
+            <field name="model">hc.attendance.device</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="device_id"/>
+                    <field name="branch_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_hc_attendance_device" model="ir.actions.act_window">
+            <field name="name">Attendance Device</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hc.attendance.device</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_hc_attendance_device"
+                  name="Attendance Devices"
+                  groups="hr_attendance.group_hr_attendance_manager"
+                  action="action_hc_attendance_device"
+                  parent="hr.menu_human_resources_configuration"/>
+    </data>
+</odoo>
+
+

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="business_transfer_letter_view" model="ir.ui.view">
+            <field name="name">Business Transfer Letter</field>
+            <field name="model">business.transfer.letter</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employee_id"/>
+                    <field name="employee_job_position"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="business_transfer_letter_form" model="ir.ui.view">
+            <field name="name">Business Transfer Letter</field>
+            <field name="model">business.transfer.letter</field>
+            <field name="arch" type="xml">
+                <form string="Business Transfer Letter">
+                    <header>
+                        <button string="Confirm" name="transfer_form_confirm" type="object"
+                                class="oe_highlight"
+                                attrs="{'invisible': [('state', 'not in',['draft'])]}"/>
+                        <button string="Rest To Draft" name="transfer_form_rest_to_draft" type="object"
+                                class="oe_highlight" attrs="{'invisible': [('state', 'in',['draft'])]}"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,confirm"/>
+                    </header>
+                    <sheet string="Business Transfer Letter">
+                        <div class="oe_title">
+                            <h1 class="d-flex">
+                                <field name="employee_name" placeholder="Employee's Name" attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="employee_code" attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                                <span class="o_form_label o_td_label" name="address_name">
+                                    <b>Address</b>
+                                </span>
+                                <div class="o_address_format">
+                                    <field name="street" placeholder="Street..." attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                                    <field name="street2" placeholder="Street 2..." attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                                </div>
+                                <field name="city" placeholder="City" attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                                <field name="zip" placeholder="ZIP" attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                                <field name="state_id" placeholder="State" attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                                <field name="country_id" placeholder="Country" attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                                <field name="business_unit" attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                            </group>
+                        </group>
+                        <group string="Old Job Details">
+                            <div>
+                                <group>
+                                    <field name="employee_job_position" readonly="1"/>
+                                    <field name="total_salary" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="salary_rule_ids" nolabel="1" readonly="1">
+                                        <tree create="false" editable="bottom">
+                                            <field name="salary_rule_id"/>
+                                            <field name="amount" decoration-bf="1" widget="monetary"
+                                            />
+                                        </tree>
+                                    </field>
+                                </group>
+                            </div>
+                        </group>
+                        <group string="New Job Position Details">
+                            <div>
+                                <group>
+                                    <field name="employee_new_position" required="1" attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                                    <field name="new_total_salary" required="1" attrs="{'readonly': [('state', 'not in', ['draft'])]}" readonly="1"/>
+                                    <field name="salary_structure" required="1" attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                                </group>
+                                <group>
+                                    <field name="new_salary_rule_ids" nolabel="1" attrs="{'readonly': [('state', 'not in', ['draft'])]}">
+                                        <tree editable="bottom">
+                                            <field name="salary_rule_id"
+                                                   domain="[('struct_id', '=', parent.salary_structure)]"/>
+                                            <field name="amount" decoration-bf="1" widget="monetary"
+                                            />
+                                        </tree>
+                                    </field>
+                                </group>
+                            </div>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_business_transfer_letter">
+            <field name="name">Business Transfer Letter</field>
+            <field name="res_model">business.transfer.letter</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+
+    <menuitem name="Business Transfer Letter" id="menu_business_transfer_letter" parent="hr.menu_hr_employee_payroll"
+              action="action_business_transfer_letter"/>
+
+
+</odoo>

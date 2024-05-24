@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="hc_calculate_attendance_data_cron_job" model="ir.cron">
+            <field name="name">Calculate the Attendance Raw Data</field>
+            <field name="model_id" ref="model_hc_raw_attendance"/>
+            <field name="state">code</field>
+            <field name="code">model.calculate_attendance()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="True"/>
+        </record>
+
+        <record id="hc_create_employee_attendance_data_cron_job" model="ir.cron">
+            <field name="name">Create the Daily Employee's Attendance</field>
+            <field name="model_id" ref="hr_attendance.model_hr_attendance"/>
+            <field name="state">code</field>
+            <field name="code">model.create_daily_attendance()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="True"/>
+        </record>
+        <record id="hc_create_employee_period_attendance_data_cron_job" model="ir.cron">
+            <field name="name">Create the Period Employee's Attendance</field>
+            <field name="model_id" ref="hr_attendance.model_hr_attendance"/>
+            <field name="state">code</field>
+            <field name="code">model.create_period_attendance()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

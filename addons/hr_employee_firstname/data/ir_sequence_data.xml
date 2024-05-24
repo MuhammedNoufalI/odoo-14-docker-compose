@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="oe_seq_hr_employee_regular_sequence" model="ir.sequence">
+            <field name="name">Regular Employee sequence</field>
+            <field name="code">regular.employee.seq</field>
+            <field name="prefix">EMP/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="oe_seq_hr_employee_free_lancer_sequence" model="ir.sequence">
+            <field name="name">Free Lancer Employee sequence</field>
+            <field name="code">free.lancer.seq</field>
+            <field name="prefix">FL/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

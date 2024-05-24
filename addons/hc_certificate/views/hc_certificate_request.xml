@@ -1,0 +1,73 @@
+<odoo>
+  <data>
+
+    <record id="certificate_request_form" model="ir.ui.view">
+        <field name="name">certificate.request.form</field>
+        <field name="model">certificate.request</field>
+        <field name="arch" type="xml">
+            <form string="Certification Request">
+            <header>
+
+                                    <button string="Submit For Review" name="submit_review" type="object" class="oe_highlight"  attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                                    <button string="Send for Approval" name="submit_approval" type="object" class="oe_highlight"  attrs="{'invisible': [('state', '!=', 'under_review')]}"/>
+                                    <button string="Approve &amp; Sign" name="submit_approval_sign" type="object" class="oe_highlight"  groups="hr.group_hr_manager" attrs="{'invisible': [('state', '!=', 'sent_for_approval')]}"/>
+                                    <button string="cancel" name="submit_cancel" type="object" class="oe_highlight"/>
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,under_review,sent_for_approval,approved,canceled"/>
+
+            </header>
+            <sheet string="Certification Request">
+               <group>
+                <group>
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="certificate_type_id"/>
+                    <field name="requested_date"/>
+                    <field name="reviewed_date"/>
+
+
+             
+                    <field name="approved_date"/>
+                    <field name="address"/>
+                    <!-- <field name="state"/> -->
+
+                </group>
+                   <group>
+                       <field name="travel_dest"/>
+                       <field name="issued_to"/>
+                   </group>
+                </group>
+
+            </sheet>
+    
+            </form>
+        </field>
+    </record>
+      
+      
+    <record model="ir.ui.view" id="certificate_request_list">
+      <field name="name">certificate.request.tree</field>
+        <field name="model">certificate.request</field>
+      <field name="arch" type="xml">
+        <tree>
+                            <field name="name"/>
+
+                    <field name="employee_id"/>
+                    <field name="state"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="certificate_request_action_window">
+      <field name="name">Certificate Request</field>
+      <field name="res_model">certificate.request</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- menu -->
+   <menuitem name="Certificate Request" id="menu_certificate_request" parent="hr.menu_hr_employee_payroll" action="certificate_request_action_window"/>
+
+      
+  </data>
+</odoo>

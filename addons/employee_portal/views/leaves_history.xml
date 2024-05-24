@@ -1,0 +1,79 @@
+<odoo>
+
+    <template id="website_hr_leaves_history" name="Attendances">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Leaves</t>
+            </t>
+            <div class="col-lg-12">
+                <a href="/leave/form" target="_self">
+                    <button style="margin:5px;" type="button"
+                            class="btn btn-success float-left">Leave Request
+                    </button>
+                </a>
+
+            </div>
+            <br></br>
+            <t class="col-lg-14">
+                <br></br>
+                <br></br>
+                <h4 style="color:black;">Your Leaves</h4>
+            </t>
+            <t t-if="not leaves_history">
+                <p>There are currently no attendance for your account.</p>
+            </t>
+            <t t-set="state" t-value="state"/>
+
+            <t t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th class="text-left">Employee</th>
+                        <th class="text-center"># Days</th>
+                        <th class="text-left">Start Date</th>
+                        <th class="text-left">End Date</th>
+                        <th class="text-center">Leave Type</th>
+                        <th class="text-left">Description</th>
+                        <th class="text-center">Status</th>
+                    </tr>
+                </thead>
+                <t t-foreach="leaves_history" t-as="line">
+                    <tr>
+                        <td class="text-left">
+                            <span t-esc="line.employee_id.name"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-esc="line.duration_display"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-field="line.date_from"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-field="line.date_to"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-esc="line.holiday_status_id.name"/>
+                        </td>
+
+                        <td class="text-left">
+                            <span t-esc="line.name"/>
+                        </td>
+                        <td class="text-center">
+                            <t t-set="state" t-value="line.state"/>
+                            <span style="text-transform: capitalize;" t-esc="line.state"/>
+                        </td>
+                    </tr>
+                </t>
+
+                <style>
+                    .hideme
+                    {
+                    display:none;
+                    visibility:hidden;
+                    }
+                </style>
+            </t>
+        </t>
+    </template>
+
+</odoo>

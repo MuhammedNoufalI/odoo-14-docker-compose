@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="0">
+        <record forcecreate="True" id="ir_cron_dual_link_access_token" model="ir.cron">
+            <field name="name">Auto: Sync Access Token</field>
+            <field name="model_id" ref="model_dual_link"/>
+            <field name="state">code</field>
+            <field name="code">model.get_access_token_info()</field>
+            <field name="active" eval="False"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">12</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+        <record forcecreate="True" id="ir_cron_dual_payment_method" model="ir.cron">
+            <field name="name">Auto: Sync Payment Methods</field>
+            <field name="model_id" ref="model_dual_link"/>
+            <field name="state">code</field>
+            <field name="code">model.sync_dl_payment_methods()</field>
+            <field name="active" eval="False"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+        <record forcecreate="True" id="ir_cron_dual_link_categories" model="ir.cron">
+            <field name="name">Auto: Sync Categories</field>
+            <field name="model_id" ref="model_dual_link"/>
+            <field name="state">code</field>
+            <field name="code">model.sync_dl_categories()</field>
+            <field name="active" eval="False"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+        <record forcecreate="True" id="ir_cron_dual_link_sync_products" model="ir.cron">
+            <field name="name">Auto: Sync Products</field>
+            <field name="model_id" ref="model_dual_link"/>
+            <field name="state">code</field>
+            <field name="code">model.sync_dl_products()</field>
+            <field name="active" eval="False"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+        <record forcecreate="True" id="ir_cron_dual_link_sync_products_bydate" model="ir.cron">
+            <field name="name">Auto: Sync Products by date</field>
+            <field name="model_id" ref="model_dual_link"/>
+            <field name="state">code</field>
+            <field name="code">model.sync_dl_products_bydate()</field>
+            <field name="active" eval="False"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+        <record forcecreate="True" id="ir_cron_dual_link_products" model="ir.cron">
+            <field name="name">Auto: Sync Cash Desks</field>
+            <field name="model_id" ref="model_dual_link"/>
+            <field name="state">code</field>
+            <field name="code">model.sync_dl_cash_desks()</field>
+            <field name="active" eval="False"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+        <record forcecreate="True" id="ir_cron_dual_link_employees" model="ir.cron">
+            <field name="name">Auto: Sync Workers (Employee)</field>
+            <field name="model_id" ref="model_dual_link"/>
+            <field name="state">code</field>
+            <field name="code">model.sync_dl_workers()</field>
+            <field name="active" eval="False"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+        <record forcecreate="True" id="ir_cron_dual_link_orders" model="ir.cron">
+            <field name="name">Auto: Sync Orders (Archived Document)</field>
+            <field name="model_id" ref="model_dual_link"/>
+            <field name="state">code</field>
+            <field name="code">model.sync_specific_date_orders()</field>
+            <field name="active" eval="False"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+        <record forcecreate="True" id="ir_cron_dual_link_sync_all" model="ir.cron">
+            <field name="name">Auto: Sync All Crons Except Orders</field>
+            <field name="model_id" ref="model_dual_link"/>
+            <field name="state">code</field>
+            <field name="code">model.sync_all()</field>
+            <field name="active" eval="False"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">12</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+    </data>
+</odoo>

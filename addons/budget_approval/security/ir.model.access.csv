@@ -1,0 +1,6 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+budget_approval_matrix,budget_approval_matrix,model_budget_approval_matrix,,1,1,1,1
+budget_approval_matrix_lines,budget_approval_matrix_lines,model_approval_matrix_line,,1,1,1,1
+access_budget_approval_matrix,access_budget_approval_matrix,model_budget_approval_matrix,allow_view_all_budget_lines,1,1,1,1
+access_account_move,account_move,account.model_account_move,disable_edit_journal_entries,1,0,1,0
+access_approval_matrix_line,access_approval_matrix_line,model_approval_matrix_line,allow_view_all_budget_lines,1,1,1,1

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_certificate">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+
+                    <div t-attf-class="header o_company_#{company_id}_layout" t-att-style="report_header_style">
+
+                        <!--                                    <img t-attf-src="data:image/jpg;base64,{{ data['header_branch'] }}" style="width: 1000; height: 170px;"/>-->
+                    </div>
+                    <div class="page">
+                        <div t-raw="data['name']"/>
+                    </div>
+                    <div t-attf-class="footer o_standard_footer o_company_#{company_id}_layout">
+                        <!--			<img  t-attf-src="data:image/jpg;base64,{{ data['header_footer'] }}"   style="width: 1000; height: 170px;"/>-->
+                    </div>
+
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+    <record id="action_report_certificate" model="ir.actions.report">
+        <field name="name">Print Certificate</field>
+        <field name="model">certificate.request</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hc_certificate.report_certificate</field>
+        <field name="report_file">hc_certificate.report_certificate</field>
+        <field name="binding_model_id" ref="hc_certificate.model_certificate_request"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

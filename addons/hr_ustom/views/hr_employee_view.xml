@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record model="ir.ui.view" id="hr_employee_inherit_form_view_inherit">
+            <field name="name">hr.employee.form.view.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+                <field name="arch" type="xml">
+                    <xpath expr="//field[@name='tz']" position="before">
+                        <field name="is_custom_shift" readonly="0"/>
+                    </xpath>
+
+                </field>
+        </record>
+    </data>
+</odoo>

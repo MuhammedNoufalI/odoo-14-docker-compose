@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+        <record id="doo_approvals" model="res.groups">
+            <field name="name">DOO Approvals</field>
+        </record>
+
+        <record id="wh_manager" model="res.groups">
+            <field name="name">WH Manager</field>
+        </record>
+
+        
+    </data>
+</odoo>

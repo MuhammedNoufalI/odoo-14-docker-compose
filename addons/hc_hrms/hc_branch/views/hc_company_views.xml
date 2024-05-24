@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_hc_company_form_view" model="ir.ui.view">
+            <field name="name">hc.company.form.view</field>
+            <field name="model">hc.company</field>
+            <field name="arch" type="xml">
+                <form string="Hc Company">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hc_company_tree_view" model="ir.ui.view">
+            <field name="name">hc.company.tree.view</field>
+            <field name="model">hc.company</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hc_company_action">
+            <field name="name">Hc Company</field>
+            <field name="res_model">hc.company</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="hc_company_menu"
+                  name="Hc Company"
+                  parent="hr.menu_human_resources_configuration"
+                  groups="base.group_user"
+                  action="hc_company_action"
+                  sequence="3"/>
+
+    </data>
+</odoo>

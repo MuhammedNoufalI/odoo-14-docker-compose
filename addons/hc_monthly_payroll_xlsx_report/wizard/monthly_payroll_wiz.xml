@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="monthly_payroll_wizard_form_view" model="ir.ui.view">
+            <field name="name">Monthly Payroll Report Wizard</field>
+            <field name="model">monthly.payroll.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Monthly Payroll Report Wizard">
+                    <group>
+                        <field name="payroll_period"/>
+                        <field name="company_id" invisible="1"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="date_start" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="date_end" invisible="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Print" name="print_excel_report" type="object" class="btn-default"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_window_monthly_payroll_report_wizard" model="ir.actions.act_window">
+            <field name="name">Monthly Payroll Report Wizard</field>
+            <field name="res_model">monthly.payroll.wiz</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="monthly_payroll_wizard_form_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem name="Monthly Payroll Xlsx Report" id="menu_monthly_payroll_report_"
+                  action="action_window_monthly_payroll_report_wizard"
+                  sequence="210" parent="hr_payroll.menu_hr_payroll_report"/>
+
+
+    </data>
+</odoo>
+

@@ -1,0 +1,78 @@
+<odoo>
+    <data>
+        <record id="emp_ann_action" model="ir.actions.act_window">
+            <field name="name">Annual Leaves</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">employee.annual.leave</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="emp_ann_tree" model="ir.ui.view">
+            <field name="name">Annual Leaves</field>
+            <field name="model">employee.annual.leave</field>
+            <field name="arch" type="xml">
+                <tree string="Annual Leaves">
+                    <field name="employee_id"/>
+                    <field name="company_id" optional="hide"/>
+                    <field name="total_leaves"/>
+                    <field name="al_taken"/>
+                    <field name="al_remaining"/>
+                </tree>
+            </field>
+        </record>
+        <record id="ann_emp_leaves_form" model="ir.ui.view">
+            <field name="name">Annual Leaves</field>
+            <field name="model">employee.annual.leave</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="company_id"/>
+                            <field name="total_leaves"/>
+                            <field name="al_taken"/>
+                            <field name="al_remaining"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Employee Form Inherit -->
+        <record id="employee_from_inherit" model="ir.ui.view">
+            <field name="name">employee_form_inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <field name="total_ann_leaves" invisible="1"/>
+                    <field name="taken_ann_leaves" invisible="1"/>
+                    <button name="%(emp_ann_action)d"
+                            type="action"
+                            class="oe_stat_button"
+                            icon="fa-calendar"
+                            context="{'search_default_employee_id': active_id}"
+                            groups="base.group_user"
+                            help="Remaining leaves">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="taken_ann_leaves"/>/
+                                <field name="total_ann_leaves"/>
+                                Days
+                            </span>
+                            <span class="o_stat_text">
+                                Annual Leaves
+                            </span>
+                        </div>
+                    </button>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="emp_annual_leave" name="Employees Annual Leaves"
+                  parent="hr_holidays.menu_hr_holidays_root"
+                  action="emp_ann_action" sequence="10"/>
+    </data>
+</odoo>

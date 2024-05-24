@@ -1,0 +1,286 @@
+<odoo>
+    <data>
+        <template id="print_payslip_report_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+
+                        <div class="page">
+                            <h3 class="text-center">
+                                SALARY PAYSLIP FOR
+                                <span t-esc="o.date_to.strftime('%B').upper()"/>
+                                <span t-esc="o.date_to.year"/>
+                            </h3>
+                            <style type="text/css">
+                                table.report_table {
+                                font-size: 12px !important;
+                                border:3px double black;
+
+                                }
+                                table.report_table th, table.report_table td {
+                                padding: 2px !important;
+                                border:1px dotted black;
+
+                                text-align: left !important;
+                                }
+
+                                <!--                                table.report_table th {-->
+                                <!--                                background-color:#f2f2f2  !important;-->
+                                <!--                                color: black !important;-->
+                                <!--                                }-->
+
+                            </style>
+                            <table class="report_table" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:25%">
+                                            <span style="font-weight:bold">NAME</span>
+                                        </td>
+                                        <td style="width:25%">
+                                            <span t-field="o.employee_id.name"></span>
+                                        </td>
+                                        <td style="width:25%">
+                                            <span style="font-weight:bold">JOIN DATE</span>
+                                        </td>
+                                        <td style="width:25%">
+                                            <span t-esc="(o.employee_id.joining_date).strftime('%d/%m/%Y')"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:25%">
+                                            <span style="font-weight:bold">EMPLOYEE I.D NO.</span>
+                                        </td>
+                                        <td style="width:25%">
+                                            <span t-field="o.employee_id.oe_emp_sequence"></span>
+                                        </td>
+                                        <td style="width:25%">
+                                            <span style="font-weight:bold">DEPARTMENT</span>
+                                        </td>
+                                        <td style="width:25%">
+                                            <span t-field="o.employee_id.department_id"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:25%">
+                                            <span style="font-weight:bold">POSITION</span>
+                                        </td>
+                                        <td style="width:25%">
+                                            <span t-field="o.employee_id.job_id.name"></span>
+                                        </td>
+                                        <td style="width:25%">
+                                            <span style="font-weight:bold">GRADE</span>
+                                        </td>
+                                        <td style="width:25%">
+                                            <span t-field="o.employee_id.grade"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:25%">
+                                            <span style="font-weight:bold">BANK NAME</span>
+                                        </td>
+                                        <td style="width:25%">
+                                            <span t-field="o.employee_id.agent_id"></span>
+                                        </td>
+                                        <td style="width:25%">
+                                            <span style="font-weight:bold">IBAN NUMBER</span>
+                                        </td>
+                                        <td style="width:25%">
+                                            <span t-field="o.employee_id.bank_account_id.acc_number"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br/>
+                            <table class="report_table" width="50%">
+                                <t t-set="days" t-value="o.get_employee_worked_days_data()"/>
+                                <tbody>
+                                    <t t-set="res" t-value="o.get_lines()"/>
+                                    <tr>
+                                        <td colspan="2">
+                                            <span style="font-weight:bold;text-align:center">MONTH'S ATTENDANCE</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%">
+                                            <span style="font-weight:bold">WORKED DAYS</span>
+                                        </td>
+                                        <td style="width:50%">
+                                            <span t-esc="days['worked_days']"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%">
+                                            <span style="font-weight:bold">LEAVE DAYS</span>
+                                        </td>
+                                        <td style="width:50%">
+                                            <span t-esc="days['annual_leave']"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%">
+                                            <span style="font-weight:bold">UNPAID DAYS</span>
+                                        </td>
+                                        <td style="width:50%">
+                                            <span t-esc="days['unpaid_days']"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%">
+                                            <span style="font-weight:bold">SICK DAYS</span>
+                                        </td>
+                                        <td style="width:50%">
+                                             <span t-esc="days['sick_days']"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%">
+                                            <span style="font-weight:bold">TOTAL DAYS</span>
+                                        </td>
+                                        <td style="width:50%">
+                                            <span t-esc="days['total_days']"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br/>
+                            <t t-set="salary" t-value="o.employee_contract_salary()"/>
+                            <table class="report_table" width="100%">
+                                <t t-set="basic"
+                                   t-value="sum(o.line_ids.filtered_domain([('salary_rule_id.code','=','NET')]).mapped('total'))"/>
+                                <tbody>
+
+                                    <tr>
+                                        <td>
+                                            <span style="font-weight:bold">BASIC</span>
+                                        </td>
+                                        <td>
+                                            <span style="font-weight:bold">HOUSING</span>
+                                        </td>
+                                        <td>
+                                            <span style="font-weight:bold">OTHERS</span>
+                                        </td>
+<!--                                        <td>-->
+<!--                                            <span style="font-weight:bold">TOTAL</span>-->
+<!--                                        </td>-->
+
+                                    </tr>
+                                    <tr>
+                                        <t t-set="get_data" t-value="o.get_data()"/>
+
+                                        <td>
+                                            <span t-esc="salary['basic']"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="salary['housing']"/>
+
+                                        </td>
+                                        <td>
+                                            <span t-esc="salary['other']"/>
+                                        </td>
+<!--                                        <td>-->
+<!--                                            <span t-esc="salary['net_total']"/>-->
+<!--                                        </td>-->
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <br/>
+                            <table class="report_table" width="100%">
+                                <tr>
+                                    <td colspan="2" width="50%">
+                                        <table width="100%">
+                                            <tr>
+                                                <td colspan="2" style="text-align:center !important;">
+                                                    <span style="font-weight:900;font-size:15px;">Earnings</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span style="font-weight:bold">DESCRIPTION</span>
+                                                </td>
+                                                <td>
+                                                    <span style="font-weight:bold">AMOUNT(AED)</span>
+                                                </td>
+                                            </tr>
+                                            <t t-set="res" t-value="o.get_payslip_earnings()"/>
+                                            <t t-set="total_e" t-value="0.00"/>
+                                            <t t-foreach="res" t-as="line">
+                                                <t t-set="total_e" t-value="total_e+line['amount']"/>
+                                                <tr>
+                                                    <td>
+                                                        <span style="font-weight:bold" t-esc="line['name']"/>
+                                                    </td>
+                                                    <td>
+                                                        <span style="font-weight:bold" t-esc="line['amount']"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </table>
+                                    </td>
+                                    <td colspan="2" width="50%">
+                                        <table width="100%">
+                                            <tr>
+                                                <td colspan="2" style="text-align:center !important;">
+                                                    <span style="font-weight:900;font-size:15px;">Deductions</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span style="font-weight:bold">DESCRIPTION</span>
+                                                </td>
+                                                <td>
+                                                    <span style="font-weight:bold">AMOUNT(AED)</span>
+                                                </td>
+                                            </tr>
+                                            <t t-set="res" t-value="o.get_payslip_deduction()"/>
+                                            <t t-set="total_d" t-value="0.00"/>
+                                            <t t-foreach="res" t-as="line">
+                                                <t t-set="total_d" t-value="total_d+line['amount']"/>
+                                                <tr>
+                                                    <td>
+                                                        <span style="font-weight:bold" t-esc="line['name']"/>
+                                                    </td>
+                                                    <td>
+                                                        <span style="font-weight:bold" t-esc="line['amount']"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="25%">
+                                        <span style="font-weight:bold">Total Earnings</span>
+                                    </td>
+                                    <td width="25%">
+                                        <span style="font-weight:bold" t-esc="'%.2f'%(total_e)"/>
+                                    </td>
+                                    <td width="25%">
+                                        <span style="font-weight:bold">Total Deduction</span>
+                                    </td>
+                                    <td width="25%">
+                                        <span style="font-weight:bold" t-esc="'%.2f'%(total_d)"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="font-weight:900;">Net Salary</td>
+                                    <td style="font-weight:900;">
+                                        <t t-esc="basic"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <span style="font-size: 13px;">Date:</span>
+                            <span style=" font-size:
+                            13px;" t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+                        </div>
+
+                    </t>
+                </t>
+            </t>
+
+        </template>
+    </data>
+</odoo>

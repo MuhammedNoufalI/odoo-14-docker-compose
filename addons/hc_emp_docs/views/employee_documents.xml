@@ -1,0 +1,83 @@
+<odoo>
+    <data>
+        <record id="employee_documents_form" model="ir.ui.view">
+            <field name="name">employee.documents.form</field>
+            <field name="model">employee.documents</field>
+            <field name="arch" type="xml">
+                <form string="Employee Documents">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="active,due_for_renewal,expired"/>
+                    </header>
+                    <sheet string="Employee Documents">
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="employee_id"/>
+                                <field name="doc_type"/>
+                                <field name="valid_from" widget="date"/>
+                            </group>
+                            <group>
+                                <field name="valid_till_date" widget="date"/>
+                                <!--<field name="document_state"/>-->
+                                <field name="tracking" invisible="1"/>
+                                <field name="renewals" invisible="1"/>
+                                <field name="upload_file"/>
+                                <field name="link"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="employee_documents_list">
+            <field name="name">employee.documents.tree</field>
+            <field name="model">employee.documents</field>
+            <field name="arch" type="xml">
+                <tree decoration-danger="state == 'expired' ">
+                    <field name="employee_id"/>
+                    <field name="doc_type"/>
+                    <field name="name"/>
+                    <field name="valid_till_date" widget="remaining_days"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="employee_documents_action_window">
+            <field name="name">Employee Documents</field>
+            <field name="res_model">employee.documents</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="employee_documents_active_window">
+            <field name="name">Employee Documents employee</field>
+            <field name="res_model">employee.documents</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('employee_id','=',active_id)]</field>
+        </record>
+
+        <record id="hc_employee_documents_filter" model="ir.ui.view">
+        <field name="name">employee.documents.filter</field>
+        <field name="model">employee.documents</field>
+        <field name="arch" type="xml">
+            <search string="Search Employee Documents">
+                <field name="employee_id"/>
+                <field name="name"/>
+                <group expand="0" string="Group By">
+                    <filter string="Document Type" name="doc_type" context="{'group_by':'doc_type'}"/>
+                    <filter string="State" name="state" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+        <!-- menu -->
+        <menuitem name="Employee Documents" id="menu_documents_type" parent="hr.menu_hr_employee_payroll"
+                  action="employee_documents_action_window"/>
+    </data>
+</odoo>

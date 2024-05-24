@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="hr_attendance_view_form_oe_inherit">
+        <field name="name">hr.attendance.view.form.oe_inherit</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet//group" position="inside">
+                <label for="zk_check_in_end_datetime"/>
+                <div>
+                    <field name="zk_check_in_end_datetime" class="oe_inline"/>
+                </div>
+            </xpath>
+            <xpath expr="//sheet" position="inside">
+                <notebook>
+                    <page name="punches" string="Punches">
+                        <field name="zk_punch_line">
+                            <tree string="Punches" editable="bottom">
+                                <field name="attendance_id" invisible="1"/>
+                                <field name="company_name"/>
+                                <field name="badge_number"/>
+                                <field name="punch_date_time"/>
+                                <field name="punch_type"/>
+                                <field name="punch_type_selection"/>
+                                <field name="device_Id"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+</odoo>

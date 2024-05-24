@@ -1,0 +1,48 @@
+<odoo>
+    <data>
+        <record id="view_asset_group_form" model="ir.ui.view">
+            <field name="name">view_asset_group_form</field>
+            <field name="model">asset.group</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="product_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_asset_group_tree" model="ir.ui.view">
+            <field name="name">view_asset_group_tree</field>
+            <field name="model">asset.group</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_asset_group_view" model="ir.actions.act_window">
+            <field name="name">Asset Group</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">asset.group</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+
+              </p><p>
+
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_asset_group_view" name="Asset Group" parent="menu_asset_request_management_categ" action="action_asset_group_view" sequence="1"/>
+    </data>
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="planning_slot_template_tree_inherit" model="ir.ui.view">
+         <field name="name">planning.slot.template.form.inherit</field>
+         <field name="model">planning.slot.template</field>
+         <field name="inherit_id" ref="planning.planning_slot_template_view_tree"/>
+         <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="shift_mandatory_hours"/>
+                <field name="flexible_break_time"/>
+                <field name="is_check_out_next_day"/>
+                <field name="is_week_day"/>
+            </xpath>
+              <xpath expr="//field[@name='role_id']" position="attributes">
+                  <attribute name="optional">hide</attribute>
+              </xpath>
+         </field>
+    </record>
+
+    <record id="planning_slot_template_form_inherit" model="ir.ui.view">
+        <field name="name">planning.slot.template.form.inherit</field>
+        <field name="model">planning.slot.template</field>
+        <field name="inherit_id" ref="planning.planning_slot_template_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="shift_mandatory_hours"/>
+                <field name="flexible_break_time"/>
+            </xpath>
+            <xpath expr="//field[@name='duration']" position="after">
+                <field name="is_check_out_next_day"/>
+                <field name="is_week_day"/>
+
+            </xpath>
+            <xpath expr="//field[@name='role_id']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+     <record id="receive_notify_entry_draft_group" model="res.groups">
+         <field name="name">Receive Entry Set Draft Notifications</field>
+         <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+     </record>
+</odoo>

@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <record id="hc_raw_attendance_form_inherit" model="ir.ui.view">
+            <field name="name">hc_raw_attendance_form_inherit</field>
+            <field name="model">hc.raw.attendance</field>
+            <field name="inherit_id" ref="hc_shift_time.hc_attendance_raw_data_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group" position="before">
+                    <div class="oe_button_box" name="button_box">
+						<button name="open_exception"
+                                    class="oe_stat_button"
+                                    type="object"
+                                     icon="fa-credit-card" attrs="{'invisible':[('exception_id','=',False)]}"
+                                   >
+                            <field name="exception_id"/></button>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

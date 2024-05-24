@@ -1,0 +1,208 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* payslip_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-26 09:09+0000\n"
+"PO-Revision-Date: 2018-06-26 11:12+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: ar_SY\n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#. module: payslip_report
+#: model:ir.model.fields,field_description:payslip_report.field_hr_payroll_report_wiz_period
+msgid "Analysis Period"
+msgstr "فترة التحليل"
+
+#. module: payslip_report
+#: model:ir.ui.view,arch_db:payslip_report.payroll_report_wiz_form
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: payslip_report
+#: model:ir.model.fields,field_description:payslip_report.field_hr_payroll_report_wiz_company_ids
+msgid "Companies"
+msgstr "المؤسسات"
+
+#. module: payslip_report
+#: model:ir.model.fields,field_description:payslip_report.field_hr_payroll_report_wiz_create_uid
+#: model:ir.model.fields,field_description:payslip_report.field_hr_payslip_report_template_create_uid
+msgid "Created by"
+msgstr "أنشئ بواسطة"
+
+#. module: payslip_report
+#: model:ir.model.fields,field_description:payslip_report.field_hr_payroll_report_wiz_create_date
+#: model:ir.model.fields,field_description:payslip_report.field_hr_payslip_report_template_create_date
+msgid "Created on"
+msgstr "أنشئ في"
+
+#. module: payslip_report
+#: selection:hr.payroll.report.wiz,period:0
+msgid "Current Year"
+msgstr "السنة الحالية"
+
+#. module: payslip_report
+#: model:ir.model.fields,field_description:payslip_report.field_hr_payslip_report_template_description
+msgid "Description"
+msgstr "الوصف"
+
+#. module: payslip_report
+#: model:ir.model.fields,field_description:payslip_report.field_hr_payroll_report_wiz_display_name
+#: model:ir.model.fields,field_description:payslip_report.field_hr_payslip_report_template_display_name
+#: model:ir.model.fields,field_description:payslip_report.field_report_payslip_report_hr_payslip_report_display_name
+msgid "Display Name"
+msgstr "اسم العرض"
+
+#. module: payslip_report
+#: model:ir.model.fields,field_description:payslip_report.field_hr_payroll_report_wiz_employee_ids
+#: model:ir.model.fields,field_description:payslip_report.field_hr_payslip_report_template_employee_ids
+#: model:ir.ui.view,arch_db:payslip_report.hr_payslip_report_template_form
+msgid "Employees"
+msgstr "الموظفون"
+
+#. module: payslip_report
+#: model:ir.model.fields,field_description:payslip_report.field_hr_payroll_report_wiz_end_date
+msgid "End Date"
+msgstr "تاريخ الإنتهاء"
+
+#. module: payslip_report
+#: selection:hr.payroll.report.wiz,period:0
+msgid "Every Year"
+msgstr "كل عام"
+
+#. module: payslip_report
+#: model:ir.ui.view,arch_db:payslip_report.payroll_report_wiz_form
+msgid "Export PaySlip"
+msgstr "تصدير قسيمة الدفع"
+
+#. module: payslip_report
+#: model:ir.ui.view,arch_db:payslip_report.hr_payslip_report
+msgid "From"
+msgstr " من"
+
+#. module: payslip_report
+#: model:ir.ui.view,arch_db:payslip_report.payroll_report_wiz_form
+msgid "Generate the Report"
+msgstr "توليد التقرير"
+
+#. module: payslip_report
+#: model:ir.actions.report.xml,name:payslip_report.action_report_hr_payroll
+#: model:ir.actions.report.xml,name:payslip_report.action_report_hr_payroll_xlsx
+msgid "Hr Payroll Report"
+msgstr "تقرير راتب الرواتب"
+
+#. module: payslip_report
+#: model:ir.model.fields,field_description:payslip_report.field_hr_payroll_report_wiz_id
+#: model:ir.model.fields,field_description:payslip_report.field_hr_payslip_report_template_id
+#: model:ir.model.fields,field_description:payslip_report.field_report_payslip_report_hr_payslip_report_id
+msgid "ID"
+msgstr "المعرف"
+
+#. module: payslip_report
+#: model:ir.model.fields,field_description:payslip_report.field_hr_payroll_report_wiz___last_update
+#: model:ir.model.fields,field_description:payslip_report.field_hr_payslip_report_template___last_update
+#: model:ir.model.fields,field_description:payslip_report.field_report_payslip_report_hr_payslip_report___last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل في"
+
+#. module: payslip_report
+#: model:ir.model.fields,field_description:payslip_report.field_hr_payroll_report_wiz_write_uid
+#: model:ir.model.fields,field_description:payslip_report.field_hr_payslip_report_template_write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: payslip_report
+#: model:ir.model.fields,field_description:payslip_report.field_hr_payroll_report_wiz_write_date
+#: model:ir.model.fields,field_description:payslip_report.field_hr_payslip_report_template_write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث في"
+
+#. module: payslip_report
+#: model:ir.ui.view,arch_db:payslip_report.payroll_report_wiz_form
+msgid "Model"
+msgstr "النموذج"
+
+#. module: payslip_report
+#: model:ir.ui.view,arch_db:payslip_report.hr_payslip_report
+msgid "Month / Year :"
+msgstr "شهر سنة :"
+
+#. module: payslip_report
+#: model:ir.model.fields,field_description:payslip_report.field_hr_payslip_report_template_name
+msgid "Name"
+msgstr "الاسم"
+
+#. module: payslip_report
+#: model:ir.ui.view,arch_db:payslip_report.payroll_report_wiz_form
+msgid "Payroll Analysis"
+msgstr "تحليل الرواتب"
+
+#. module: payslip_report
+#: model:ir.actions.act_window,name:payslip_report.action_hr_payroll_report_wiz_config
+#: model:ir.ui.menu,name:payslip_report.menu_action_hr_payroll_report_wiz
+#: model:ir.ui.view,arch_db:payslip_report.hr_payslip_report
+msgid "Payroll Report"
+msgstr "تقرير الرواتب"
+
+#. module: payslip_report
+#: model:ir.model,name:payslip_report.model_hr_payroll_report_wiz
+msgid "Payroll Report Wizard"
+msgstr "معالج تقرير الرواتب"
+
+#. module: payslip_report
+#: model:ir.actions.act_window,name:payslip_report.hr_payslip_report_template_action
+#: model:ir.ui.menu,name:payslip_report.hr_payslip_report_template_menu
+#: model:ir.ui.view,arch_db:payslip_report.hr_payslip_report_template_form
+#: model:ir.ui.view,arch_db:payslip_report.hr_payslip_report_template_tree
+msgid "Payslip Report Template"
+msgstr "قالب تقرير قسيمة الدفع"
+
+#. module: payslip_report
+#: selection:hr.payroll.report.wiz,period:0
+msgid "Previous Year"
+msgstr "السنة الماضية"
+
+#. module: payslip_report
+#: model:ir.model.fields,field_description:payslip_report.field_hr_payroll_report_wiz_salary_rule_ids
+#: model:ir.model.fields,field_description:payslip_report.field_hr_payslip_report_template_salary_rule_ids
+#: model:ir.ui.view,arch_db:payslip_report.hr_payslip_report_template_form
+msgid "Salary Rules"
+msgstr "قانون الأجور"
+
+#. module: payslip_report
+#: model:ir.model.fields,field_description:payslip_report.field_hr_payroll_report_wiz_start_date
+msgid "Start Date"
+msgstr "تاريخ البدء"
+
+#. module: payslip_report
+#: model:ir.model.fields,field_description:payslip_report.field_hr_payroll_report_wiz_hr_payslip_report_template_id
+msgid "Template"
+msgstr "نموذج"
+
+#. module: payslip_report
+#: model:ir.ui.view,arch_db:payslip_report.hr_payslip_report
+msgid "To"
+msgstr "إلى"
+
+#. module: payslip_report
+#: model:ir.model,name:payslip_report.model_hr_payslip_report_template
+msgid "hr.payslip.report.template"
+msgstr "hr.payslip.report.template"
+
+#. module: payslip_report
+#: model:ir.ui.view,arch_db:payslip_report.payroll_report_wiz_form
+msgid "or"
+msgstr "أو"
+
+#. module: payslip_report
+#: model:ir.model,name:payslip_report.model_report_payslip_report_hr_payslip_report
+msgid "report.payslip_report.hr_payslip_report"
+msgstr "report.payslip_report.hr_payslip_report"

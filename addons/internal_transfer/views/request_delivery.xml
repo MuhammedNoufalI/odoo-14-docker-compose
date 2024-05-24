@@ -1,0 +1,210 @@
+<odoo>
+    <data>
+
+        <record id="transite_locations_action" model="ir.actions.act_window">
+            <field name="name">Select Transit Location</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">transite.locations</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <record id="request_delivery_form" model="ir.ui.view">
+            <field name="name">request.delivery.form</field>
+            <field name="model">request.delivery</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                        <button name="%(internal_transfer.transite_locations_action)d" type="action" class="btn-primary" string="Transfer Material" attrs="{'invisible':['|',('state','!=','confirmed'),('hide_trans_mat_button','=',True)]}" context="{'default_transfer_material_id': active_id}"/>
+                        <button name="request_confirm_button" type="object" class="btn-primary" string="Request Approval" states="draft"/>
+                        <button name="confirm_button" type="object" class="btn-primary" string="Confirm" attrs="{'invisible':['|',('hide_confirm_button','=',False),('state','!=','awaiting_confirmation')]}"/>
+                        <field name="state" nolable="1" widget="statusbar" statusbar_visible="draft,awaiting_confirmation,confirmed,finished"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="open_linked_transfer_material_request" type="object" class="oe_stat_button" icon="fa-list-alt" attrs="{'invisible':[('hide_trans_mat_button','=',False)]}">
+                                    <field name="transfer_count" widget="statinfo" string="Transfers"/>
+                            </button>
+                        </div>
+                        <group>
+                        <div class="oe_title">
+
+                                <div class="oe_title">
+                                <h1>
+                                    <field name="name"/>
+
+                                </h1>
+                        </div>
+                        </div>
+
+
+                        </group>
+                         <!--<div attrs="{'invisible':[('hide_note_message','=',False)]}">-->
+                                        <!--<p style="color:red">Please Validate Your Transfer By Transfers Button</p>-->
+                                    <!--</div>-->
+
+                         <!--<div attrs="{'invisible':[('hide_note_message_requester','=',False)]}">-->
+                                        <!--<p style="color:red">Please Validate Your Transfer By Transfers Button</p>-->
+                                    <!--</div>-->
+
+                        <group>
+                            <group>
+                                <field name="move_type" invisible="1"/>
+                                <field name="source_company_id"/>
+                                <field name="destination_company_id"/>
+                                <field name="provider_id"/>
+                                <field name="requester_id"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="user_id" invisible="1"/>
+                                <field name="picking_type_id" invisible="0"/>
+                                <field name="provider_picking_type_id" invisible="0"/>
+                                <field name="hide_trans_mat_button" invisible="1"/>
+                                <field name="hide_confirm_button" invisible="1"/>
+                                <!--<field name="hide_note_message" invisible="1"/>-->
+                                <!--<field name="hide_note_message_requester" invisible="1"/>-->
+                            </group>
+                        </group>
+                        <group>
+                            <div>
+                            <field name="pack_operation_product_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="on_hand"/>
+                                    <field name="product_uom_id" invisible="1"/>
+                                    <field name="product_qty"/>
+                                </tree>
+                            </field>
+                            </div>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="request_delivery_tree" model="ir.ui.view">
+            <field name="name">request.delivery.tree</field>
+            <field name="model">request.delivery</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name" string="Transfer Code"/>
+                    <field name="date" />
+                    <field name="provider_id" string="Source Location"/>
+                    <field name="requester_id" string="Destination Location"/>
+                    <field name="user_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="request_delivery_action" model="ir.actions.act_window">
+            <field name="name">Transfer Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">request.delivery</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="request_delivery_menu" name="Transfer Request" parent="stock.menu_stock_inventory_control" action="request_delivery_action" />
+
+        <record model="ir.sequence" id="create_sequence_number_material_request1">
+            <field name="name">Transfer Request Sequence</field>
+            <field name="code">material.request</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="prefix">TR-/</field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_picking_form_inherit" model="ir.ui.view">
+            <field name="name">view_picking_form_inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//group/group/field[@name='partner_id']" position="after">
+                    <field name="material_request" invisible="1"/>
+                    <!--<field name="is_location_user" invisible="1"/>-->
+                </xpath>
+
+                <!--<xpath expr="//button[@name='button_validate'][1]" position="replace">-->
+                    <!--<button name="button_validate" attrs="{'invisible': ['|',('show_validate', '=', False),('is_location_user','=',False)]}" string="Validate" type="object"  class="o_btn_validate"/>-->
+
+                <!--</xpath>-->
+
+                 <!--<xpath expr="//button[@name='button_validate'][2]" position="replace">-->
+                    <!--<button name="button_validate" attrs="{'invisible': ['|',('show_validate', '=', False),('is_location_user','=',False)]}" string="Validate" type="object"  class="o_btn_validate"/>-->
+
+                <!--</xpath>-->
+
+            </field>
+        </record>
+
+         <record id="transite_locations_form" model="ir.ui.view">
+            <field name="name">transite_locations_form</field>
+            <field name="model">transite.locations</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group string="Select Your Transit Location">
+                            <field name="transit_location_id"/>
+                            <field name="transfer_material_id" invisible="1"/>
+                        </group>
+                        <footer>
+                            <button name="confirm_to_delivery" type="object" class="btn-primary" string="Confirm"/>
+                            <button name="cancel" special="cancel" class="btn-primary" string="Cancel"/>
+                        </footer>
+
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+
+        <!-- Inherit Form View to Modify it -->
+        <!--<record id="view_inventory_form_inherit1" model="ir.ui.view">-->
+            <!--<field name="name">view_inventory_form_inherit1</field>-->
+            <!--<field name="model">stock.inventory</field>-->
+            <!--<field name="inherit_id" ref="stock.view_inventory_form"/>-->
+            <!--<field name="arch" type="xml">-->
+
+                <!--<sheet position="after">-->
+                    <!--<div class="oe_chatter">-->
+                        <!--<field name="message_follower_ids" widget="mail_followers" />-->
+                        <!--<field name="message_ids" widget="mail_thread" />-->
+                    <!--</div>-->
+                 <!--</sheet>-->
+
+
+            <!--</field>-->
+        <!--</record>-->
+
+         <!-- Inherit Form View to Modify it -->
+         <!--<record id="view_location_form_inherit" model="ir.ui.view">-->
+             <!--<field name="name">view_location_form_inherit</field>-->
+             <!--<field name="model">stock.location</field>-->
+             <!--<field name="inherit_id" ref="stock.view_location_form"/>-->
+             <!--<field name="arch" type="xml">-->
+
+                 <!--<xpath expr="//field[@name='partner_id']" position="after">-->
+
+                         <!--<field name="responsible_ids" widget="many2many_tags"/>-->
+
+                 <!--</xpath>-->
+
+             <!--</field>-->
+         <!--</record>-->
+
+
+
+
+    </data>
+</odoo>

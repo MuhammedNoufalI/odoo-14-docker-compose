@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_payroll_period_form_view" model="ir.ui.view">
+            <field name="name">hc.payroll.period.form.view</field>
+            <field name="model">hc.payroll.period</field>
+            <field name="arch" type="xml">
+                <form string="Payroll Period">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed"/>
+                        <button name="action_confirm" type="object" class="btn-primary" string="Confirm"
+                                states="draft"/>
+                        <button name="set_to_draft" type="object" class="btn-primary" string="Set to Draft"
+                                states="confirmed"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="code"/>
+                            <h1>
+                                <field name="code" class="oe_inline" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="date_from" required="1"/>
+                                <field name="date_to" required="1"/>
+                                <field name="year" required="1"/>
+                                <field name="interval" force_save="1"/>
+                                <field name="payroll_type" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="payroll_period_tree_view" model="ir.ui.view">
+            <field name="name">hc.payroll.period.tree.view</field>
+            <field name="model">hc.payroll.period</field>
+            <field name="arch" type="xml">
+                <tree string="Payroll Period">
+                    <field name="code" readonly="1"/>
+                    <!--                    <field name="name"/>-->
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="year"/>
+                    <field name="interval"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="payroll_period_action">
+            <field name="name">Payroll Period</field>
+            <field name="res_model">hc.payroll.period</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="payroll_period_menu"
+                  name="Payroll Period"
+                  parent="hr_work_entry_contract.menu_hr_payroll_configuration"
+                  groups="hr_payroll.group_hr_payroll_manager"
+                  action="payroll_period_action"
+                  sequence="3"/>
+
+    </data>
+</odoo>

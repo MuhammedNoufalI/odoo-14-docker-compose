@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_employee_hc_api_logs_user,employee.hc.api.logs.user,model_hc_api_logs,hr_attendance.group_hr_attendance,1,0,0,0
+access_employee_hc_api_logs_manager,employee.hc.api.logs.manager,model_hc_api_logs,hr_attendance.group_hr_attendance_manager,1,1,1,1

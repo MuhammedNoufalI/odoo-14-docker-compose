@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="hr_clearance_form_view">
+            <field name="name">Hr Clearance Form View</field>
+            <field name="model">hr.clearance</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button string="Department Head Section" name="to_department_head" type="object"
+                                class="oe_highlight"
+                                attrs="{'invisible': [('state', 'not in',['draft'])]}"/>
+
+                        <button string="To IT Team" name="to_it_team" type="object" class="oe_highlight"
+                                attrs="{'invisible': ['|',('state', 'not in',['line_manager']),('is_line_manager','=',False)]}"/>
+
+                        <button string="To Finance Team" name="to_finance_team" type="object" class="oe_highlight"
+                                attrs="{'invisible': ['|',('state', 'not in',['it_team']),('is_it_team_user','=',False)]}"/>
+
+                        <button string="Confirm" name="button_confirm" type="object" class="oe_highlight"
+                                attrs="{'invisible': ['|',('state', 'not in',['finance']),('is_finance_user','=',False)]}"/>
+
+                        <!--                        <button string="Reset to Draft" name="button_reset_to_draft" type="object" class="oe_highlight"-->
+                        <!--                                attrs="{'invisible': [('state', 'in', ['draft'])]}"/>-->
+
+                        <button string="cancel" name="button_cancel" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('state', '==', 'canceled')]}"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,line_manager,it_team,finance,confirm,cancel"/>
+                    </header>
+                    <sheet string="Business Transfer Letter">
+                        <div class="oe_title">
+                            <h1 class="d-flex">
+                                <field name="employee_name" placeholder="Employee's Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="employee_code"
+                                       attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                                <field name="resignation_id"
+                                       attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                                <field name="contact_number"
+                                       attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}"/>
+                                <field name="job_title" attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}"/>
+                            </group>
+                            <group>
+                                <field name="last_working_day"
+                                       attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                                <field name="resignation_date"
+                                       attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}" required="1"/>
+                                <field name="business_unit"
+                                       attrs="{'readonly': [('state', 'in', ['cancel','confirm'])]}"/>
+                                <field name="is_line_manager" invisible="1"/>
+                                <field name="is_it_team_user" invisible="1"/>
+                                <field name="is_finance_user" invisible="1"/>
+                            </group>
+                        </group>
+                        <group string="DEPARTMENT HEAD / MANAGER">
+                            <field name="company_owned" string="Files/ manuals, documents (Company owned)"
+                                   attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                            <field name="company_issues" string="Tools / Resouces (Company issued)"
+                                   attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                            <field name="uniforms" string="Uniforms"
+                                   attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                            <field name="attendance_sheet" string="Attendance Sheet"
+                                   attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                            <field name="final_inventory"
+                                   string="Final Inventory (Stock / Tickets Issued / any related purchasing)"
+                                   attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                            <field name="department_keys" string="Department Keys / Store Keys / Cabinet Keys"
+                                   attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                            <field name="others" string="Others"
+                                   attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                        </group>
+                        <group>
+                            <group string="EMPLOYEE ACCOMMODATION SECTION (IF APPLICABLE)">
+                                <field name="last_day_apartment_name"
+                                       attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                                <field name="last_day_apartment" string="Last day at Apartment"
+                                       attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                                <field name="last_day_room_no"
+                                       attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                                <field name="last_day_room" string="Last day at Room"
+                                       attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                                <field name="bed_frame_cover"
+                                       string="Bed Frame (1) / Bed Mattress (1) / Bed Cover (1)"
+                                       attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                                <field name="pillow_blanket" string="Pillow (1) / Blanket (1) / Bed Sheet (2)"
+                                       attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                                <field name="apartment_key" string="Apartment Key"
+                                       attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                                <field name="locker_key" string="Locker Key"
+                                       attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                                <field name="others_accommodation"
+                                       string="Others (Value to be deducted for unreturned Items)"
+                                       attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                            </group>
+                            <group string="HUMAN RESOURCES DEPARTMENT">
+                                <field name="office_locker_keys"
+                                       string="Office Locker Keys (applicable for Coporate Office Employees)"
+                                       attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                                <field name="outstanding_bank_loans" string="Outstanding Bank Loans"
+                                       attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                                <field name="exit_interview" string="Exit Interview "
+                                       attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                                <field name="company_car_parking_card"
+                                       string="Company issued Car Parking Card / Access"
+                                       attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                                <field name="company_mobile" string="Company issued Mobile Device / SIM"
+                                       attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                                <field name="company_bank_account"
+                                       string="Company issued Bank Account Clearance (After F/S paid)"
+                                       attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                                <field name="residency_cancel"
+                                       string="Residency Cancellation / Clearance (After F/S paid)"
+                                       attrs="{'required': [('state', '=', 'line_manager')]}"/>
+                                <field name="insurance_cancel"
+                                       string="Insurance Cancellation (After Visa Cancellation)"
+                                       attrs="{'required': [('state', '=', 'line_manager')]}"/>
+                                <field name="salary_transfer" string="Salary Transfer Letter (STL) Issued"
+                                       attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                                <field name="other_fines" string="Others (Fines, Deductions)"
+                                       attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="TRAFFIC CLEARANCE (IF APPLICABLE)">
+                                <field name="drivers_clearance"
+                                       string="Drivers (Keys, vehicles, car registration card, etc.)"
+                                       attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                                <field name="penalty" string="Penalty / Fines"
+                                       attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                            </group>
+                            <group string="TRAINING SECTION (IF APPLICABLE)">
+                                <field name="training_material"
+                                       string="Training Materials/Manuals/Online Deactivation"
+                                       attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                                <field name="training_cost" string="Training Cost (Registered in the last one year)"
+                                       attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                                <field name="training_others" string="Others"
+                                       attrs="{'readonly': [('state', 'not in', ['line_manager'])],'required': [('state', '=', 'line_manager')]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="SYSTEMS / IT MANAGER">
+                                <field name="email_deactivation" string="Email Deactivation"
+                                       attrs="{'readonly': [('state', 'not in', ['it_team'])],'required': [('state', '=', 'it_team')]}"/>
+                                <field name="forwarding_to"
+                                       attrs="{'readonly': [('state', 'not in', ['it_team'])],'required': [('state', '=', 'it_team')]}"/>
+                                <field name="system_login"
+                                       string="Software System Login (SEVENROOMS, HRIS, FINANCE SYSTEM, ETC)"
+                                       attrs="{'readonly': [('state', 'not in', ['it_team'])],'required': [('state', '=', 'it_team')]}"/>
+                                <field name="laptop_desktop" string="Laptop / Desktop / IPAD / Camera"
+                                       attrs="{'readonly': [('state', 'not in', ['it_team'])],'required': [('state', '=', 'it_team')]}"/>
+                                <field name="charger_cpu" string="CHARGER / CPU"
+                                       attrs="{'readonly': [('state', 'not in', ['it_team'])],'required': [('state', '=', 'it_team')]}"/>
+                                <field name="pos_micros" string="POS / Micros"
+                                       attrs="{'readonly': [('state', 'not in', ['it_team'])],'required': [('state', '=', 'it_team')]}"/>
+                                <field name="other_system_materials" string="Others"
+                                       attrs="{'readonly': [('state', 'not in', ['it_team'])],'required': [('state', '=', 'it_team')]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="FINANCE MANAGER / SECTION">
+                                <field name="outstanding_petty" string="Outstanding Petty Cash"
+                                       attrs="{'readonly': [('state', 'not in', ['finance'])],'required': [('state', '=', 'finance')]}"/>
+                                <field name="outstanding_fines" string="Outstanding Fines, Deductions"
+                                       attrs="{'readonly': [('state', 'not in', ['finance'])],'required': [('state', '=', 'finance')]}"/>
+                                <field name="mobile_bills" string="Outstanding Mobile Bills"
+                                       attrs="{'readonly': [('state', 'not in', ['finance'])],'required': [('state', '=', 'finance')]}"/>
+                                <field name="safe_master_key" string="Safe Keys and Master Keys"
+                                       attrs="{'readonly': [('state', 'not in', ['finance'])],'required': [('state', '=', 'finance')]}"/>
+                                <field name="company_issued_car" string="Company issued Car / Petrol Card"
+                                       attrs="{'readonly': [('state', 'not in', ['finance'])],'required': [('state', '=', 'finance')]}"/>
+                                <field name="other_tips" string="Others (Tips/Bonus/Incentives)"
+                                       attrs="{'readonly': [('state', 'not in', ['finance'])],'required': [('state', '=', 'finance')]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_clearance_tree_view">
+            <field name="name">Hr Clearance Tree View</field>
+            <field name="model">hr.clearance</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employee_name"/>
+                    <field name="employee_code"/>
+                    <field name="resignation_id"/>
+                    <field name="job_title"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hr_clearance_action">
+            <field name="name">Hr Clearance</field>
+            <field name="res_model">hr.clearance</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('resignation_id','=',active_id)]</field>
+        </record>
+    </data>
+</odoo>

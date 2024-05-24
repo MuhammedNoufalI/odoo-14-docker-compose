@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="view_hr_payslip_form" model="ir.ui.view">
+            <field name="name">hr.payslip.form</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+<!--                <xpath expr="//field[@name='struct_id']" position="after">-->
+<!--                    <field name="struct_id_2"/>-->
+<!--                    <field name="struct_id_3"/>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='struct_id']" position="attributes">-->
+<!--                    <attribute name="string">Fixed Components</attribute>-->
+<!--                </xpath>-->
+
+<!--                <xpath expr="//field[@name='input_line_ids']" position="after">-->
+<!--                    <separator string="Variable Allowance"/>-->
+<!--                    <field name="allowances_ids" string="Variable Allowance" readonly="1">-->
+<!--                        <tree editable="bottom">-->
+<!--                            <field name="allowance_id" string="Variable Allowance" required="True"/>-->
+<!--                            <field name="amount" sum="Total" required="True"/>-->
+<!--                        </tree>-->
+<!--                    </field>-->
+<!--                    <separator string="Variable Deductions"/>-->
+<!--                    <field name="deduction_ids" string="Variable Deductions" readonly="1">-->
+<!--                        <tree editable="bottom">-->
+<!--                            <field name="allowance_id" string="Variable Deductions" required="True"/>-->
+<!--                            <field name="amount" sum="Total" required="True"/>-->
+<!--                        </tree>-->
+<!--                    </field>-->
+<!--                </xpath>-->
+
+            </field>
+        </record>
+    </data>
+</odoo>

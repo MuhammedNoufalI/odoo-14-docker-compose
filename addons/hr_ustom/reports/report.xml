@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report
+                id="report_export_attend"
+                model="employee.attendance"
+                string="Attendance XLSX"
+                report_type="xlsx"
+                name="hr_ustom.attendance_xlsx_template"
+                file="hr_ustom.attendance_xlsx_template"
+                menu="True"
+        />
+        <report id="report_pdf_attend"
+                model="employee.attendance"
+                string="Attendance (PDF)"
+                name="hr_ustom.print_attendance_report_template"
+                file="hr_ustom.print_attendance_report_template"
+                report_type="qweb-pdf"
+        />
+
+    </data>
+</odoo>

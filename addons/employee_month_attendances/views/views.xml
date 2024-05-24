@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+        <record id="hr_payslip_form_inherit" model="ir.ui.view">
+            <field name="name">Employee Monthly Attendance</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='contract_id']" position="after">
+                    <field name="attendance_check" invisible="1"/>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Employee Month Attendances">
+                        <field name="emp_attendance_monthly">
+                            <tree editable="bottom">
+                                <field name="check_in" force_save="1"/>
+                                <field name="check_out" force_save="1"/>
+                                <field name="actual_checkin" force_save="1"/>
+                                <field name="actual_check_out" force_save="1"/>
+                                <field name="extra_hours" force_save="1" optional="hide"/>
+                                <field name="break_hours" force_save="1" optional="hide"/>
+                                <field name="resource_calendar_id" force_save="1" optional="hide"/>
+                                <field name="late_hour" force_save="1" optional="hide"/>
+                                <field name="early_hour" force_save="1" optional="hide"/>
+                                <field name="flexible_break_hour" force_save="1" optional="hide"/>
+                                <field name="used_flexible_break_hour" force_save="1" optional="hide"/>
+                                <field name="missed_effort" force_save="1" optional="hide"/>
+                                <field name="public_holiday" force_save="1" optional="hide"/>
+                                <field name="is_special_holiday" force_save="1" optional="hide"/>
+                                <field name="is_weekend" force_save="1" optional="show"/>
+                                <field name="time_off" force_save="1" optional="hide"/>
+                                <field name="paid_leave" force_save="1" optional="hide"/>
+                                <field name="unpaid_leave" force_save="1" optional="hide"/>
+                                <field name="mandatory_hours" force_save="1" widget="float_time"/>
+                                <field name="actual_mandatory_hours" force_save="1" widget="float_time"/>
+                                <field name="state" force_save="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

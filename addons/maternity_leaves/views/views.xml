@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <record id="hr_leave_type_form_inherit" model="ir.ui.view">
+            <field name="name">hr_leave_type_form_inherit</field>
+            <field name="model">hr.leave.type</field>
+            <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='validity_stop']" position="after">
+                    <field name="is_maternity"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="payroll_form_inherit_maternity_leaves" model="ir.ui.view">
+            <field name="name">payroll_form_inherit_maternity_leaves</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_modification.payroll_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='month_annual_leave']" position="after">
+                    <field name="maternity_leaves" readonly="1" invisible="1"  force_save="1"/>
+                    <field name="maternity_leaves_half" invisible="1" readonly="1" force_save="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

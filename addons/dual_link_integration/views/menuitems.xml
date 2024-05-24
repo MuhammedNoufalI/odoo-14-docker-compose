@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- ROOT MENU -->
+    <menuitem id="dual_link_menu_root" name="Dual Link" groups="point_of_sale.group_pos_manager,point_of_sale.group_pos_user" web_icon="dual_link_integration,static/description/icon.png" sequence="6"/>
+
+    <!-- Sub Menu -->
+    <menuitem id="action_dual_link_menuitem" name="Dual Link Configuration" parent="dual_link_integration.dual_link_menu_root" action="action_dual_link_view" sequence="1"/>
+    <menuitem id="action_dual_link_place_menuitem" name="Places" parent="dual_link_integration.dual_link_menu_root" action="action_dual_link_place_view" sequence="2"/>
+    <menuitem id="action_dual_link_log_menuitem" name="Dual Link Log" parent="dual_link_integration.dual_link_menu_root" action="action_dual_link_log_view" sequence="3"/>
+</odoo>

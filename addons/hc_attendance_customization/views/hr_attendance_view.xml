@@ -1,0 +1,87 @@
+<odoo>
+    <data>
+        <record id="hr_attendance_form_inherit" model="ir.ui.view">
+            <field name="name">hr_attendance_form_inherit</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hc_shift_time.view_attendance_form_inherit_hc_shift_time"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='is_overtime_eligible']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//form/sheet" position="before">
+                    <header>
+                        <field name="state" widget="statusbar"
+                        />
+                        <button name="approve_shift_time" string="Approve" type="object" class="btn-primary" attrs="{'invisible': [('state','!=', 'draft')]}"/>
+
+                    </header>
+                </xpath>
+                <xpath expr="//group/group[2]" position="replace"/>
+                <xpath expr="//group/group[1]" position="replace"/>
+                <xpath expr="//field[@name='check_out']" position="after">
+                    <field name="actual_checkin" optional="show"/>
+                    <field name="actual_checkout" optional="show"/>
+                    <group name="employee_details" string="Employee Details">
+                        <field name="resource_calendar_id" optional="show"/>
+                        <field name="branch_id" optional="show"/>
+                        <field name="contract_id" optional="show"/>
+                        <field name="payroll_period_id" optional="hide"/>
+                    </group>
+                    <newline/>
+                    <group name="hour_calculation" string="Hour Calculation">
+                        <field name="late_hour" widget="float_time" optional="hide"/>
+                        <field name="early_hour" widget="float_time" optional="hide"/>
+                        <field name="missed_effort" widget="float_time" optional="hide"/>
+                        <field name="otime_one" widget="float_time" optional="hide"/>
+                        <field name="otime_two" widget="float_time" optional="hide"/>
+                        <field name="otime_three" widget="float_time" optional="hide"/>
+                        <field name="otime_four" widget="float_time" optional="hide"/>
+                        <field name="otime_five" widget="float_time" optional="hide"/>
+                        <field name="net_working_days" optional="hide"/>
+                        <field name="break_hours" widget="float_time" optional="hide"/>
+                        <field name="flexible_break_hour" widget="float_time" optional="hide"/>
+                        <field name="used_flexible_break_hour" widget="float_time" optional="hide"/>
+                        <field name="extra_hours" widget="float_time" optional="hide"/>
+                        <field name="mandatory_hours" widget="float_time" optional="show"/>
+                        <field name="actual_mandatory_hours" widget="float_time" optional="show"/>
+                        <field name="total_worked_hours" widget="float_time" optional="show"/>
+                    </group>
+                    <!--                    </group>-->
+
+                    <group name="leave_details" string="Leave Details">
+                        <field name="date" optional="show"/>
+                        <field name="public_holiday" optional="show" decoration-info="public_holiday"/>
+                        <field name="is_special_holiday" optional="show" decoration-info="is_special_holiday"/>
+                        <field name="is_weekend" optional="show" decoration-info="is_weekend"/>
+                        <field name="time_off" optional="show" decoration-info="time_off"/>
+                        <field name="leave_id" optional="hide"/>
+                        <field name="is_weekend_special_pay" optional="hide"/>
+                        <field name="is_flexible_day" optional="hide"/>
+                        <field name="annual_leave" optional="hide"/>
+                        <field name="halfday_leave" optional="hide" decoration-info="halfday_leave"/>
+                        <field name="paid_leave" optional="show"/>
+                        <field name="unpaid_leave" optional="show"/>
+                        <field name="is_missed_punch" optional="hide"/>
+                        <!--                        <field name="state" optional="show" readonly="1"/>-->
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <record id="hr_attendance_form_oe_inherit" model="ir.ui.view">
+            <field name="name">hr_attendance_inherit</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="employee_data_api.hr_attendance_view_form_oe_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='check_in']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='check_out']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@name='punches']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

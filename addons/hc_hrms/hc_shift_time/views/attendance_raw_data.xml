@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hc_attendance_raw_data_form_view" model="ir.ui.view">
+            <field name="name">hc.attendance.raw.data.form.view</field>
+            <field name="model">hc.raw.attendance</field>
+            <field name="arch" type="xml">
+                <form string="Raw Attendance Data" attrs="{'readonly':[('state','!=','draft')]}">
+                    <header>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,processed,exception,fixed,time_off,cancel"
+                               clickable="1"/>
+                        <button name="button_cancel" type="object" string="Cancel"
+                                class="oe_highlight" groups="hr_attendance.group_hr_attendance_manager"/>
+                        <button name="calculate_attendance" invisible="1" type="object" string="Calculate Attendance"
+                                class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="employee_id"/>
+                                <field name="badge_number"/>
+                                <field name="punched_time"/>
+                                <field name="punch_type"/>
+                                <field name="is_checkin"/>
+                                <field name="branch_id"/>
+                                <field name="device_Id"/>
+                                <field name="company_name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="hc_attendance_raw_data_tree_view" model="ir.ui.view">
+            <field name="name">hc.attendance.raw.data.tree.view</field>
+            <field name="model">hc.raw.attendance</field>
+            <field name="arch" type="xml">
+                <tree string="Raw Attendance Data" decoration-success="state == 'processed'"
+                      decoration-danger="state == 'exception'"> <!--editable="bottom"-->
+                    <header>
+                        <button name="calculate_attendance" type="object" string="Calculate Attendance"
+                                class="oe_highlight"/>
+                    </header>
+                    <field name="employee_id"/>
+                    <field name="badge_number"/>
+                    <field name="punched_time"/>
+                    <field name="punch_type" optional="hide"/>
+                    <field name="is_checkin"/>
+                    <field name="branch_id" optional="hide"/>
+                    <field name="device_Id"/>
+                    <field name="company_name"/>
+                    <field name="state" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hc_raw_attendance_search" model="ir.ui.view">
+            <field name="name">hc.raw.attendance.search</field>
+            <field name="model">hc.raw.attendance</field>
+            <field name="arch" type="xml">
+                <search string="Hr Attendance Search">
+                    <field name="employee_id"
+                           filter_domain="['|', ('employee_id.oe_emp_sequence', 'ilike', self), ('employee_id', 'ilike', self)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Employee" name="employee" context="{'group_by': 'employee_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_hc_attendance_raw_data" model="ir.actions.act_window">
+            <field name="name">Attendance Raw Data</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hc.raw.attendance</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_hr_attendance_parent_hc" name="Attendance Management"
+                  parent="hr_attendance.menu_hr_attendance_root" sequence="10"
+                  groups="hr_attendance.group_hr_attendance_user"/>
+        <menuitem id="hr_attendance.menu_hr_attendance_view_attendances" name="Attendances"
+                  parent="menu_hr_attendance_parent_hc" sequence="10" groups="hr_attendance.group_hr_attendance_user"
+                  action="hr_attendance.hr_attendance_action"/>
+        <menuitem id="menu_hc_attendance_raw_data" name="Attendance Raw Data" action="action_hc_attendance_raw_data"
+                  parent="menu_hr_attendance_parent_hc" sequence="22"/>
+
+        <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_kiosk_no_user_mode">
+            <field name="groups_id" eval="[(6,0,[ref('make_invisible')])]"/>
+            <field name="sequence" eval="99"/>
+        </record>
+        <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_my_attendances">
+            <field name="groups_id" eval="[(6,0,[ref('make_invisible')])]"/>
+            <field name="sequence" eval="99"/>
+        </record>
+    </data>
+
+</odoo>

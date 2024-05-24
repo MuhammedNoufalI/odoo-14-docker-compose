@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_hc_api_logs_form_view" model="ir.ui.view">
+            <field name="name">hc.api.logs.form.view</field>
+            <field name="model">hc.api.logs</field>
+            <field name="arch" type="xml">
+                <form string="API Logs" create="false" edit="false">
+                    <sheet>
+                        <group>
+                            <field name="name" options="{'no_create': 1, 'no_edit': 1, 'no_open': 1}"/>
+                            <field name="input" options="{'no_create': 1, 'no_edit': 1, 'no_open': 1}"/>
+                            <field name="output" options="{'no_create': 1, 'no_edit': 1, 'no_open': 1}"/>
+                            <field name="datetime" options="{'no_create': 1, 'no_edit': 1, 'no_open': 1}"/>
+                            <field name="status_code" options="{'no_create': 1, 'no_edit': 1, 'no_open': 1}"/>
+                            <field name="status_description" options="{'no_create': 1, 'no_edit': 1, 'no_open': 1}"/>
+                            <field name="return_message" options="{'no_create': 1, 'no_edit': 1, 'no_open': 1}"/>
+                            <!--                            <field name="error_message" options="{'no_create': 1, 'no_edit': 1, 'no_open': 1}"/>-->
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="hc_api_logs_tree_view" model="ir.ui.view">
+            <field name="name">hc.api.logs.tree.view</field>
+            <field name="model">hc.api.logs</field>
+            <field name="arch" type="xml">
+                <tree string="API Logs" create="false" edit="false"
+                      decoration-success="status_description == 'success'"
+                      decoration-danger="status_description == 'failed'">
+                    <field name="name"/>
+                    <field name="input" optional="hide"/>
+                    <field name="output" optional="hide"/>
+                    <field name="datetime"/>
+                    <field name="status_code"/>
+                    <field name="status_description"/>
+                    <field name="return_message"/>
+                    <!--                    <field name="error_message"/>-->
+                </tree>
+            </field>
+        </record>
+
+        <record id="hc_api_logs_search_view" model="ir.ui.view">
+            <field name="name">hc.api.logs.search.view</field>
+            <field name="model">hc.api.logs</field>
+            <field name="arch" type="xml">
+                <search string="Parameters">
+                    <!--                    <field name="status_description" string="Status"/>-->
+                    <filter string="Failed" name="status_description"
+                            help="Parameters that are used by all resources."
+                            domain="[('status_description','=','failed')]"/>
+                    <!--                    <filter string="Success" name="status_description"-->
+                    <!--                            help="Parameters that are used by all resources."-->
+                    <!--                            domain="[('status_description','=','success')]"/>-->
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hc_api_logs_action">
+            <field name="name">API Logs</field>
+            <field name="context">{"search_default_status_description": 'failed'}</field>
+            <field name="res_model">hc.api.logs</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="hc_api_logs_menu"
+                  name="API Logs"
+                  parent="hc_shift_time.hc_menu_hr_attendance_configuration"
+                  groups="hr_attendance.group_hr_attendance_manager"
+                  action="hc_api_logs_action"
+                  sequence="3"/>
+
+    </data>
+</odoo>

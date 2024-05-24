@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="planning_slot_form_inherit_branch" model="ir.ui.view">
+        <field name="name">planning.slot.form.inherit.branch</field>
+        <field name="model">planning.slot</field>
+        <field name="inherit_id" ref="planning.planning_view_form"/>
+        <field name="arch" type="xml">
+            <!--<xpath expr="//field[@name='role_id']" position="after">
+                <field name="branch_id"/>
+                <field name="resource_calendar_id"/>
+            </xpath>-->
+            <xpath expr="//field[@name='repeat']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//form/sheet/group/group[1]" position="inside">
+                <field name="hc_role_id" attrs="{'invisible':[('employee_id','!=', False)]}"/>
+                <field name="branch_id"/>
+                <field name="hc_contract_id" invisible="1"/>
+                <field name="resource_calendar_id_domain" invisible="1"/>
+                <field name="resource_calendar_id" domain="resource_calendar_id_domain"/>
+<!--                <field name="resource_calendar_id"/>-->
+                <field name="contract_start_date" invisible="1"/>
+                <field name="contract_end_date" invisible="1"/>
+            </xpath>
+            <xpath expr="//form/sheet/group/group[1]/div/field[@name='employee_id']" position="replace">
+                <field name="employee_id" context="{'from_planning': True}" options="{'no_create_edit': True}"
+                       attrs="{'invisible':[('hc_role_id','!=', False)]}" readonly="1"/>
+                <!--                <attribute name="attrs">{'invisible':[('role_id','!=', False)], 'readonly': ['|', ('start_datetime', '=', False), ('end_datetime', '=', False)]}</attribute>-->
+            </xpath>
+            <xpath expr="//field[@name='role_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!--<xpath expr="//field[@name='resource_id']" position="attributes">
+                <attribute name="attrs">{'invisible':[('role_id','!=', False)]}</attribute>
+            </xpath>-->
+        </field>
+    </record>
+
+    <record id="planning_slot_search_inherit_branch" model="ir.ui.view">
+        <field name="name">planning.slot.search.inherit.branch</field>
+        <field name="model">planning.slot</field>
+        <field name="inherit_id" ref="planning.planning_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='department_id']" position="after">
+                <field name="branch_id" groups="planning.group_planning_user"/>
+                <field name="job_id" groups="planning.group_planning_user"/>
+            </xpath>
+            <xpath expr="//group" position="inside">
+                <filter name="group_by_branch" string="Branch" context="{'group_by': 'branch_id'}"
+                        groups="planning.group_planning_user"/>
+                <filter name="group_by_job" string="Job Position" context="{'group_by': 'job_id'}"
+                        groups="planning.group_planning_user"/>
+            </xpath>
+        </field>
+    </record>
+
+    <menuitem id="planning_menu_resource_calendar"
+              parent="planning.planning_menu_settings"
+              action="resource.action_resource_calendar_form"
+              sequence="98"
+    />
+</odoo>

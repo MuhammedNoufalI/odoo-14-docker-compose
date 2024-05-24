@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_attendance_tree_inherit_hc_shift_time" model="ir.ui.view">
+            <field name="name">hr.attendance.tree.inherit.hc.shift.time</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+            <field name="arch" type="xml">
+                <field name="check_in" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                    <attribute name="string">Shift Check In</attribute>
+                </field>
+                <field name="check_out" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                    <attribute name="string">Shift Check Out</attribute>
+                </field>
+                <field name="check_out" position="after">
+                    <field name="actual_checkin" optional="show"/>
+                    <field name="actual_checkout" optional="show"/>
+                    <field name="resource_calendar_id" optional="hide"/>
+                    <field name="branch_id" optional="hide"/>
+                    <field name="contract_id" optional="hide"/>
+                    <field name="date" optional="show"/>
+                    <field name="late_hour" widget="float_time" optional="hide"/>
+                    <field name="early_hour" widget="float_time" optional="hide"/>
+                    <field name="missed_effort" widget="float_time" optional="hide"/>
+                    <field name="otime_one" widget="float_time" optional="hide"/>
+                    <field name="otime_two" widget="float_time" optional="hide"/>
+                    <field name="otime_three" widget="float_time" optional="hide"/>
+                    <field name="otime_four" widget="float_time" optional="hide"/>
+                    <field name="otime_five" widget="float_time" optional="hide"/>
+                    <field name="public_holiday" optional="hide" decoration-info="public_holiday"/>
+                    <field name="is_special_holiday" optional="hide" decoration-info="is_special_holiday"/>
+                    <field name="is_weekend" optional="hide" decoration-success="is_weekend"/>
+                    <field name="time_off" optional="hide" decoration-info="time_off"/>
+                    <field name="leave_id" optional="hide"/>
+                    <field name="is_flexible_day" optional="hide"/>
+                    <field name="consumed_flexible_day" optional="hide"/>
+                    <field name="is_weekend_special_pay" optional="hide"/>
+                    <field name="annual_leave" optional="hide"/>
+                    <field name="halfday_leave" optional="hide" decoration-info="halfday_leave"/>
+                    <field name="paid_leave" optional="hide"/>
+                    <field name="unpaid_leave" optional="hide"/>
+                    <field name="net_working_days" optional="hide"/>
+                    <field name="break_hours" widget="float_time" optional="hide"/>
+                    <field name="flexible_break_hour" widget="float_time" optional="hide"/>
+                    <field name="used_flexible_break_hour" widget="float_time" optional="hide"/>
+                    <field name="payroll_period_id" optional="show"/>
+                    <field name="extra_hours" widget="float_time" optional="hide"/>
+                    <field name="mandatory_hours" widget="float_time" optional="show"/>
+                    <field name="actual_mandatory_hours" widget="float_time" optional="show"/>
+                    <field name="total_worked_hours" widget="float_time" optional="show"/>
+                    <field name="is_missed_punch" optional="hide"/>
+                    <field name="is_overtime_eligible" optional="hide"/>
+                    <field name="state" optional="show" readonly="1"/>
+                </field>
+                <field name="worked_hours" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="decoration-success">is_special_holiday or public_holiday</attribute>
+                    <attribute name="decoration-success">is_weekend and state == 'processed' or state == 'processed'</attribute>
+                    <attribute name="decoration-danger">state == 'processed' and net_working_days == 1 or unpaid_leave</attribute>
+                    <attribute name="decoration-warning">state == 'draft'</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="action_update_weekend_mandatory_hour">
+            <field name="name">Mark Day Off</field>
+            <field name="model_id" ref="hr_attendance.model_hr_attendance"/>
+            <field name="binding_model_id" ref="hr_attendance.model_hr_attendance"/>
+            <field name="groups_id" eval="[(6,0, (ref('hr.group_hr_manager'),))]"/>
+<!--            <field name="binding_view_types">list,form</field>-->
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    for record in records:
+                        action = records.update_weekend_mandatory_hour_action()
+            </field>
+        </record>
+
+        <record id="view_attendance_form_inherit_hc_shift_time" model="ir.ui.view">
+            <field name="name">hr.attendance.form.inherit.hc.shift.time</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+            <field name="arch" type="xml">
+                 <field name="employee_id" position="replace">
+                    <h1> <field name="employee_id"/></h1>
+                </field>
+                <xpath expr="//form/sheet" position="before">
+                <header>
+                    <button name="update_weekend_mandatory_hour" groups="hr.group_hr_manager" string="Mark Day Off" type="object" confirm="Are you sure you want to mark this day off?" class="btn-primary"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                </xpath>
+                <field name="check_in" position="attributes">
+                    <attribute name="string">Shift Check In</attribute>
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="check_out" position="attributes">
+                    <attribute name="string">Shift Check Out</attribute>
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <xpath expr="//field[@name='check_out']" position="after">
+                    <field name="actual_checkin" optional="show"/>
+                    <field name="actual_checkout" optional="show"/>
+                    <group string="Employee Details" name="employee_details">
+                        <field name="contract_id" optional="show"/>
+                        <field name="resource_calendar_id" optional="show"/>
+                        <field name="branch_id" optional="show"/>
+                    </group>
+                    <group name="leave_details" string="Leave Details">
+                        <field name="date" optional="show"/>
+                        <field name="public_holiday" optional="show" decoration-info="public_holiday"/>
+                        <field name="is_special_holiday" optional="show" decoration-info="is_special_holiday"/>
+                        <field name="is_weekend" optional="show" decoration-info="is_weekend"/>
+                        <field name="time_off" optional="show" decoration-info="time_off"/>
+                        <field name="leave_id" optional="hide"/>
+                        <field name="is_weekend_special_pay" optional="hide"/>
+                        <field name="is_flexible_day" optional="hide"/>
+                        <field name="annual_leave" optional="hide"/>
+                        <field name="halfday_leave" optional="hide" decoration-info="halfday_leave"/>
+                        <field name="paid_leave" optional="show"/>
+                        <field name="unpaid_leave" optional="show"/>
+                        <field name="payroll_period_id" optional="hide"/>
+                        <field name="is_missed_punch" optional="hide"/>
+                        <field name="is_overtime_eligible" optional="show"/>
+<!--                        <field name="state" optional="show" readonly="1" invisible="1"/>-->
+                    </group>
+
+                    <group name="working_details" string="Working Details">
+                        <field name="late_hour" widget="float_time" optional="hide"/>
+                        <field name="early_hour" widget="float_time" optional="hide"/>
+                        <field name="missed_effort" widget="float_time" optional="hide"/>
+                        <field name="otime_one" widget="float_time" optional="hide"/>
+                        <field name="otime_two" widget="float_time" optional="hide"/>
+                        <field name="otime_three" widget="float_time" optional="hide"/>
+                        <field name="otime_four" widget="float_time" optional="hide"/>
+                        <field name="otime_five" widget="float_time" optional="hide"/>
+                        <field name="net_working_days" optional="hide"/>
+                        <field name="break_hours" widget="float_time" optional="hide"/>
+                        <field name="flexible_break_hour" widget="float_time" optional="hide"/>
+                        <field name="used_flexible_break_hour" widget="float_time" optional="hide"/>
+                        <field name="extra_hours" widget="float_time" optional="hide"/>
+                        <field name="mandatory_hours" widget="float_time" optional="show"/>
+                        <field name="actual_mandatory_hours" widget="float_time" optional="show"/>
+                        <field name="total_worked_hours" widget="float_time" optional="show"/>
+                    </group>
+
+                </xpath>
+                <xpath expr="//form/sheet" position="after">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="message_ids"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_attendance_view_filter_inherit_employee_id" model="ir.ui.view">
+            <field name="name">hr.attendance.search.inherit.employee_id</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.hr_attendance_view_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='employee_id']" position="attributes">
+                    <attribute name="filter_domain">
+                        ['|', ('employee_id.oe_emp_sequence', 'ilike', self), ('employee_id', 'ilike', self)]
+                    </attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="resource_calendar_attendance_view_tree_hc_shift_time" model="ir.ui.view">
+            <field name="name">resource.calendar.attendance.tree.inherit.hc_shift_time</field>
+            <field name="model">resource.calendar.attendance</field>
+            <field name="inherit_id" ref="resource.view_resource_calendar_attendance_tree"/>
+            <field name="arch" type="xml">
+                <field name="hour_from" position="before">
+                    <field name="is_check_out_next_day"/>
+                    <field name="is_flexible_day" optional="show"/>
+                </field>
+
+
+                <field name="week_type" position="before">
+                    <!--                    <field name="mandatory_hour"/>-->
+                    <!--                    <field name="previous_day_remaining"/>-->
+                    <field name="is_break" attrs="{'invisible': [('is_check_out_next_day','=',True)]}"/>
+
+                </field>
+                <xpath expr="//field[@name='week_type']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="resource_calendar_view_form_hc_shift_time" model="ir.ui.view">
+            <field name="name">resource.calendar.form.inherit.hc_shift_time</field>
+            <field name="model">resource.calendar</field>
+            <field name="inherit_id" ref="resource.resource_calendar_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='resource_details']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//group[@name='resource_details']" position="after">
+                    <group>
+                        <field name="shift_mandatory_hours" widget="float_time"/>
+                        <field name="flexible_break_time" widget="float_time"/>
+                    </group>
+
+                </xpath>
+                <xpath expr="//button[@name='switch_calendar_type']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='hours_per_day']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='hours_per_day']" position="after">
+                    <field name="flexible_break_time" widget="float_time"/>
+                </xpath>
+                <xpath expr="//group[hasclass('oe_subtotal_footer') and hasclass('oe_right')]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <menuitem id="hc_menu_hr_attendance_configuration" name="Configuration"
+                  parent="hr_attendance.menu_hr_attendance_root"
+                  sequence="99" groups="hr_attendance.group_hr_attendance_manager"/>
+
+        <menuitem id="hr_attendance.menu_hr_attendance_settings" name="Configuration"
+                  parent="hc_menu_hr_attendance_configuration"
+                  sequence="1" action="hr_attendance.action_hr_attendance_settings"
+                  groups="hr_attendance.group_hr_attendance_manager"/>
+
+        <menuitem id="hc_menu_branch" name="Branch"
+                  action="hc_branch.action_hc_branch"
+                  parent="hc_menu_hr_attendance_configuration"
+                  sequence="99"/>
+
+        <menuitem id="hr_attendance_menu_resource_calendar"
+                  parent="hc_menu_hr_attendance_configuration"
+                  action="resource.action_resource_calendar_form"
+                  sequence="98"
+        />
+        <menuitem id="hr_attendance_menu_attendance_device"
+                  parent="hc_menu_hr_attendance_configuration"
+                  action="hc_branch.action_hc_attendance_device"
+        />
+        <menuitem id="menu_hr_attendance_view_attendances" name="Attendances" parent="hr_attendance.menu_hr_attendance_manage_attendances" sequence="1" groups="hr_attendance.group_hr_attendance_user" action="hr_attendance.hr_attendance_action"/>
+
+
+    </data>
+</odoo>
+
+

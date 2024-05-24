@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="custoday_request_menu2" model="website.menu">
+            <field name="name">Custody Request</field>
+            <field name="url">/my/custody/requests</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">11</field>
+        </record>
+        <template id="my_account_link" name="Link to frontend portal" inherit_id="portal.user_dropdown">
+            <xpath expr="//*[@id='o_logout_divider']" position="before">
+                <a href="/my/custody/requests" role="menuitem" class="dropdown-item">Custody Request</a>
+            </xpath>
+        </template>
+    </data>
+</odoo>

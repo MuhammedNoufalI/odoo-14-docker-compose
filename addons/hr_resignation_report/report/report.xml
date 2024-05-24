@@ -1,0 +1,28 @@
+<odoo>
+    <data>
+        <record id="paperformat_hr_resignation_report" model="report.paperformat">
+            <field name="name">Hr Resignation Report</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">30</field>
+            <field name="margin_bottom">23</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+        <report
+                id="hr_resignation_report_dem_action"
+                string="Resignation Report"
+                model="hr.resignation"
+                name="hr_resignation_report.hr_resignation_report_dem"
+                report_type="qweb-pdf"
+                file="hr_resignation_report.hr_resignation_report_dem"
+                paperformat="hr_resignation_report.paperformat_hr_resignation_report"
+        />
+    </data>
+</odoo>

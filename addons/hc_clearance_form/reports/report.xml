@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="paperformat_new_clearance" model="report.paperformat">
+            <field name="name">US Letter</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">47</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">2</field>
+            <field name="margin_right">2</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">42</field>
+            <field name="dpi">90</field>
+        </record>
+        <record id="hr_clearance_pdf_view" model="ir.actions.report">
+            <field name="name">Print Clearance Form</field>
+            <field name="model">hr.clearance</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hc_clearance_form.report_clearance_workflow</field>
+            <field name="report_file">hc_clearance_form.report_clearance_workflow</field>
+            <field name="print_report_name">'Clearance Form'</field>
+            <field name="binding_model_id" ref="hc_clearance_form.model_hr_clearance"/>
+            <field name="paperformat_id" ref="hc_clearance_form.paperformat_new_clearance"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_business_transfer_letter,business_transfer_letter,model_business_transfer_letter,,1,1,1,1
+access_old_contract_salary_rule,old_contract_salary_rule,model_old_contract_salary_rule,,1,1,1,1

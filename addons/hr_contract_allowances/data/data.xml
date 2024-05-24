@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+         <!--<record id="hr_salary_rule_overtime" model="hr.salary.rule">-->
+                <!--<field name="code">ALLOWANCES</field>-->
+            <!--<field name="amount_select">code</field>-->
+            <!--<field name="amount_python_compute">result=(contract.get_all_allowances())-->
+            <!--</field>-->
+            <!--<field name="category_id" ref="hr_payroll.ALW"/>-->
+            <!--<field name="name">Allowances</field>-->
+            <!--<field name="sequence" eval="51"/>-->
+            <!--<field name="note">Get all overtime granted to employee</field>-->
+        <!--</record>-->
+
+        <record id="structure_type_employee" model="hr.payroll.structure.type">
+            <field name="name">Employee</field>
+            <field name="country_id" eval="False"/>
+        </record>
+<!--         <record id="structure_002" model="hr.payroll.structure">-->
+<!--            <field name="name">Regular Pay</field>-->
+<!--            <field name="type_id" ref="structure_type_employee"/>-->
+<!--            <field name="regular_pay" eval="True"/>-->
+<!--            <field name="unpaid_work_entry_type_ids" eval="[(4, ref('hr_payroll.work_entry_type_unpaid_leave'))]"/>-->
+<!--            <field name="country_id" eval="False"/>-->
+<!--        </record>-->
+
+<!--        <record id="hr_salary_rule_overtime" model="hr.salary.rule">-->
+<!--            <field name="code">ALLOWANCES</field>-->
+<!--            <field name="name">Allowances</field>-->
+<!--            <field name="category_id" ref="hr_payroll.ALW"/>-->
+<!--            <field name="amount_select">code</field>-->
+<!--            <field name="amount_python_compute">result=(contract.get_all_allowances())</field>-->
+<!--            <field name="appears_on_payslip" eval="True"/>-->
+<!--            <field name="sequence" eval="51"/>-->
+<!--            <field name="note">Get all overtime granted to employee</field>-->
+<!--            <field name="struct_id" ref="hr_payroll.structure_002"/>-->
+<!--        </record>-->
+    </data>
+</odoo>

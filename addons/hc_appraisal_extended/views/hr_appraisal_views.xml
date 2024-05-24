@@ -1,0 +1,70 @@
+<odoo>
+    <data>
+        <record id="hr_appraisal_form_inherit_hc_appraisal_extended" model="ir.ui.view">
+            <field name="name">hr.appraisal.form.inherit.hc.appraisal.extended</field>
+            <field name="model">hr.appraisal</field>
+            <field name="inherit_id" ref="hr_appraisal.view_hr_appraisal_form"/>
+            <field name="arch" type="xml">
+
+                <div name="button_box" position="inside">
+                    <button name="action_open_contract" class="oe_stat_button" icon="fa-book" type="object" groups="hr_contract.group_hr_contract_manager">
+                        <span class="o_stat_text">Contracts</span>
+                    </button>
+                </div>
+                <xpath expr="//header/button[@name='action_done']" position="attributes">
+                      <attribute name="attrs">{'invisible': [('state', 'not in','pending')]}</attribute>
+                      <attribute name="string">Validate</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_close']" position="after">
+                    <field name="new_contract_date"/>
+                </xpath>
+                <xpath expr="//sheet" position="inside">
+                    <notebook>
+                        <page string="Salary Structure" name='allowances_employee_customization'>
+                            <group string="Salary" name="wage">
+                                <field name="contract_id" invisible="1"/>
+                                <group>
+                                    <field name="wage_type"/>
+                                    <field name="total_salary"/>
+                                </group>
+                            </group>
+                            <separator string="Others" colspan="4"/>
+                            <field name="salary_rule_ids" options="{'no_open': '1'}" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="contract_id" invisible="1"/>
+                                    <field name="salary_rule_id"/>
+                                    <field name="amount" decoration-bf="1" widget="monetary"
+                                    />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="New Salary Structure" name='new_allowances_employee_customization'>
+                            <group string="New Salary" name="new_wage">
+                                <group>
+                                    <field name="new_wage_type"/>
+                                    <field name="struct_id"/>
+                                    <field name="increment_amount"/>
+                                    <field name="new_total_salary"/>
+                                    <field name="is_expected_salary_hide" invisible="1"/>
+                                    <field name="new_job_id"/>
+                                    <field name="expected_salary" attrs="{'invisible':[('is_expected_salary_hide', '=', True)]}"/>
+                                </group>
+                            </group>
+                            <separator string="Others" colspan="4"/>
+                            <field name="new_salary_rule_ids" options="{'no_open': '1'}" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="contract_id" invisible="1"/>
+                                    <field name="salary_rule_id"/>
+                                    <field name="amount" decoration-bf="1" widget="monetary"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </xpath>
+                <xpath expr="//header" position="inside">
+                    <button name="print_promotion_letter" string="Print" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['new','cancel'])]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_employee_hc_branch,employee.hc.branch,model_hc_branch,base.group_user,1,0,0,0
+access_employee_hc_branch_settings,employee.hc.branch.settings,model_hc_branch,base.group_system,1,1,1,1
+access_employee_hc_attendance_device,employee.hc.attendance.device,model_hc_attendance_device,base.group_user,1,1,1,1
+access_employee_hc_key_holder,employee.hc.key.holder,model_hc_key_holder,base.group_user,1,1,1,1
+access_employee_hc_company,employee.hc_company,model_hc_company,base.group_user,1,1,1,1
+access_branch_change_wiz,access.branch.change.wiz,model_change_branch_wiz,base.group_user,1,1,1,1

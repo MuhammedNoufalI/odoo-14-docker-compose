@@ -1,0 +1,1 @@
+from . import hc_salary_structure

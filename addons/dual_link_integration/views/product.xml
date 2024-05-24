@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="inherit_product_normal_form_view" model="ir.ui.view">
+        <field name="name">inherit_product_template_only_form_view</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="model">product.product</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='barcode']" position="after">
+                <field name="dual_link_id" />
+                <field name="source_ref" />
+                <field name="product_source_ref" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

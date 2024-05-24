@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="planning_slot_template_form_inherit_branch" model="ir.ui.view">
+         <field name="name">planning.slot.template.form.inherit.branch</field>
+         <field name="model">planning.slot.template</field>
+         <field name="inherit_id" ref="planning.planning_slot_template_view_form"/>
+         <field name="arch" type="xml">
+            <xpath expr="//field[@name='role_id']" position="after">
+                <field name="branch_id"/>
+                <field name="resource_calendar_id"/>
+            </xpath>
+         </field>
+    </record>
+</odoo>

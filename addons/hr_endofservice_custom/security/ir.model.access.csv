@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_custom_resource_calendar,hr_custom.custom_resource_calendar,model_custom_resource_calendar,,1,1,1,1
+access_employee_attendance,hr_custom.employee_attendance,model_employee_attendance,,1,1,1,1
+access_employee_attendance_lines,hr_custom.employee_attendance_lines,model_employee_attendance_lines,,1,1,1,1
+access_employee_absent_lines,hr_custom.employee_absent_lines,model_employee_absent_lines,,1,1,1,1
+access_employee.attendance.multi,employee.attendance.multi,model_employee_attendance_multi,,1,1,1,1

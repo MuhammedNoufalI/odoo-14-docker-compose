@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <template id="my_account_link_profile" name="Link to frontend portal" inherit_id="portal.user_dropdown">
+        <xpath expr="//a[@id='o_logout']" position="before">
+            <a href="/my/employee/data" role="menuitem" class="dropdown-item">
+                <span style="color:black;font-weight: bold;">My Profile</span>
+            </a>
+        </xpath>
+    </template>
+    </data>
+</odoo>

@@ -1,0 +1,89 @@
+<odoo>
+    <data>
+        <record id="air_ticket_request_form" model="ir.ui.view">
+            <field name="name">Air Ticket Request Form</field>
+            <field name="model">ticket.request</field>
+            <field name="arch" type="xml">
+                <form string="Air Ticket Request Form">
+                    <header>
+                        <button string="Submit" name="to_submit_request" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('state', 'not in',['draft'])]}"/>
+
+                        <button string="Rest To Draft" name="hr_reset_to_draft" type="object"
+                                class="oe_highlight"
+                                attrs="{'invisible': [('state', 'not in', ['submit'])]}"/>
+
+                        <button string="Employee Manager Approval" name="employee_manager_approval_state" type="object"
+                                class="oe_highlight"
+                                attrs="{'invisible': [('state', 'not in', ['submit'])]}"/>
+                        <button string="Hr approved" name="hr_approval_state" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('state', 'not in', ['line_manager'])]}"/>
+                        <button string="Apply to Payslip" name="apply_to_payslip" type="object" class="oe_highlight"
+                                attrs="{'invisible': ['|',('state', 'not in', ['hr_approval']),('amount_to_payslip','=',True)]}"/>
+
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,submit,line_manager,hr_approval"/>
+                    </header>
+                    <sheet string="Air Ticket Request Form">
+                        <group>
+                            <group>
+                                <field name="employee_id"/>
+                                <field name="employee_code"/>
+                                <field name="request_date"/>
+                                <field name="ticket_policy" invisible="1"/>
+                                <field name="ticket_entitlement"/>
+                                <field name="ticket_availed" readonly="1" force_save="1"/>
+                                <field name="ticket_accrued" readonly="1" force_save="1"/>
+                                <field name="ticket_balance" readonly="1" force_save="1"/>
+                                <field name="service_days" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="ticket_type"/>
+                                <field name="ticket_amount" attrs="{'readonly': [('ticket_type', '=','fixed')]}"
+                                       force_save="1"/>
+                                <field name="payroll_period" required="1"/>
+                                <field name="country_from"/>
+                                <field name="country_to"/>
+                                <field name="amount_to_payslip" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="air_ticket_request_list">
+            <field name="name">Air Ticket Request Form</field>
+            <field name="model">ticket.request</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employee_id"/>
+                    <field name="employee_code"/>
+                    <field name="request_date"/>
+                    <field name="ticket_type"/>
+                    <field name="ticket_policy"/>
+                    <field name="ticket_amount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="air_ticket_request_action_window">
+            <field name="name">Air Ticket Request Form</field>
+            <field name="res_model">ticket.request</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="air_ticket_request_action_form_window">
+            <field name="name">Air Ticket Request Form</field>
+            <field name="res_model">ticket.request</field>
+            <field name="view_mode">tree,form</field>
+             <field name="domain">[('leave_id','=',active_id)]</field>
+        </record>
+
+        <menuitem name="Air Ticket Request" id="air_ticket_request" parent="hr.menu_hr_employee_payroll"
+                  action="air_ticket_request_action_window" groups="hr.group_hr_manager"/>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,23 @@
+<odoo>
+    <record id="ir_cron_leave_allocation_expiry" model="ir.cron">
+        <field name="name">Allocated Leave Auto Expiry</field>
+        <field name="model_id" ref="model_hr_leave_allocation"/>
+        <field name="state">code</field>
+        <field name="code">model.leave_allocation_expiry()</field>
+         <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+
+    <record id="ir_cron_auto_leave_allocation" model="ir.cron">
+        <field name="name">Automated Leave Allocation</field>
+        <field name="model_id" ref="model_hr_leave_allocation"/>
+        <field name="state">code</field>
+        <field name="code">model.auto_leave_allocation()</field>
+         <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+</odoo>

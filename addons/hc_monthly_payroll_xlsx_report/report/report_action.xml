@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+         <record id="report_monthly_payroll_wiz_xlsx" model="ir.actions.report">
+            <field name="name">Monthly Payroll Report</field>
+            <field name="model">monthly.payroll.wiz</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">hc_monthly_payroll_xlsx_report.payroll_xlsx</field>
+            <field name="report_file">hc_monthly_payroll_xlsx_report.payroll_xlsx</field>
+            <field name="binding_model_id" ref="model_monthly_payroll_wiz"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

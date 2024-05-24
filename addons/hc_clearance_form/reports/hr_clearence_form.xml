@@ -1,0 +1,1252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_clearance_workflow">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <table width="100%">
+                            <tr style="background-color:#E1F6FF;">
+                                <td colspan="2" height="50px">
+                                    <h4>
+                                        <center>CLEARANCE FORM</center>
+                                    </h4>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="50%">
+                                    <table>
+                                        <tr>
+                                            <td width="25%">
+                                                Name of Employee
+                                            </td>
+                                            <td width="25%">
+                                                <span t-field="o.employee_name"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="25%">
+                                                Staff ID.
+                                            </td>
+                                            <td width="25%">
+                                                :
+                                                <span t-field="o.employee_code"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="25%">
+                                                Position
+                                            </td>
+                                            <td width="25%">
+                                                :
+                                                <span t-field="o.job_title"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="25%">
+                                                Contact No.
+                                            </td>
+                                            <td width="25%">
+                                                :
+                                                <span t-field="o.contact_number"/>
+                                            </td>
+
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td width="50%">
+                                    <table>
+                                        <tr>
+                                            <td width="25%">
+                                                Resignation Date:
+                                            </td>
+                                            <td width="25%">
+                                                <span t-field="o.resignation_date"/>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+
+                                            <td width="25%">
+                                                Last Working day
+                                            </td>
+                                            <td width="25%">
+                                                :
+                                                <span t-field="o.last_working_day"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="25%">
+                                                Business Unit
+                                            </td>
+                                            <td width="25%">
+                                                :
+                                                <span t-field="o.business_unit"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <table width="100%" class="table table-bordered"
+                               style="width:100%;padding-top:20px;border-color: black;border-style: solid;">
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    DEPARTMENT / SECTIONS FOR CLEARANCE (IN SEQUENTIAL ORDER)
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    CLEARED / (YES)
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    NOT CLEARED / (NO)
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    NOT APPLICABLE
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    SIGNATORIES (Department / Section Head)
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;background-color:#E1F6FF;">
+                                <td style="margin:2px;border-color: black;padding:2px;" colspan="5">
+                                    DEPARTMENT HEAD / MANAGER
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Files/ manuals, documents (Company owned)
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.company_owned == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.company_owned == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.company_owned == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;padding:2px;" rowspan="7">
+
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Tools / Resouces (Company issued)
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.company_issues == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.company_issues == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.company_issues == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Uniforms
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.uniforms == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.uniforms == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.uniforms == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Attendance Sheet
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.attendance_sheet == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.attendance_sheet == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.attendance_sheet == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Final Inventory (Stock / Tickets Issued / any related purchasing)
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.final_inventory == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.final_inventory == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.final_inventory == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Department Keys / Store Keys / Cabinet Keys
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.department_keys == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.department_keys == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.department_keys == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Others
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.others == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.others == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.others == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;background-color:#E1F6FF;">
+                                <td style="margin:2px;border-color: black;padding:2px;" colspan="5">
+                                    FINANCE MANAGER / SECTION
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Outstanding Petty Cash
+                                </td>
+                                <td style="margin:2px;border-color: black;padding:2px;" class="text-center">
+                                    <t t-if="o.outstanding_petty == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.outstanding_petty == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;padding:2px;" class="text-center">
+                                    <t t-if="o.outstanding_petty == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;padding:2px;" rowspan="6">
+
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Outstanding Fines, Deductions
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.outstanding_fines == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.outstanding_fines == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.outstanding_fines == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Outstanding Mobile Bills
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.mobile_bills == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.mobile_bills == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.mobile_bills == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Safe Keys and Master Keys
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.safe_master_key == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.safe_master_key == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.safe_master_key == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Company issued Car / Petrol Card
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.company_issued_car == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.company_issued_car == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.company_issued_car == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Others (Tips/Bonus/Incentives)
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.other_tips == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.other_tips == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.other_tips == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;background-color:#E1F6FF;">
+                                <td style="margin:2px;border-color: black;padding:2px;" colspan="5">
+                                    EMPLOYEE ACCOMODATION SECTION (IF APPLICABLE)
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Last day at Apartment Name :
+                                    <span t-field="o.last_day_apartment_name"/>
+                                </td>
+                                <td style="margin:2px;border-color: black;padding:2px;" class="text-center">
+                                    <t t-if="o.last_day_apartment == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;padding:2px;" class="text-center">
+                                    <t t-if="o.last_day_apartment == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;padding:2px;" class="text-center">
+                                    <t t-if="o.last_day_apartment == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;padding:2px;" rowspan="7">
+
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Last day at Room No.
+                                    <span t-field="o.last_day_room_no"/>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.last_day_room == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.last_day_room == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.last_day_room == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Bed Frame (1) / Bed Mattress (1) / Bed Cover (1)
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.bed_frame_cover == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.bed_frame_cover == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.bed_frame_cover == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Pillow (1) / Blanket (1) / Bed Sheet (2)
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.pillow_blanket == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.pillow_blanket == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.pillow_blanket == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Apartment Key
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.apartment_key == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.apartment_key == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.apartment_key == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Locker Key
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.locker_key == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.locker_key == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.locker_key == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Others (Value to be deducted for unreturned Items)
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.others_accommodation == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.others_accommodation == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.others_accommodation == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;background-color:#E1F6FF;">
+                                <td style="margin:2px;border-color: black;padding:2px;" colspan="5">
+                                    TRAININIG SECTION (IF APPLICABLE)
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Training Materials/Manuals/Online Deactivation
+                                </td>
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.training_material == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.training_material == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.training_material == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;padding:2px;" rowspan="3">
+
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Training Cost (Registered in the last one year)
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.training_cost == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.training_cost == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.training_cost == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Others
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.training_others == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.training_others == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.training_others == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;background-color:#E1F6FF;">
+                                <td style="margin:2px;border-color: black;padding:2px;" colspan="5">
+                                    TRAFFIC CLEARANCE (IF APPLICABLE)
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Drivers (Keys, vehicles, car registration card, etc.)
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.drivers_clearance == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.drivers_clearance == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.drivers_clearance == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;padding:2px;" rowspan="2">
+
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Penalty / Fines
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.penalty == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.penalty == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.penalty == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;background-color:#E1F6FF;">
+                                <td style="margin:2px;border-color: black;padding:2px;" colspan="5">
+                                    SYSTEMS / IT MANAGER
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Email Deactivation or Forwarding to
+                                    <span t-field="o.forwarding_to"/>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.email_deactivation == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.email_deactivation == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.email_deactivation == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;padding:2px;" rowspan="6">
+
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Software System Login (SEVENROOMS, HRIS, FINANCE SYSTEM, ETC)
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.system_login == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.system_login == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.system_login == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Laptop / Desktop / IPAD / Camera
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.laptop_desktop == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.laptop_desktop == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.laptop_desktop == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    CHARGER / CPU
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.charger_cpu == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.charger_cpu == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.charger_cpu == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    POS / Micros
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.pos_micros == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.pos_micros == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.pos_micros == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Others
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.other_system_materials == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.other_system_materials == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.other_system_materials == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;background-color:#E1F6FF;">
+                                <td style="margin:2px;border-color: black;padding:2px;" colspan="5">
+                                    HUMAN RESOURCES DEPARTMENT
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Office Locker Keys (applicable for Coporate Office Employees)
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.office_locker_keys == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.office_locker_keys == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.office_locker_keys == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                                <td style="margin:2px;border-color: black;padding:2px;" rowspan="10">
+
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Oustanding Bank Loans
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.outstanding_bank_loans == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.outstanding_bank_loans == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.outstanding_bank_loans == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Exit Interview
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.exit_interview == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.exit_interview == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.exit_interview == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Company issued Car Parking Card / Access
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.company_car_parking_card == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.company_car_parking_card == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.company_car_parking_card == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Company issued Mobile Device / SIM
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.company_mobile == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.company_mobile == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.company_mobile == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Company issued Bank Account Clearance (After F/S paid)
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.company_bank_account == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.company_bank_account == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.company_bank_account == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Residency Cancellation / Clearance (After F/S paid)
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.residency_cancel == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.residency_cancel == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.residency_cancel == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Insurance Cancellation (After Visa Cancellation)
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.insurance_cancel == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.insurance_cancel == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.insurance_cancel == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Salary Transfer Letter (STL) Issued
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.salary_transfer == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.salary_transfer == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.salary_transfer == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td style="margin:2px;border-color: black;padding:2px;">
+                                    Others (Fines, Deductions)
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.other_fines == 'cleared'">
+                                        <t>
+                                            YES
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.other_fines == 'not_cleared'">
+                                        <t>
+                                            NO
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;">
+                                    <t t-if="o.other_fines == 'not_applicable'">
+                                        <t>
+                                            NA
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="margin:2px;border-color: black;padding:2px;">
+                                <td class="text-center" style="margin:2px;border-color: black;padding:2px;" colspan="5">
+                                    Processing of final settlement payment will take 7 business days at the HR and
+                                    Finance
+                                    department after submitting this original clearance form to HR department.
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_zk_punch_line_user,zk.punch.line.user,employee_data_api.model_zk_punch_line,hr_attendance.group_hr_attendance_manager,1,1,1,1
+access_zk_punch_line_system_user,zk.punch.line.system.user,employee_data_api.model_zk_punch_line,base.group_user,1,0,1,0
+access_zk_teco_attendance,zk.teco.attendance,employee_data_api.model_zk_teco_attendance,hr_attendance.group_hr_attendance_manager,1,1,1,1

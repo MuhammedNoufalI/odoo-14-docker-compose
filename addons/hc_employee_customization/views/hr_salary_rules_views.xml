@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_salary_rule_view_form_employee_customization" model="ir.ui.view">
+        <field name="name">hr.salary.rule.form.view.employee_customization</field>
+        <field name="model">hr.salary.rule</field>
+        <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form"/>
+        <field name="arch" type="xml">
+            <field name="appears_on_payslip" position="after">
+                <field name="update_to_contract"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="hr_payroll_structure_type_view_form_hc_contract_customization" model="ir.ui.view">
+        <field name="name">hr.payroll.structure.type.form.hc.contract.customization</field>
+        <field name="model">hr.payroll.structure.type</field>
+        <field name="inherit_id" ref="hr_payroll.hr_payroll_structure_type_view_form"/>
+        <field name="arch" type="xml">
+            <field name="default_resource_calendar_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+
+</odoo>

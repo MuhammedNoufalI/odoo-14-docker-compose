@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="external_layout_hr_payroll">
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"/>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+            <t t-call="payslip_report.external_layout_header_new"/>
+            <t t-raw="0"/>
+            <div t-field="company.report_footer"/>
+        </template>
+        <template id="external_layout_header_new">
+            <div class="header">
+                <div class="row" style="border: solid black 2px;font-size:13pt">
+                    <div class="col-xs-4">
+                        <p>
+                            <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo"
+                                 style="width:80px;height:100px;" align="center"/>
+                        </p>
+                    </div>
+                    <div class="col-xs-4" style="text-align:center;">
+                        <br/>
+                        <br/>
+                        <p>
+                            كشف اجور ورواتب الموظفين
+                        </p>
+                    </div>
+                    <div class="col-xs-4" style="text-align:right;">
+                        <p>
+                            Egypro FME
+                        </p>
+                        <p>
+                            إدارة الموارد البشرية
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+    </data>
+</odoo>

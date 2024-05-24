@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_hc_over_time_type_form_view" model="ir.ui.view">
+            <field name="name">hc.over.time.type.form.view</field>
+            <field name="model">hc.over.time.type</field>
+            <field name="arch" type="xml">
+                <form string="Over Time Types">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="description"/>
+                                <field name="over_time_type"/>
+                                <field name="event_type" attrs="{'invisible': [('over_time_type', '!=', 'event_based')],
+                                                                'required': [('over_time_type', '=', 'event_based')]}"/>
+                                <field name="from_time" widget="float_time" attrs="{'invisible': [('over_time_type', '!=', 'time_based')],
+                                                                'required': [('over_time_type', '=', 'time_based')]}"/>
+                                <field name="to_time" widget="float_time" attrs="{'invisible': [('over_time_type', '!=', 'time_based')],
+                                                                'required': [('over_time_type', '=', 'time_based')]}"/>
+                            </group>
+
+                            <group>
+                                <field name="value"/>
+                                <field name="over_time_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="hc_over_time_type_tree_view" model="ir.ui.view">
+            <field name="name">hc.over.time.type.tree.view</field>
+            <field name="model">hc.over.time.type</field>
+            <field name="arch" type="xml">
+                <tree string="Over Time Types">
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="over_time_type"/>
+                    <field name="event_type"/>
+                    <field name="value"/>
+                    <field name="over_time_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hc_over_time_type_action">
+            <field name="name">Over Time Types</field>
+            <field name="res_model">hc.over.time.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="hc_over_time_type_menu"
+                  name="Over Time Types"
+                  parent="hc_shift_time.hc_menu_hr_attendance_configuration"
+                  groups="base.group_user"
+                  action="hc_over_time_type_action"
+                  sequence="3"/>
+
+    </data>
+</odoo>

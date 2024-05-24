@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="sequence_passport_req_seq" model="ir.sequence">
+            <field name="name">passport_req_seq</field>
+            <field name="code">passport_req_seq</field>
+            <field name="prefix">REQ</field>
+            <field name="padding">5</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+        </record>
+    </data>
+</odoo>

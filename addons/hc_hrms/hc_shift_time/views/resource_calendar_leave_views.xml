@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- <record id="resource_calendar_leaves_tree_inherit_hc_shift_time" model="ir.ui.view">
+            <field name="name">resource.calendar.leaves.tree.inherit.hc.shift.time</field>
+            <field name="model">resource.calendar.leaves</field>
+            <field name="inherit_id" ref="hr_holidays.resource_calendar_leaves_tree_inherit"/>
+            <field name="arch" type="xml">
+                <field name="date_from" position="before">
+                    <field name="date" required="1"/>
+                    <field name="is_special_holiday"/>
+                </field>
+                <field name="date_from" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="date_to" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="calendar_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="work_entry_type_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record> -->
+
+        <record id="resource_calendar_form_inherit_hc_shift_time" model="ir.ui.view">
+            <field name="name">resource.calendar.form.inherit.hc.shift.time</field>
+            <field name="model">resource.calendar</field>
+            <field name="inherit_id" ref="resource.resource_calendar_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet" position="before">
+                    <header>
+                        <field name="state" widget="statusbar" force_save="1"/>
+                    </header>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
+
+

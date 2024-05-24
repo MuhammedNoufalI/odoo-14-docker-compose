@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+                <record id="email_template_edi_payslip" model="mail.template">
+            <field name="name">Payslip: Send PS</field>
+            <field name="model_id" ref="hr_payroll.model_hr_payslip"/>
+            <field name="subject">${object.company_id.name} Payslip (Ref ${object.name or 'n/a' })</field>
+            <field name="partner_to">${object.employee_id.address_id.id}</field>
+            <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Dear ${object.employee_id.name}
+
+                    <br/><br/>
+                    Here is in attachment a Payslip  <strong>${object.name}</strong>
+                    from ${object.company_id.name}.
+                    <br/><br/>
+                </p>
+            </div></field>
+            <field name="report_template" ref="ps_report.report_hr_payslip"/>
+            <field name="report_name">PS_${(object.name or '').replace('/','_')}</field>
+            <field name="lang">${object.employee_id.address_id.lang}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

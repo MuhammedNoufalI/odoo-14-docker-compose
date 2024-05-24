@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+       <record model="ir.rule" id="stock.stock_location_comp_rule">
+            <field name="name">Location multi-company</field>
+            <field name="model_id" ref="stock.model_stock_location"/>
+            <field name="domain_force">[]</field>
+        </record>
+    </data>
+</odoo>

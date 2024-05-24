@@ -1,0 +1,466 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+    <record id="view_evaluation_request_report_graph" model="ir.ui.view">
+        <field name="name">hr.employee.request.graph</field>
+        <field name="model">hr.employee.request</field>
+        <field name="arch" type="xml">
+            <graph string="Appraisal Analysis" stacked="True">
+                <field name="employee_id" type="row"/>
+                <field name="request_type_id" type="row"/>
+                <field name="date_from" type="col"/>
+                <field name="number_of_days" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_hr_requests_filter" model="ir.ui.view">
+        <field name="name">hr.employee.request.filter</field>
+        <field name="model">hr.employee.request</field>
+        <field name="arch" type="xml">
+            <search string="Search request">
+                <field name="employee_id"/>
+                <field name="department_id"/>
+                <field name="request_type_id"/>
+                <field name="first_approver_id"/>
+                <field name="second_approver_id"/>
+                <filter domain="[('state','in',('confirm','validate'))]" string="To Approve" name="approve"/>
+                <filter string="Approved Requests" domain="[('state', '=', 'done')]" name="validated"/>
+                <separator/>
+                <filter name="active_types" string="Active Types" domain="[('request_type_id.active', '=', True)]"
+                        help="Filters only on requests that belong to an request type that is 'active' (active field is True)"/>
+                <separator/>
+                <filter string="My Department Request" name="department"
+                        domain="[('department_id.member_ids.user_id', '=', uid)]" help="My Department requests"/>
+                <filter string="My Team Requests" name="my_team_requests"
+                        domain="[('employee_id.parent_id.user_id', '=', uid)]" help="requests of Your Team Member"/>
+                <separator/>
+                <filter string="To Report in Payslip" name="gray" domain="[('payslip_status', '=', False)]"/>
+                <separator/>
+                <filter string="To Do" name="todo"
+                        domain="[('payslip_status', '=', False), ('request_type_id.active', '=', True)]"/>
+                <separator/>
+                <filter name="year" string="Current Year"
+                        domain="[('request_type_id.active', '=', True)]" help="Active requests"/>
+                <separator/>
+                <filter string="My requests" name="my_requests" domain="[('employee_id.user_id', '=', uid)]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter name="group_employee" string="Employee" context="{'group_by':'employee_id'}"/>
+                    <filter name="group_category" string="Category" context="{'group_by':'category_id'}"/>
+                    <filter name="group_first_approver_id" string="Validator 1"
+                            context="{'group_by':'first_approver_id'}"/>
+                    <filter name="group_second_approver_id" string="Validator 2"
+                            context="{'group_by':'second_approver_id'}"/>
+                    <filter name="group_type" string="Type" context="{'group_by':'request_type_id'}"/>
+                    <separator/>
+                    <filter name="group_date_from" string="Start Date" context="{'group_by':'date_from'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="hr_request_view_kanban" model="ir.ui.view">
+        <field name="name">hr.employee.request.view.kanban</field>
+        <field name="model">hr.employee.request</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" create="0">
+                <field name="employee_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="number_of_days"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click container">
+                            <div class="row no-gutters">
+                                <div class="col-2">
+                                    <img t-att-src="kanban_image('hr.employee', 'image_small', record.employee_id.raw_value)"
+                                         t-att-title="record.employee_id.value"
+                                         t-att-alt="record.employee_id.value"
+                                         width="40" height="40"
+                                         class="oe_kanban_avatar float-left mr4 col-md-"/>
+                                </div>
+                                <div class="col-10">
+                                    <span class="badge badge-pill float-right mt4 mr16">
+                                        <t t-esc="record.number_of_days.value"/>
+                                        days
+                                    </span>
+                                    <strong class="o_kanban_record_title">
+                                        <t t-esc="record.employee_id.value"/>
+                                    </strong>
+                                    <div class="o_dropdown_kanban dropdown">
+                                        <a role="button" class="dropdown-toggle o-no-caret btn" data-toggle="dropdown"
+                                           href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                            <span class="fa fa-ellipsis-v"/>
+                                        </a>
+                                        <div class="dropdown-menu" role="menu">
+                                            <a t-if="widget.editable" role="menuitem" type="edit" class="dropdown-item">
+                                                Edit Request
+                                            </a>
+                                            <a t-if="widget.deletable" role="menuitem" type="delete"
+                                               class="dropdown-item">Delete
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row no-gutters justify-content-end">
+                                <div class="col-2">
+                                    <span class="text-muted">from</span>
+                                </div>
+                                <div class="col-8">
+                                    <t t-esc="record.date_from.value"/>
+                                </div>
+                                <div class="w-100"></div>
+                                <div class="col-2">
+                                    <span class="text-muted">to</span>
+                                </div>
+                                <div class="col-8">
+                                    <t t-esc="record.date_to.value"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="hr_request_view_form" model="ir.ui.view">
+        <field name="name">hr.employee.request.view.form</field>
+        <field name="model">hr.employee.request</field>
+        <field name="priority">32</field>
+        <field name="arch" type="xml">
+            <form string="request Request">
+                <header>
+                    <button string="Confirm" name="action_confirm" states="draft" type="object" class="oe_highlight"/>
+                    <button string="Approve" name="action_approve" states="confirm" type="object" class="oe_highlight"/>
+                    <button string="Validate" name="action_validate" states="validate" type="object"
+                            class="oe_highlight"/>
+                    <button string="Refuse" name="action_refuse" type="object"
+                            attrs="{'invisible': [('state', 'not in', ('confirm','validate','done'))]}"/>
+                    <button string="Cancel" name="action_cancel" type="object"
+                            attrs="{'invisible': [('state', 'not in', ('confirm','validate','done'))]}"/>
+                    <button string="Reset to Draft" name="action_draft" type="object" states="cancel,refuse"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done"/>
+                </header>
+                <sheet>
+
+                    <group>
+                        <group>
+                            <field name="request_type_id"
+                                   context="{'employee_id':employee_id, 'default_date_from':date_from}"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="number_of_days" invisible="1"/>
+                            <field name="display_type" invisible="1"/>
+                            <label for="request_date_from" string="From"
+                                   attrs="{'invisible': [('display_type', '=', 'other')]}"/>
+
+                            <div attrs="{'invisible': [('display_type', '=', 'other')]}">
+                                <div class="o_row o_row_readonly o_hr_holidays_dates">
+                                    <field name="request_date_from" class="oe_inline"
+                                           attrs="{'readonly': [('state', 'not in', ('draft', 'confirm'))], 'invisible': [('display_type', '!=', 'days')], 'required': [('display_type', '=', 'days')]}"/>
+                                    <span class="oe_inline"
+                                          attrs="{'invisible': [('display_type', '!=', 'days')]}">
+                                        To
+                                    </span>
+                                    <field name="request_date_to" class="oe_inline"
+                                           attrs="{
+                                        'readonly': [('state', 'not in', ('draft', 'confirm'))],  'invisible': [('display_type', '!=', 'days')], 'required': [('display_type', '=', 'days')]}"/>
+                                </div>
+                                <div class="o_row o_row_readonly o_hr_holidays_dates">
+                                    <field name="date_from" class="oe_inline"
+                                           attrs="{ 'readonly': [('state', 'not in', ('draft', 'confirm'))], 'invisible': [('display_type', '!=', 'hours')], 'required': [('display_type', '=', 'hours')]}"/>
+                                    <span class="oe_inline"
+                                          attrs="{ 'readonly': [('state', 'not in', ('draft', 'confirm'))], 'invisible': [('display_type', '!=', 'hours')], 'required': [('display_type', '=', 'hours')]}">
+                                        To
+                                    </span>
+                                    <field name="date_to" class="oe_inline"
+                                           attrs="{ 'readonly': [('state', 'not in', ('draft', 'confirm'))], 'invisible': [('display_type', '!=', 'hours')], 'required': [('display_type', '=', 'hours')]}"/>
+                                </div>
+                            </div>
+                            <label for="number_of_days_display" string="Duration"
+                                   attrs="{'invisible': [('display_type', '=', 'other')]}"/>
+                            <div attrs="{'invisible': [('display_type', '=', 'other')]}">
+                                <div attrs="{'invisible': [('display_type', 'not in', ('days'))]}">
+                                    <field name="number_of_days_display" nolabel="1" class="oe_inline"/>
+                                    <span class="ml8">Days</span>
+                                </div>
+
+                                <div attrs="{'invisible': [('display_type', 'not in', ('hours'))]}">
+                                    <field name="number_of_hours_display" nolabel="1" class="oe_inline"/>
+                                    <span class="ml8">Hours</span>
+                                </div>
+                            </div>
+
+                            <label for="no_days" string="Days"
+                                   attrs="{'invisible': [('display_type', '!=', 'other')]}"/>
+                            <div attrs="{'invisible': [('display_type', '!=', 'other')]}">
+                                <div class="o_row o_row_readonly o_hr_holidays_dates">
+                                    <field name="no_days" class="oe_inline"
+                                           attrs="{ 'readonly': [('state', 'not in', ('draft', 'confirm'))], 'required': [('display_type', '=', 'other')]}"/>
+                                    <span class="oe_inline">
+                                        Hours
+                                    </span>
+                                    <field name="no_hours" class="oe_inline"
+                                           attrs="{ 'readonly': [('state', 'not in', ('draft', 'confirm'))], 'required': [('display_type', '=', 'other')]}"/>
+                                </div>
+                            </div>
+                        </group>
+                        <group name="col_right">
+                            <field name="request_date" required="1"/>
+                            <field name="employee_id" invisible="1"/>
+                            <field name="department_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="fixed_amount_display"
+                                   attrs="{'invisible': [('display_type', 'not in', ('fixed_amount'))]}"/>
+                        </group>
+                        <group>
+
+                        </group>
+                    </group>
+                    <field name="notes" attrs="{'readonly': [('state', 'not in', ('draft', 'confirm'))]}"
+                           placeholder="Describe the request..."/>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_request_view_form_manager" model="ir.ui.view">
+        <field name="name">hr.employee.request.view.form.manager</field>
+        <field name="model">hr.employee.request</field>
+        <field name="inherit_id" ref="hr_request_view_form"/>
+        <field name="mode">primary</field>
+        <field name="priority">16</field>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='col_right']" position="replace">
+                <group>
+                    <field name="request_type" string="Mode"/>
+                    <field name="request_date" required="1"/>
+                    <field name="employee_id" attrs="{
+                        'required': [('request_type', '=', 'employee')],
+                        'invisible': [('request_type', '!=', 'employee')]
+                        }"/>
+                    <field name="mode_company_id" attrs="{
+                        'required': [('request_type', '=', 'company')],
+                        'invisible': [('request_type', '!=', 'company')]
+                        }"/>
+                    <field name="category_id" attrs="{
+                        'required': [('request_type', '=', 'category')],
+                        'invisible': [('request_type', '!=','category')]
+                        }"/>
+                    <field name="department_id" attrs="{
+                        'required': [('request_type', '=', 'department')],
+                        'invisible': [('request_type', 'not in', ('employee', 'department'))]
+                        }"/>
+                    <field name="payslip_status" widget="toggle_button" invisible="1"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_request_view_tree" model="ir.ui.view">
+        <field name="name">hr.employee.request.view.tree</field>
+        <field name="model">hr.employee.request</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="state == 'refuse'" decoration-info="state == 'draft'" string="Requests">
+                <field name="employee_id"/>
+                <field name="request_type" string="Mode" groups="base.group_no_one"/>
+                <field name="request_type_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="state"/>
+                <field name="payslip_status" widget="toggle_button" invisible="1"
+                       options='{"active": "Reported in last payslips", "inactive": "To Report in Payslip"}'/>
+                <field name="category_id" invisible="1"/>
+                <field name="department_id" invisible="1"/>
+                <field name="user_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <menuitem
+            name="Requests"
+            id="menu_hr_requests_root"
+            sequence="95"
+            web_icon="hr_employee_request,static/description/icon.png"
+            groups="base.group_user"/>
+
+    <menuitem
+            id="menu_hr_requests_my_requests"
+            name="My requests"
+            parent="menu_hr_requests_root"
+            sequence="3"/>
+
+    <menuitem
+            id="menu_hr_requests_approvals"
+            name="Managers"
+            groups="hr_employee_request.group_hr_requests_manager"
+            parent="menu_hr_requests_root"
+            sequence="4"
+    />
+    <menuitem
+            id="hr_requests_menu_manager_approve"
+            name="To Approve"
+            parent="menu_hr_requests_approvals"
+
+            sequence="1"/>
+    <menuitem
+            id="hr_requests_menu_manager_all"
+            name="All"
+            parent="menu_hr_requests_approvals"
+
+            sequence="2"/>
+
+    <menuitem
+            id="menu_hr_requests_report"
+            name="Reporting"
+            parent="menu_hr_requests_root"
+            sequence="99"/>
+
+    <record id="hr_request_action_new_request" model="ir.actions.act_window">
+        <field name="name">New Request</field>
+        <field name="res_model">hr.employee.request</field>
+        <field name="view_mode">tree,form,activity</field>
+        <field name="context">{}</field>
+        <field name="domain">[('user_id', '=', uid)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new request
+            </p>
+            <p>
+                Once you have recorded your request, it will be sent
+                to a manager for validation. Be sure to set the right request
+                type and the exact number of open days related to your request.
+            </p>
+        </field>
+    </record>
+    <record id="hr_request_action_new_request_view_tree" model="ir.actions.act_window.view">
+        <field name="sequence">2</field>
+        <field name="view_mode">tree</field>
+        <field name="act_window_id" ref="hr_request_action_new_request"/>
+        <field name="view_id" ref="hr_request_view_tree"/>
+    </record>
+    <record id="hhr_request_action_new_request_view_form" model="ir.actions.act_window.view">
+        <field name="sequence">3</field>
+        <field name="view_mode">form</field>
+        <field name="act_window_id" ref="hr_request_action_new_request"/>
+        <field name="view_id" ref="hr_request_view_form"/>
+    </record>
+
+    <menuitem
+            id="hr_request_menu_new_request"
+            parent="menu_hr_requests_my_requests"
+            action="hr_request_action_new_request"
+            sequence="2"/>
+
+    <record id="hr_request_action_all" model="ir.actions.act_window">
+        <field name="name">Requests</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.employee.request</field>
+        <field name="view_mode">tree,kanban,form,activity</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new request
+            </p>
+        </field>
+    </record>
+
+    <record id="hr_request_action_action_approve_department" model="ir.actions.act_window">
+        <field name="name">Department requests</field>
+        <field name="res_model">hr.employee.request</field>
+        <field name="view_mode">tree,kanban,form,activity</field>
+        <field name="context">{
+            'search_default_department':1,
+            'search_default_approve':1}
+        </field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new request
+            </p>
+        </field>
+    </record>
+
+    <record id="hr_request_action_action_department" model="ir.actions.act_window">
+        <field name="name">Requests Analysis</field>
+        <field name="res_model">hr.employee.request</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="context">{
+            'search_default_department_id': [active_id],
+            'default_department_id': active_id}
+        </field>
+        <field name="domain">[('request_type','=','employee')]</field>
+    </record>
+
+    <menuitem
+            id="menu_open_department_request_approve"
+            name="Requests"
+            groups="hr_employee_request.group_hr_requests_manager"
+            parent="hr_requests_menu_manager_approve"
+            action="hr_request_action_action_approve_department"
+            sequence="1"/>
+    <menuitem
+            id="menu_open_employee_request"
+            name="Requests"
+            groups="hr_employee_request.group_hr_requests_manager"
+            parent="hr_requests_menu_manager_all"
+            action="hr_request_action_all"
+            sequence="1"/>
+
+
+    <record id="view_request_pivot" model="ir.ui.view">
+        <field name="name">hr.employee.request.report_pivot</field>
+        <field name="model">hr.employee.request</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <pivot string="Requests Summary">
+                <field name="employee_id" type="row"/>
+                <field name="date_from" type="col"/>
+                <field name="number_of_days" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_request_graph" model="ir.ui.view">
+        <field name="name">hr.employee.request.report_graph</field>
+        <field name="model">hr.employee.request</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <graph string="Requests Summary">
+                <field name="employee_id"/>
+                <field name="number_of_days" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_hr_available_requests_report" model="ir.actions.act_window">
+        <field name="name">Requests Analysis</field>
+        <field name="res_model">hr.employee.request</field>
+        <field name="view_mode">graph,pivot,form</field>
+        <field name="context">{'search_default_requests':1}</field>
+    </record>
+
+    <record id="action_window_request_graph" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="view_request_graph"/>
+        <field name="act_window_id" ref="action_hr_available_requests_report"/>
+    </record>
+
+    <menuitem
+            name="Requests Analysis"
+            id="menu_hr_available_requests_report_tree"
+            action="action_hr_available_requests_report"
+            parent="menu_hr_requests_report" sequence="5"/>
+
+</odoo>

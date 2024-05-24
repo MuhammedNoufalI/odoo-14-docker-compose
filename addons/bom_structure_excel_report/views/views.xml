@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+        <report
+                id="boms_mrp_report_excel_id"
+                string="BoM Structure &amp; Cost Excel Report"
+                model="mrp.bom"
+                report_type="xlsx"
+                file="bom_structure_excel_report.all_product_excel"
+                name="bom_structure_excel_report.all_product_excel"
+        />
+
+    </data>
+</odoo>

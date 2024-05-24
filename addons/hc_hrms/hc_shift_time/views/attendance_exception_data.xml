@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hc_attendance_exception_form_view" model="ir.ui.view">
+            <field name="name">hc.attendance.raw.data.form.view</field>
+            <field name="model">hc.attendance.exception</field>
+            <field name="arch" type="xml">
+                <form string="Attendance Exceptions Data">
+                    <header>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,requested,approved,processed,denied"
+                               clickable="1"/>
+                        <button string="Create Exception Request" states="draft" name="create_exception_request" type="object"
+                                class="oe_highlight"/>
+                        <button string="Approve" states="requested" name="button_approve" type="object" class="oe_highlight"/>
+                        <button string="Hr Approve" confirm="Make Sure To Check Whether This Exception is a Missed Check In/Check Out" states="approved"
+                                name="button_hr_approve" type="object" class="oe_highlight"/>
+                        <button string="Deny" name="button_deny" type="object" class="oe_highlight"/>
+                    </header>
+
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="employee_id"/>
+                                <field name="badge_number"/>
+<!--                                <field name="company_name"/>-->
+                                <field name="datetime"/>
+                                <field name="date"/>
+                               </group>
+                            <group>
+                                 <field name="resource_calendar_id"/>
+                                <field name="branch_id"/>
+                                <field name="comments"/>
+                                <field name="is_missed_punch" required="1" readonly="1"/>
+<!--                                <field name="datetime"/>-->
+
+<!--                                <field name="branch_id"/>-->
+<!--                                <field name="attendance_id"/>-->
+<!--                                <field name="check_in" force_save="1"/>-->
+<!--                                <field name="check_out" force_save="1"/>-->
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Raw Attendances">
+                                <field name="raw_attendance_line_ids" widget="one2many" mode="tree"
+                                       context="{'default_exception_id': id,'default_branch_id': branch_id,
+                                        'default_badge_number': badge_number,'default_employee_id': employee_id, 'default_state': 'exception'}">
+                                    <tree editable="bottom" string="Raw Attendances">
+                                        <field name="exception_id" force_save="1" readonly="1"/>
+                                        <field name="employee_id" force_save="1" readonly="1"/>
+                                        <field name="badge_number" force_save="1" readonly="1"/>
+                                        <field name="company_name" force_save="1" readonly="1"/>
+                                        <field name="punched_time"/>
+<!--                                        <field name="branch_id" required="0" force_save="1"/>-->
+<!--                                        <field name="company_name" force_save="1"/>-->
+                                        <field name="punch_type" readonly="0"/>
+                                        <field name="is_checkin" readonly="1"/>
+                                         <field name="state" readonly="1" force_save="1"/>
+                                        <button name="button_duplicate_raw_line" states="exception"
+                                        type="object" class="fa fa-copy" context="{'default_exception_id': exception_id}"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Attendance">
+                                <field name="comp_attendance_line_ids" widget="one2many" mode="tree">
+                                    <tree string="Attendances">
+                                        <field name="check_in" optional="show"/>
+                                        <field name="check_out" optional="show"/>
+                                        <field name="actual_checkin" optional="show"/>
+                                        <field name="actual_checkout" optional="show"/>
+                                        <field name="resource_calendar_id"/>
+                                        <field name="branch_id"/>
+                                        <field name="date" optional="show"/>
+                                        <field name="late_hour" widget="float_time" optional="show"/>
+                                        <field name="early_hour" widget="float_time" optional="show"/>
+                                        <field name="missed_effort" widget="float_time" optional="show"/>
+                                        <field name="otime_one" widget="float_time" optional="show"/>
+                                        <field name="otime_two" widget="float_time" optional="show"/>
+                                        <field name="otime_three" widget="float_time" optional="show"/>
+                                        <field name="public_holiday" optional="show"/>
+                                        <field name="paid_leave" optional="show"/>
+                                        <field name="unpaid_leave" optional="show"/>
+                                        <field name="net_working_days" optional="show"/>
+                                        <field name="total_worked_hours" widget="float_time"/>
+                                        <field name="break_hours" widget="float_time"/>
+                                        <field name="extra_hours" widget="float_time"/>
+                                        <field name="mandatory_hours" widget="float_time"/>
+                                        <field name="is_missed_punch"/>
+                                        <field name="is_overtime_eligible"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+<!--                             <page string="Exceptions">-->
+<!--                                <field name="comp_exception_line_ids" widget="one2many" mode="tree">-->
+<!--                                    <tree string="Exceptions">-->
+<!--                                        <field name="employee_id"/>-->
+<!--                                        <field name="resource_calendar_id"/>-->
+<!--                                        <field name="datetime"/>-->
+<!--                                        <field name="date" optional="hidden"/>-->
+<!--                                        <field name="notes"/>-->
+<!--                                         <field name="check_in"/>-->
+<!--                                        <field name="check_out"/>-->
+<!--                                        <field name="attendance_id" invisible="1"/>-->
+<!--                                        <field name="state"/>-->
+<!--                                    </tree>-->
+<!--                                </field>-->
+<!--                            </page>-->
+
+                        </notebook>
+                    </sheet>
+                     <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="hc_attendance_exceptions_tree_view" model="ir.ui.view">
+            <field name="name">hc.attendance.raw.data.tree.view</field>
+            <field name="model">hc.attendance.exception</field>
+            <field name="arch" type="xml">
+                <tree string="Attendance Exceptions Data"> <!--editable="bottom"-->
+                    <field name="name"/>
+                    <field name="employee_id"/>
+<!--                    <field name="notes"/>-->
+<!--                    <field name="datetime"/>-->
+                    <field name="branch_id"/>
+                    <field name="state"/>
+                    <field name="attendance_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_hc_attendance_exceptions" model="ir.actions.act_window">
+            <field name="name">Attendance Exceptions Data</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hc.attendance.exception</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_hc_attendance_exceptions" name="Attendance Exceptions Data"
+                  action="action_hc_attendance_exceptions"
+                  parent="menu_hr_attendance_parent_hc" sequence="22"/>
+    </data>
+
+</odoo>

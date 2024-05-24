@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="employee_structure_type" model="hr.payroll.structure.type">
+        <field name="name">Employee</field>
+        <field name="country_id" eval="False"/>
+    </record>
+    <record id="employee_structure" model="hr.payroll.structure">
+        <field name="name">Employee Structure</field>
+        <field name="type_id" ref="hr_endofservice_custom.employee_structure_type"/>
+        <field name="country_id" eval="False"/>
+    </record>
+    <record id="hr_rule_endofservice" model="hr.salary.rule">
+        <field name="name">End Of Service</field>
+        <field name="sequence" eval="99"/>
+        <field name="code">EOS</field>
+        <field name="category_id" ref="hr_payroll.ALW"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="struct_id" ref="hr_endofservice_custom.employee_structure"/>
+        <field name="amount_python_compute">result = employee.get_gratuity_amount()</field>
+    </record>
+    <record id="hr_rule_endofservice_balance_allowence" model="hr.salary.rule">
+        <field name="name">End Of Service Balance Allowence</field>
+        <field name="sequence" eval="99"/>
+        <field name="code">EOS_BALW</field>
+        <field name="category_id" ref="hr_payroll.ALW"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="struct_id" ref="hr_endofservice_custom.employee_structure"/>
+        <field name="amount_python_compute">result = employee.get_balance_allowence_amount()</field>
+    </record>
+</odoo>

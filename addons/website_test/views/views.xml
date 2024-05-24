@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data >
+        <record id="menu_leave_form" model="website.menu">
+            <field name="name">Leave Request</field>
+            <field name="url">/leave/form</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">1</field>
+        </record>
+
+        <template id="my_account_link" name="Link to frontend portal" inherit_id="portal.user_dropdown">
+            <xpath expr="//*[@id='o_logout_divider']" position="before">
+                <a href="/leave/form" role="menuitem" class="dropdown-item">Leave Request</a>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

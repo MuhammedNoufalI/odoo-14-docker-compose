@@ -1,0 +1,29 @@
+<odoo>
+  <data>
+     <!-- Inherit Form View to Modify it -->
+     <record id="view_inherit_view_account_payment_form" model="ir.ui.view">
+         <field name="name">view_inherit_view_account_payment_form</field>
+         <field name="model">account.payment</field>
+         <field name="inherit_id" ref="account.view_account_payment_form"/>
+         <field name="arch" type="xml">
+             
+             <!-- position: after|before|replace|attributes|inside -->
+             <xpath expr="//button[@name='action_post']" position="after">
+                 <field name="request_approval_show_first" invisible="1"/>
+                 <field name="check_first_request" invisible="1"/>
+                 <field name="check_second_request" invisible="1"/>
+                 <field name="hide_request_approval_first" invisible="1"/>
+                 <field name="show_approved_button" invisible="1"/>
+                 <field name="show_doo_hod_approved" invisible="1"/>
+                 <button name="first_request_approval_button" string="Request Doo/Hod approval" class="btn-primary" type="object" attrs="{'invisible':['|',('request_approval_show_first','=',False),('hide_request_approval_first','=',True)]}"/>
+                 <button name="second_request_approval_button" string="Doo/Hod approved" class="btn-primary" groups="vendor_payment_approval.hod_manager,asset_request_management.doo_approvals" attrs="{'invisible':['|','|',('state','!=','draft'),('show_doo_hod_approved','=',True),('payment_type','!=','outbound')]}" type="object"/>
+                 <button name="button_approve" string="Doo/Ceo approved" class="btn-primary" groups="asset_request_management.doo_approvals,vendor_payment_approval.ceo_manager" type="object" attrs="{'invisible':['|','|',('state','!=','draft'),('show_approved_button','=',False),('payment_type','!=','outbound')]}"/>
+             </xpath>
+            <xpath expr="//button[@name='action_post']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|',('state', '!=', 'draft'),('payment_type','=','outbound')]}</attribute>
+             </xpath>
+             
+         </field>
+     </record>
+  </data>
+</odoo>

@@ -1,0 +1,43 @@
+<odoo>
+
+    <template id="website_employee_attendance" name="Attendances">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Attendances</t>
+            </t>
+
+            <t>
+                <h4 style="color:green;">Attendances</h4>
+            </t>
+            <t t-if="not attendance">
+                <p>There are currently no attendance for your account.</p>
+            </t>
+            <t t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th class="text-left">Employee</th>
+                        <th class="text-center">Check In</th>
+                        <th class="text-center">Check Out</th>
+
+                    </tr>
+                </thead>
+                <t t-foreach="attendance" t-as="line">
+                    <tr>
+                        <td class="text-left">
+                            <span t-esc="line['employee_id']"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-esc="line['check_in']"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-esc="line['check_out']"/>
+                        </td>
+
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+        <report id="report_hr_payslip"
+                model="hr.payslip"
+                string="Print Payslip Report"
+                name="ps_report.print_payslip_report_template"
+                file="ps_report.print_payslip_report_template"
+                report_type="qweb-pdf"
+                menu="True"
+        />
+    </data>
+</odoo>

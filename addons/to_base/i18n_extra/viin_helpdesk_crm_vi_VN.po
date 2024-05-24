@@ -1,0 +1,71 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* base
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-12-25 05:01+0000\n"
+"PO-Revision-Date: 2021-12-25 05:01+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: base
+#: model:ir.module.module,summary:base.module_viin_helpdesk_crm
+msgid ""
+"\n"
+"Helpdesk CRM Integration\n"
+msgstr ""
+"\n"
+"Tích hợp Helpdesk với CRM \n"
+
+#. module: base
+#: model:ir.module.module,description:base.module_viin_helpdesk_crm
+msgid ""
+"\n"
+"What it does \n"
+"============\n"
+"This module integrates Helpdesk and CRM apps to optimize the customer relationship management process\n"
+"\n"
+"Key Features\n"
+"============\n"
+"* Create a new ticket and attach it to an Opportunity\n"
+"* Convert Lead/Opportunity into Tickets\n"
+"* By creating tickets, you can select or create a new Lead/Opportunity to attach to the ticket itself\n"
+"* Allow providing Lead/Opportunity information to the tickets report to calculate the number of tickets assigned to each Lead/Opportunity\n"
+"\n"
+"Supported Editions\n"
+"==================\n"
+"1. Community Edition\n"
+"2. Enterprise Edition\n"
+"\n"
+"    "
+msgstr ""
+"\n"
+"Mô tả\n"
+"=====\n"
+"Mô-đun này tích hợp ứng dụng Trung Tâm Hỗ Trợ và Quản Trị Quan Hệ Khách Hàng (CRM) để tối ưu hóa quy trình quản lý quan hệ khách hàng\n"
+"\n"
+"Tính năng nổi bật\n"
+"=================\n"
+"* Tạo Phiếu hỗ trợ mới và gắn nó vào Cơ hội \n"
+"* Chuyển đổi Tiềm năng/Cơ hội thành Phiếu hỗ trợ\n"
+"* Từ phần Phiếu hỗ trợ, có thể chọn hoặc tạo mới 1 Tiềm năng/Cơ hội để gắn vào chính phiếu đó\n"
+"* Bổ sung thông tin Tiềm năng/Cơ hội vào báo cáo của Phiếu hỗ trợ để thống kê được số lượng Phiếu hỗ trợ gán với từng Tiềm năng/Cơ hội\n"
+"\n"
+"Ấn bản được hỗ trợ\n"
+"==================\n"
+"1. Ấn bản Community\n"
+"2. Ấn bản Enterprise\n"
+"\n"
+"    "
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_viin_helpdesk_crm
+msgid "Helpdesk CRM Integration"
+msgstr "Tích hợp Helpdesk với CRM"

@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_inherit_account_journal_form" model="ir.ui.view">
+            <field name="name">view_inherit_account_journal_form</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+
+                <!-- position: after|before|replace|attributes|inside -->
+                <xpath expr="//notebook" position="inside">
+                    <page name="payment_limit_approval" string="Payment Limit Approval">
+                        <group>
+                            <group>
+                                <field name="payment_limit"/>
+                            </group>
+                            <group></group>
+                        </group>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

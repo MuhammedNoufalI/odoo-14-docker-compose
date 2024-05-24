@@ -1,0 +1,190 @@
+<odoo>
+    <data>
+
+        <template id="tmp_leave_form" name="leave Form">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="container">
+                        <div class="col-md-12">
+                            <form action="/leave/form/submit">
+                                <center>
+                                    <h3>
+                                        <p style="padding-top:30px">New Leave Request</p>
+                                    </h3>
+                                </center>
+                                <br/>
+                                <t t-if="warn_message">
+                                    <div class="alert alert-warning" id="message" role="alert">
+                                        <t t-esc="warn_message"/>
+                                    </div>
+                                </t>
+                                <!--#url/controller to called on the form action.-->
+                                <div width="100%">
+                                    <div style="float:left;width:50%">
+                                        <div class="form-group">
+                                            <label for="name">Description:</label>
+                                            <input type="text" class="form-control" name="name" t-att-value="name" id="name"
+                                                   required="true"/>
+                                            <!--#label and id of the fields to be created in the form.These fields should be present in the model for the entry of the data into the database.#          -->
+                                        </div>
+                                        <div stile="width:700px">
+                                            <div style="float:left;width:50%">
+                                                <label for="employee_id" class="control-lable">Employee:</label>
+                                                <select name="employee_id" class="form-control link-style" required="1">
+                                                    <t t-foreach="employee_recs" t-as="employee">
+                                                        <option t-esc="employee.name" t-att-value="employee.id"/>
+                                                    </t>
+                                                </select>
+                                            </div>
+
+                                            <div style="float:right;width:50%">
+                                                <label for="holiday_status_id" class="control-lable">Leave Type:</label>
+                                                <select name="holiday_status_id" class="form-control link-style" required="1">
+                                                    <option t-esc="holi.name" t-att-value="holi.id"/>
+                                                    <t t-foreach="holiday_status_recs" t-as="holiday">
+                                                        <option t-esc="holiday.name" t-att-value="holiday.id"/>
+                                                    </t>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+
+                                        <div style="width:500px">
+                                            <div width="35%" style="float:left">
+                                                <label for="request_date_from">From Date:</label>
+                                                <input type="date" class="form-control" name="request_date_from"
+                                                       id="request_date_from" t-att-value="date_from" required="true"/>
+                                            </div>
+                                            <div width="35%" style="float:right">
+                                                <label for="request_date_to">To Date:</label>
+                                                <input type="date" class="form-control" name="request_date_to"
+                                                       id="request_date_to" t-att-value="date_to"  required="true"/>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <div>
+                                            <button type="submit" style="float:left" class="btn btn-primary">Create
+                                                Leave
+                                                Request
+                                            </button>
+                                        </div>
+
+                                        <br/>
+                                        <br/>
+                                        <br/>
+
+                                        <!--<div class="form-group">-->
+                                        <!--<label for="name">Phone:</label>-->
+                                        <!--<input type="text" class="form-control" name="phone" id="phone" required="true" />-->
+                                        <!--</div>-->
+
+                                    </div>
+                                    <div style="float:right;width:45%">
+                                        <br/>
+                                        <center>
+                                            <h3>
+                                                <span>Your Leaves Details</span>
+                                            </h3>
+                                        </center>
+                                        <div style="position: relative;height: 200px;overflow-x:auto;display: block;">
+                                            <table class="table table-hover table-sm table-condensed table-bordered"
+                                                   style="border-width:2px;border-color:black" dir="ltr">
+                                                <thead>
+                                                    <th style=" background-color: #3d4a7d;color:#fff" colspan="1"
+                                                        scope="colgroup" class="text-center">Leave Type
+                                                    </th>
+                                                    <th style=" background-color: #3d4a7d;color:#fff" colspan="1"
+                                                        scope="colgroup" class="text-center">From
+                                                    </th>
+                                                    <th style=" background-color: #3d4a7d;color:#fff" colspan="1"
+                                                        scope="colgroup" class="text-center">To
+                                                    </th>
+                                                    <th style=" background-color: #3d4a7d;color:#fff" colspan="1"
+                                                        scope="colgroup" class="text-center">Duration
+                                                    </th>
+                                                    <th style=" background-color: #3d4a7d;color:#fff" colspan="1"
+                                                        scope="colgroup" class="text-center">State
+                                                    </th>
+                                                </thead>
+                                                <tbody>
+                                                    <t t-foreach="employye_leaves" t-as="leave">
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                <t t-esc="leave.holiday_status_id.display_name"/>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <span t-field="leave.request_date_from"/>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <span t-field="leave.request_date_to"/>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <t t-esc="leave.number_of_days_display"/>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <!--<t t-esc="leave.state"/>-->
+                                                                <t t-esc="dict(leave.fields_get(allfields=['state'])['state']['selection'])[leave.state]"/>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br/>
+                                <br/>
+                                <div>
+                                    <!--<button type="submit" style="float:left" class="btn btn-primary">Create Leave-->
+                                    <!--Request-->
+                                    <!--</button>-->
+
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+
+        <template id="tmp_leave_form_success" name="Leave Request Successfully Submitted">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="container">
+                        <div class="col-md-12">
+                            <div class="alert alert-success">
+                                Leave Request created successfully.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!--<template id="tmp_leave_form_failed" name="Leave Request Not Submitted">-->
+        <!--<t t-call="website.layout">-->
+        <!--<div id="wrap">-->
+        <!--<div class="container">-->
+        <!--<div class="col-md-12">-->
+        <!--<div class="alert alert-success">-->
+        <!--The number of remaining leaves is not sufficient for this leave type Please also check the leaves waiting for validation.-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</t>-->
+        <!--</template>-->
+
+
+    </data>
+</odoo>

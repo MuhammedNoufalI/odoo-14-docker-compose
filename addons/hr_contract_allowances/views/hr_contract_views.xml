@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="hr_contract_hour_price_view_form" model="ir.ui.view">
+            <field name="name">hr.contract.form</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='main_info']/group[@name='yearly_advantages']" position="replace">
+                </xpath>
+                <xpath expr="//group[@name='main_info']/group[@name='salary_and_advantages']" position="attributes">
+                    <attribute name="string">Contractual Fixed Salary</attribute>
+                </xpath>
+                <xpath expr="//div[@name='wage']" position="after">
+                    <label for="basic"/>
+                    <div class="o_row" name="basic">
+                        <field name="basic" nolabel="1"/>
+                        <span>/ month</span>
+                    </div>
+
+                    <label for="hra"/>
+                    <div class="o_row" name="hra">
+                        <field name="hra" nolabel="1"/>
+                        <span>/ month</span>
+                    </div>
+
+                    <label for="other_allowance"/>
+                    <div class="o_row" name="other_allowance">
+                        <field name="other_allowance" nolabel="1"/>
+                        <span>/ month</span>
+                    </div>
+
+                    <!--                    <label for="wa"/>-->
+                    <!--                    <div class="o_row" name="gross_salary">-->
+                    <!--                        <field name="gross_salary"  nolabel="1" readonly="True"/>-->
+                    <!--                        <span>/ month</span>-->
+                    <!--                    </div>-->
+
+                    <!--                    <label for="medical_reimbursement"/>-->
+                    <!--                    <div class="o_row" name="medical_reimbursement">-->
+                    <!--                        <field name="medical_reimbursement"  nolabel="1"/>-->
+                    <!--                        <span>/ month</span>-->
+                    <!--                    </div>-->
+
+                    <!--                    <label for="other_reimbursement"/>-->
+                    <!--                    <div class="o_row" name="other_reimbursement">-->
+                    <!--                        <field name="other_reimbursement"  nolabel="1"/>-->
+                    <!--                        <span>/ month</span>-->
+                    <!--                    </div>-->
+
+                    <!--                    <label for="new_joiners_unpaid_salary"/>-->
+                    <!--                    <div class="o_row" name="new_joiners_unpaid_salary">-->
+                    <!--                        <field name="new_joiners_unpaid_salary"  nolabel="1"/>-->
+                    <!--                        <span>/ month</span>-->
+                    <!--                    </div>-->
+
+                    <!--                    <field name="allowances_ids" string="Variable Allowance">-->
+                    <!--                        <tree editable="bottom">-->
+                    <!--                            <field name="allowance_id" string="Variable Allowance" required="True"/>-->
+                    <!--                            <field name="amount" sum="Total" required="True"/>-->
+                    <!--                        </tree>-->
+                    <!--                    </field>-->
+                    <!--                    <field name="deduction_ids" string="Variable Deductions">-->
+                    <!--                        <tree editable="bottom">-->
+                    <!--                            <field name="allowance_id" string="Variable Deductions"  required="True"/>-->
+                    <!--                            <field name="amount" sum="Total" required="True"/>-->
+                    <!--                        </tree>-->
+                    <!--                    </field>-->
+                </xpath>
+                <!--                <xpath expr="//group[@name='main_info']" position="after">-->
+                <!--                    <group>-->
+                <!--                        <group string='Monthly Deductions' name="monthly_deductions">-->
+                <!--                            <label for="hra_deduction"/>-->
+                <!--                            <div class="o_row" name="hra_deduction">-->
+                <!--                                <field name="hra_deduction"  nolabel="1"/>-->
+                <!--                                <span>/ month</span>-->
+                <!--                            </div>-->
+
+                <!--                            <label for="absent_days"/>-->
+                <!--                            <div class="o_row" name="absent_days">-->
+                <!--                                <field name="absent_days"  nolabel="1"/>-->
+                <!--                                <span>/ month</span>-->
+                <!--                            </div>-->
+
+                <!--                            <label for="loan"/>-->
+                <!--                            <div class="o_row" name="loan">-->
+                <!--                                <field name="loan"  nolabel="1"/>-->
+                <!--                                <span>/ month</span>-->
+                <!--                            </div>-->
+
+                <!--                            <label for="other_deductions"/>-->
+                <!--                            <div class="o_row" name="other_deductions">-->
+                <!--                                <field name="other_deductions"  nolabel="1"/>-->
+                <!--                                <span>/ month</span>-->
+                <!--                            </div>-->
+
+                <!--                            <label for="rta"/>-->
+                <!--                            <div class="o_row" name="rta">-->
+                <!--                                <field name="rta"  nolabel="1"/>-->
+                <!--                                <span>/ month</span>-->
+                <!--                            </div>-->
+
+                <!--                            <label for="ticket_deduction"/>-->
+                <!--                            <div class="o_row" name="ticket_deduction">-->
+                <!--                                <field name="ticket_deduction"  nolabel="1"/>-->
+                <!--                                <span>/ month</span>-->
+                <!--                            </div>-->
+
+                <!--                            <label for="visa_fines"/>-->
+                <!--                            <div class="o_row" name="visa_fines">-->
+                <!--                                <field name="visa_fines"  nolabel="1"/>-->
+                <!--                                <span>/ month</span>-->
+                <!--                            </div>-->
+                <!--                            <label for="insurance_premium_deduction"/>-->
+                <!--                            <div class="o_row" name="insurance_premium_deduction">-->
+                <!--                                <field name="insurance_premium_deduction"  nolabel="1"/>-->
+                <!--                                <span>/ month</span>-->
+                <!--                            </div>-->
+                <!--                        </group>-->
+                <!--                    </group>-->
+                <!--                </xpath>-->
+
+            </field>
+        </record>
+        <record id="view_hr_allowance_form" model="ir.ui.view">
+            <field name="name">hr.allowance.form</field>
+            <field name="model">hr.allowance</field>
+            <field name="arch" type="xml">
+                <form string="Units">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                       options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="e.g. Retail"/>
+                            </h1>
+                        </div>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="action_hr_allowances" model="ir.actions.act_window">
+            <field name="name">Allowances</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.allowance</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add new allowance type
+                </p>
+            </field>
+        </record>
+        <menuitem
+                id="hr_menu_allowances"
+                action="action_hr_allowances"
+                parent="hr.menu_human_resources_configuration"
+                sequence="5"/>
+
+
+    </data>
+</odoo>

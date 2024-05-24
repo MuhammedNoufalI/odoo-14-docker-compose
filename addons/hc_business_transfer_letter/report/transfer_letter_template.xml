@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_transfer_letter">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        To:
+                        <br/>
+                        Name :
+                        <span t-field="o.employee_name"/>
+                        <br/>
+                        Employee Code :
+                        <span t-field="o.employee_code"/>
+                        <br/>
+                        <br/>
+                        <h5>
+                            <t>SUBJECT : EMPLOYEE TRANSFER TO ANOTHER BUSINESS UNIT</t>
+                        </h5>
+                        <br/>
+                        <br/>
+                        <t>Dear</t>&#160;&#160;<span t-field="o.employee_name"/>,
+                        <br/>
+                        <p>
+                            This is to inform you that you will be transferred from &#160; <span
+                                t-field="o.old_business_unit"/>&#160;to&#160;<span t-field="o.business_unit"/>, Dubai under
+                            the management of Demind Firma Management L.L.C, effective Date
+                        </p>
+                        <t>Current Position and Remuneration Package per Calendar Month</t>
+                        <br/>
+                        <br/>
+                        <center>
+                            <table class="table table-bordered"
+                                   style="width:520px;padding-top:20px;border-color: black;border-style: solid;">
+                                <tr style="padding:2px; margin:2px;border-color: black;">
+                                    <td style="padding:2px; margin:2px;border-color: black;">
+                                        Job Title
+                                    </td>
+                                    <td style="padding:2px; margin:2px;border-color: black;">
+                                        <span t-field="o.employee_job_position"/>
+                                    </td>
+                                </tr>
+                                <t t-foreach="o.salary_rule_ids" t-as="line">
+                                    <tr style="padding:2px; margin:2px;border-color: black;">
+                                        <td style="padding:2px; margin:2px;border-color: black;">
+                                            <span t-esc="line.salary_rule_id.name"/>
+                                        </td>
+                                        <td style="padding:2px; margin:2px;border-color: black;">
+                                            <span t-esc="line.amount"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr style="padding:2px; margin:2px;border-color: black;">
+                                    <td style="padding:2px; margin:2px;border-color: black;">
+                                        Gross Salary
+                                    </td>
+                                    <td style="padding:2px; margin:2px;border-color: black;">
+                                        <span t-field="o.total_salary"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </center>
+                        <br/>
+                        <t>New Remuneration Package per Calendar Month</t>
+                        <br/>
+                        <br/>
+                        <center>
+                            <table class="table table-bordered"
+                                   style="width:520px;padding-top:20px;border-color: black;border-style: solid;">
+                                <tr style="padding:2px; margin:2px;border-color: black;">
+                                    <td style="padding:2px; margin:2px;border-color: black;">
+                                        Job Title
+                                    </td>
+                                    <td style="padding:2px; margin:2px;border-color: black;">
+                                        <span t-field="o.employee_new_position"/>
+                                    </td>
+                                </tr>
+                                <t t-foreach="o.new_salary_rule_ids" t-as="line">
+                                    <tr style="padding:2px; margin:2px;border-color: black;">
+                                        <td style="padding:2px; margin:2px;border-color: black;">
+                                            <span t-esc="line.salary_rule_id.name"/>
+                                        </td>
+                                        <td style="padding:2px; margin:2px;border-color: black;">
+                                            <span t-esc="line.amount"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr style="padding:2px; margin:2px;border-color: black;">
+                                    <td style="padding:2px; margin:2px;border-color: black;">
+                                        Gross Salary
+                                    </td>
+                                    <td style="padding:2px; margin:2px;border-color: black;">
+                                        <span t-field="o.new_total_salary"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </center>
+                        <p>
+                            <b>All other terms and conditions in your contract of employment remain unchanged.</b>
+                        </p>
+                        <p>
+                            We are confident that you will continue the hard work and commitment that you have shown for
+                            the success
+                            of the company.
+                        </p>
+                        <br/>
+                        <br/>
+                        <t>
+                            We wish you all the best.
+                        </t>
+                        <br/>
+                        <t>
+                            Your sincerely,
+                        </t>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <table width="100%" style="font-size:17px;">
+                            <tr>
+                                <td width="30%" style="border-bottom: 1px solid black;">
+                                </td>
+                                <td width="10%"></td>
+                                <td width="20%" style="border-bottom: 1px solid black;">
+                                </td>
+                                <td width="10%"></td>
+                                <td width="20%" style="border-bottom: 1px solid black;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="20%">
+                                    <center>HR Manager</center>
+                                </td>
+                                <td width="5%"></td>
+                                <td width="30%">
+                                    <center>Head of Restaurants Business Unit</center>
+                                </td>
+                                <td width="5%"></td>
+                                <td width="20%">
+                                    <center>Chief Financial Officer</center>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

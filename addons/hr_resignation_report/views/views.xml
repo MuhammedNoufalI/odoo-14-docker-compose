@@ -1,0 +1,42 @@
+<odoo>
+    <data>
+        <record id="hr_resignation_form_inherit" model="ir.ui.view">
+            <field name="name">hr_resignation_form_inherit</field>
+            <field name="model">hr.resignation</field>
+            <field name="inherit_id" ref="hr_resignation.employee_resignation_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group" position="after">
+                    <group>
+                        <group string="Other Payable">
+                            <field name="other_bonus" widget="monetary"/>
+                        </group>
+                        <group string="Other Deduction">
+                            <field name="other_deduction" widget="monetary"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="remarks"/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//sheet" position="inside">
+                    <notebook>
+                        <page string="Gross Charge">
+                            <field name="cross_charge_lines">
+                                <tree editable="bottom">
+                                    <field name="business_unit"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                    <field name="years_worked"/>
+                                    <field name="resignation_id"/>
+                                    <field name="cross_amount"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

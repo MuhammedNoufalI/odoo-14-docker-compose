@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <record model="ir.ui.view" id="allocation_wizard_form">
+        <field name="name">allocation.post.form</field>
+        <field name="model">allocation.post</field>
+        <field name="arch" type="xml">
+            <form >
+                <group >
+                    <group >
+                        <field name="post" />
+                        <field name="date_start"
+                               attrs="{'invisible':[('post','=',False)],'required':[('post','=',True)]}"/>
+                        <field name="date_end" attrs="{'invisible':[('post','=',False)],'required':[('post','=',True)]}"/>
+                        <field name="allocation_id" invisible="1" />
+                        <field name="period" attrs="{'invisible':[('post','=',False)],'required':[('post','=',True)]}"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="post_close" string="Post and Close" type="object" class="btn-primary"/>
+                    <button special="cancel" string="Cancel" class="btn-default"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+
+</odoo>

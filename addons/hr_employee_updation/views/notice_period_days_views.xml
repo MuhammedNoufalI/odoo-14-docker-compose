@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+         <record id="view_notice_period_days_list" model="ir.ui.view">
+            <field name="name">view.notice.period.days.list</field>
+            <field name="model">notice.period.days</field>
+            <field name="arch" type="xml">
+                <tree editable="top" create="1" delete="1" multi_edit="1" string="Notice Period Days">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_notice_period_days" model="ir.actions.act_window">
+            <field name="name">Notice Period Days</field>
+            <field name="res_model">notice.period.days</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_notice_period_days_list"/>
+        </record>
+
+        <menuitem
+                id="menu_view_notice_period_days"
+                action="action_notice_period_days"
+                parent="hr.menu_human_resources_configuration"
+                sequence="10"/>
+    </data>
+</odoo>

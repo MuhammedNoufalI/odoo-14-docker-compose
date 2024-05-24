@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="high_management_user" model="res.groups">
+            <field name="name">High Management</field>
+        </record>
+
+    </data>
+</odoo>

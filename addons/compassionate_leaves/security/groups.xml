@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="bereavement_first_leaves_approval_group" model="res.groups">
+            <field name="name">Bereavement Manager Approval</field>
+        </record>
+        <record id="bereavement_second_leaves_approval_group" model="res.groups">
+            <field name="name">Bereavement HR Approval Approval</field>
+        </record>
+    </data>
+</odoo>

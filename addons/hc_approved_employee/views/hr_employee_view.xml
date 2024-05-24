@@ -1,0 +1,14 @@
+<odoo>
+
+    <record id="hr_employee_inherit_approved_employee" model="ir.ui.view">
+        <field name="name">hr.employee.view.form.approved.employee</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_appraisal.hr_employee_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_send_appraisal_request']" position="before">
+                <button name="button_approve_employee" type="object" attrs = "{'invisible':[('active','=',True)]}" string="APPROVE EMPLOYEE"/>
+                 <field name="state" widget="statusbar"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

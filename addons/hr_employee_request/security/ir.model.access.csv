@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_employee_request_manager_request,hr.requests.manager.request,model_hr_employee_request,hr_employee_request.group_hr_requests_manager,1,1,1,1
+access_hr_employee_request_user_request,hr.requests.user.request,model_hr_employee_request,hr_employee_request.group_hr_requests_user,1,1,1,1
+access_hr_employee_request_employee_request,hr.requests.employee.request,model_hr_employee_request,base.group_user,1,1,1,1
+access_hr_employee_request_manager_allocation,hr.requests.manager.allocation,model_hr_employee_request_type,hr_employee_request.group_hr_requests_manager,1,1,1,1
+access_hr_employee_request_user_allocation,hr.requests.user.allocation,model_hr_employee_request_type,hr_employee_request.group_hr_requests_user,1,1,1,1
+access_hr_employee_request_employee_allocation,hr.requests.employee.allocation,model_hr_employee_request_type,base.group_user,1,1,1,1
+access_hr_employee_request_status_manager,hr.requests.status manager,model_hr_employee_request_type,hr_employee_request.group_hr_requests_manager,1,1,1,1
+access_hr_employee_request_status_user,hr.requests.status user,model_hr_employee_request_type,hr_employee_request.group_hr_requests_user,1,0,0,0
+access_hr_employee_request_status_employee,hr.requests.status employee,model_hr_employee_request_type,base.group_user,1,0,0,0

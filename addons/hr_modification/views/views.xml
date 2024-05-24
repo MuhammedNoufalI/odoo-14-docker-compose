@@ -1,0 +1,144 @@
+<odoo>
+    <data>
+        <!-- Inherit Payslip from -->
+        <record id="payroll_form_inherit" model="ir.ui.view">
+            <field name="name">payroll_form_inherit</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_payslip_done']" position="replace">
+                    <button string="Confirm" name="action_payslip_done" type="object" states="verify"
+                            class="oe_highlight" context="{'payslip_generate_pdf': True}"/>
+                </xpath>
+                <xpath expr="//field[@name='worked_days_line_ids']//tree//field[@name='name']" position="after">
+<!--                    <field name="total_days" force_save="1"/>-->
+<!--                    <field name="total_leaves" force_save="1"/>-->
+<!--                    <field name="number_of_days" force_save="1"/>-->
+<!--                    <field name="number_of_hours" force_save="1"/>-->
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="required">0</attribute>
+                </xpath>
+                <xpath expr="//group" position="after" name="leave_group">
+                    <group col="4" string="Leaves Details">
+                        <field name="emp_total_leaves" invisible="1" readonly="1" force_save="1"/>
+                        <field name="emp_month_leaves" invisible="1" readonly="1" force_save="1"/>
+                        <field name="paid_leaves" readonly="1" force_save="1"/>
+<!--                        <field name="total_days" readonly="1" force_save="1"/>-->
+<!--                        <field name="full_paid_remaining" readonly="1" force_save="1"/>-->
+                        <field name="deduct_able_sick_leaves" readonly="1" force_save="1"/>
+                        <field name="half_deductible_leaves" readonly="1" force_save="1"/>
+<!--                        <field name="annual_leave_remaining" force_save="1"/>-->
+                        <field name="month_annual_leave" force_save="1" invisible="1"/>
+<!--                        <field name="month_unpaid_leaves" force_save="1"/>-->
+<!--                        <field name="month_absence" force_save="1"/>-->
+<!--                        <field name="month_attendance" force_save="1"/>-->
+                    </group>
+                </xpath>
+<!--                <xpath expr="//group" position="after">-->
+<!--                    <group>-->
+<!--                        <group>-->
+<!--                            <field name="work_days_manually"-->
+<!--                                   attrs="{'readonly':[('state','in',('done', 'cancel'))]}"/>-->
+<!--                            <field name="joining_date_difference"/>-->
+<!--                            <field name="extra_days"/>-->
+<!--                            <field name="extra_days_deduction"/>-->
+<!--                            <field name="per_day_wage"/>-->
+<!--                        </group>-->
+<!--                        <group>-->
+<!--                            <field name="attendance_total_hours"/>-->
+<!--                            <field name="leave_day_attendance"/>-->
+<!--                        </group>-->
+<!--                    </group>-->
+<!--                </xpath>-->
+            </field>
+        </record>
+
+        <!-- Inherit Employee Form -->
+        <record id="employee_form_inherit" model="ir.ui.view">
+            <field name="name">employee_form_inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='leave_info_types']/field[@name='leave_type_ids']" position="before">
+                    <group string="Leave Info">
+                        <group>
+<!--                            <field name="fully_paid_rmng_sick_lve" force_save="1"/>-->
+<!--                            <field name="half_paid_rmng_sick_lve" force_save="1"/>-->
+<!--                            <field name="allocation_from_date" force_save="1"/>-->
+<!--                            <field name="allocation_to_date" force_save="1"/>-->
+                        </group>
+                        <group>
+<!--                            <field name="full_paid_allowed" force_save="1"/>-->
+<!--                            <field name="half_paid_allowed" force_save="1"/>-->
+<!--                            <field name="hidden_check" force_save="1" invible="1"/>-->
+<!--                            <field name="hidden_check2" force_save="1" invible="1"/>-->
+                        </group>
+
+                    </group>
+
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="is_senior" force_save="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit Leave Type Form -->
+        <record id="leave_type_form_inherit" model="ir.ui.view">
+            <field name="name">Leave Type Form Inherit</field>
+            <field name="model">hr.leave.type</field>
+            <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='is_leave']" position="after">
+                    <field name="is_unpaid_leave"/>
+                    <field name="is_annual_leave"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit hr.leave form-->
+        <record id="hr_leave_form_inherit" model="ir.ui.view">
+            <field name="name">Add attachment field</field>
+            <field name="model">hr.leave</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_view_form_manager"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="is_sick_leave" invible="1"/>
+                    <field name="attachment_ids" widget="many2many_binary"
+                           attrs="{'required': [('is_sick_leave', '=', True)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="inherit_hr_leave_tree" model="ir.ui.view">
+            <field name="name">Add req date_from and date_to</field>
+            <field name="model">hr.leave</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_from']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_to']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="request_date_from" string="Date From" optional="show"/>
+                    <field name="request_date_to" string="To Date" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit Leave Allocation Form -->
+        <record id="hr_leave_allocation_form_inherit" model="ir.ui.view">
+            <field name="name">hr_leave_allocation_form_inherit</field>
+            <field name="model">hr.leave.allocation</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_allocation_view_form_manager"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='number_of_days_display']" position="after">
+                    <field name="is_annual_sick_leave"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

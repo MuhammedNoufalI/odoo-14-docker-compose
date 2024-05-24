@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="edit_holiday_status_form" model="ir.ui.view">
+            <field name="name">hr.leave.type.form</field>
+            <field name="model">hr.leave.type</field>
+            <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='validity_stop']" position="after">
+                    <field name="is_leave"/>
+                    <field name="is_sick_leave"/>
+                    <field name="schedule_create"/>
+                    <field name="schedule_allocation"/>
+                    <field name="period_type"
+                           attrs="{'invisible':[('schedule_allocation','=',False)],'required':[('schedule_allocation','=',True)]}"/>
+                    <field name="period"
+                           attrs="{'invisible':[('schedule_allocation','=',False)],'required':[('schedule_allocation','=',True)]}"/>
+                    <field name="day"
+                           attrs="{'invisible':[('schedule_allocation','=',False)],'required':[('schedule_allocation','=',True)]}"/>
+                    <field name="month"
+                           attrs="{'invisible':[('period_type','!=','annual')],'required':[('period_type','=','annual')]}"/>
+                    <field name="notified_user_ids" widget="many2many_tags"/>
+                    <field name="allocation_days"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

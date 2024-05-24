@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="zk_teco_view_company_form">
+        <field name="name">zk.teco.view.company.form</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="ZK_Teco">
+                    <separator name="configuration" string="ZK_Teco Configuration"/>
+                    <div class="row">
+                        <div class="col-md-4" align="center">
+                            <button string='Get/Refresh Token' type="object" name="zk_teco_get_token"
+                                    class="btn-primary" icon="fa-info-circle"/>
+                        </div>
+                        <div class="col-md-4" align="center">
+                            <button string='Test Connection' type="object" name="zk_teco_test"
+                                    class="btn-info" icon="fa-plug"/>
+                        </div>
+                    </div>
+                    <group string="Credentials">
+                        <field name="zk_teco_device" widget="boolean_toggle"/>
+                        <field name="device_serial_number"/>
+                        <field name="zk_username"/>
+                        <field name="zk_password" password="True"/>
+                        <field name="zk_authorization_url"/>
+                        <field name="zk_id_token"/>
+                        <field name="zk_token_last_modified"/>
+                        <field name="zk_teco_url"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

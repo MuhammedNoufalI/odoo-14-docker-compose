@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="resource_calendar_form_inherit_001" model="ir.ui.view">
+            <field name="name">resource.calendar.form.inherit</field>
+            <field name="model">resource.calendar</field>
+            <field name="inherit_id" ref="resource.resource_calendar_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Custom Working Time">
+                        <field name="custom_attendance_ids">
+                            <tree editable="1">
+                                <field name="resource_calendar_id" invisible="1"/>
+                                <field name="shift_start_day" required="1"/>
+                                <field name="hour_from" widget="float_time"/>
+                                <field name="shift_end_day" required="1"/>
+                                <field name="hour_to" widget="float_time"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

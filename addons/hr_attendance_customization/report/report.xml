@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="paperformat_hr_attendance_report" model="report.paperformat">
+            <field name="name">Recoverable Sales</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">310</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">30</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+        <report
+                id="hr_emp_att_report"
+                model="account.move"
+                report_type="qweb-pdf"
+                string="Employee Attendance Report"
+                name="hr_attendance_customization.hr_emp_att_report_tmp_id"
+                file="hr_attendance_customization.hr_emp_att_report_tmp_id"
+                paperformat="hr_attendance_customization.paperformat_hr_attendance_report"
+
+        />
+    </data>
+</odoo>

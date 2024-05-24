@@ -1,0 +1,17 @@
+<?xml  version="1.0"?>
+<odoo>
+        <record id="action_joiners_report" model="ir.actions.act_window">
+                <field name="name">Employee Joiners Report</field>
+                <field name="res_model">hr.joiners.report</field>
+                <field name="view_mode">form</field>
+                <field name="target">new</field>
+        </record>
+        <menuitem id="menu_joiners_report"
+                  name="Employee Joiners Report"
+                  action="action_joiners_report"
+                  parent="hr.hr_menu_hr_reports"
+                  groups="base.group_user"
+                  sequence="4"/>
+
+</odoo>
+

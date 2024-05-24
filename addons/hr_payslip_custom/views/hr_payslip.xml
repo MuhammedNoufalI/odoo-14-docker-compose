@@ -1,0 +1,52 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_hr_payslip_form" model="ir.ui.view">
+            <field name="name">hr.payslip</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="after">
+                    <widget name="web_ribbon" title="Hold" bg_color="bg-danger"
+                            attrs="{'invisible': [('hold', '=', False)]}"/>
+                    <field name="hold" invisible="1"/>
+                </xpath>
+                <xpath expr="//button[@name='action_payslip_done']" position="attributes">
+                    <attribute name="states"/>
+                    <attribute name="attrs">{'invisible': ['|',('hold', '=', False),('state','!=','verify')]}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//header" position="inside">
+                    <button name="action_payslip_send" states="draft" string="Send by Email" type="object"
+                            class="oe_highlight"/>
+                </xpath>
+
+            </field>
+        </record>
+
+         <record id="hr_work_entry_action_new" model="ir.actions.act_window">
+            <field name="name">Work Entry</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.work.entry</field>
+            <field name="view_mode">calendar,tree,form,pivot</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add new allowance type
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="menu_work_entry"
+                name="Work Entries"
+                action="hr_payslip_custom.hr_work_entry_action_new"
+                parent="hr_work_entry_contract.menu_hr_payroll_work_entries_root"
+                sequence="25"/>
+
+
+    </data>
+    <delete model="ir.ui.menu" id="hr_work_entry_contract.menu_work_entry"></delete>
+
+
+</odoo>

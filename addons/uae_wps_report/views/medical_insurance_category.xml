@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_account_followup_followup_tree" model="ir.ui.view">
+        <field name="name">insurance.category.tree</field>
+        <field name="model">medical.insurance.category</field>
+        <field name="arch" type="xml">
+            <tree string="Insurance Category" editable="bottom">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_insurance_category">
+        <field name="name">Insurance Category</field>
+        <field name="res_model">medical.insurance.category</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+          <p>
+            From this report, you can have an overview on all depreciations. The
+            search bar can also be used to personalize your assets depreciation reporting.
+          </p>
+        </field>
+    </record>
+
+    <menuitem  id="menu_medical_insurance_category" name="Insurance Category" parent="hr.menu_human_resources_configuration" action="action_insurance_category" sequence="25"/>
+</odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="eos_employee_resignation_request"
+              parent="hr_gratuity_settlement.main_menu_hr_resignation"
+              name="Resignation Request"
+              action="hr_resignation.view_employee_resignation"
+              groups="base.group_user"
+              sequence="4"/>
+
+    <menuitem id="eos_employee_resignation_approved"
+              parent="hr_gratuity_settlement.main_menu_hr_resignation"
+              name="Approved Resignation"
+              action="hr_resignation.view_approved_resignation"
+              groups="hr.group_hr_user"
+              sequence="4"/>
+</odoo>

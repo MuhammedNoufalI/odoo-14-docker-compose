@@ -1,0 +1,25 @@
+{
+    'name': "hc_emp_docs",
+    'summary': """HC Emp Docs""",
+    'description': """HC Emp Docs""",
+    'author': "",
+    'maintainer': 'asn',
+    'website': "http://www.hashcodeit.com",
+    'category': 'base',
+    'version': '14.0.1.0.0',
+    'depends': ['base', 'hr', 'documents', 'documents_hr'],
+    'data': [
+        'security/ir.model.access.csv',
+        'data/ir_sequence.xml',
+        'data/cron_job.xml',
+        'data/due_for_renewal_mail.xml',
+        'views/employee_doctype.xml',
+        'views/employee_documents.xml',
+        'views/hr_employee.xml'
+    ],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+    'license': 'OPL-1',
+    "images": ["static/description/icon.png"],
+}

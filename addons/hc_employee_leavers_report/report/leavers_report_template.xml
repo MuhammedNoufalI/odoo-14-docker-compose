@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="leavers_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <div class="row">
+                            <div class="col" style="width:33%;">
+                                <t t-if="not o" t-set="o" t-value="doc"/>
+                                <t t-if="not company">
+                                    <t t-if="company_id">
+                                        <t t-set="company" t-value="company_id"/>
+                                    </t>
+                                    <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                                        <t t-set="company" t-value="o.company_id.sudo()"/>
+                                    </t>
+                                    <t t-else="else">
+                                        <t t-set="company" t-value="res_company"/>
+                                    </t>
+                                </t>
+                                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 80px;" alt="Logo"/>
+                            </div>
+                            <div class="col" style="width:33%;">
+                                <br/>
+                                <div class="text-center">
+                                    <u><h4>Employee Leavers Report</h4></u>
+                                </div>
+                            </div>
+                            <div class="col" style="width:33%;">
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="text-center">
+                            <t t-if="doc.from_date">
+                                <span>From&#160;&#160;</span>
+                                <span t-field="doc.from_date" t-options="{'widget': 'date','format': 'dd-MM-yyyy'}"/>&#160;&#160;To&#160;&#160;
+                            </t>
+                            <t t-else="">
+                                <span>Till&#160;&#160;</span>
+                            </t>
+
+                            <span t-field="doc.to_date" t-options="{'widget': 'date','format': 'dd-MM-yyyy'}"/>
+                        </div>
+                        <br/>
+                        <table style="border: 1px solid black;font-size:12px;">
+                            <thead>
+                                <th style="border: 1px solid grey;text-align:center; padding:3px;width:1%;">Sl.No.</th>
+                                <th style="border: 1px solid grey;text-align:center; padding:3px;width:5%;">Month</th>
+                                <th style="border: 1px solid grey;text-align:center; padding:3px;width:5%;">Year</th>
+                                <th style="border: 1px solid grey;text-align:center; padding:3px;width:5%;">Business Unit Name</th>
+                                <th style="border: 1px solid grey;text-align:center; padding:3px;width:5%;">Visa Sponsor</th>
+                                <th style="border: 1px solid grey;text-align:center; padding:3px;width:5%;">Employee ID</th>
+                                <th style="border: 1px solid grey;text-align:center; padding:3px;width:3%;">Employee Name</th>
+                                <th style="border: 1px solid grey;text-align:center; padding:3px;width:5%;">Position</th>
+                                <th style="border: 1px solid grey;text-align:center; padding:3px;width:5%;">Current Status</th>
+                                <th style="border: 1px solid grey;text-align:center; padding:3px;width:5%;">Date of joining</th>
+                                <th style="border: 1px solid grey;text-align:center; padding:3px;width:5%;">Resignation or Termination date</th>
+                                <th style="border: 1px solid grey;text-align:center; padding:3px;width:3%;">Last Working Day</th>
+                                <th style="border: 1px solid grey;text-align:center; padding:3px;width:5%;">Reason</th>
+                                <th style="border: 1px solid grey;text-align:center; padding:3px;width:5%;">Final Settlement Amount</th>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="doc.employees" t-as="employee">
+                                    <td style="border: 1px solid grey;text-align:left; padding:3px;width:1%;"> <span t-esc="employee_index+1"/></td>
+                                    <td style="border: 1px solid grey;text-align:left; padding:3px;width:5%;"> <span t-esc="employee.departure_date.strftime('%B')"/></td>
+                                    <td style="border: 1px solid grey;text-align:left; padding:3px;width:5%;"> <span t-field="employee.departure_date" t-options='{"format": "yyyy"}'/></td>
+                                    <td style="border: 1px solid grey;text-align:left; padding:3px;width:5%;"> <span t-field="employee.company_id.name"/></td>
+                                    <td style="border: 1px solid grey;text-align:left; padding:3px;width:5%;"> <span t-field="employee.sponsor_id"/></td>
+                                    <td style="border: 1px solid grey;text-align:left; padding:3px;width:3%;"> <span t-field="employee.oe_emp_sequence"/></td>
+                                    <td style="border: 1px solid grey;text-align:left; padding:3px;width:3%;"> <span t-field="employee.name"/></td>
+                                    <td style="border: 1px solid grey;text-align:left; padding:3px;width:5%;"> <span t-field="employee.job_title"/></td>
+                                    <td style="border: 1px solid grey;text-align:left; padding:3px;width:5%;"> <span t-field="employee.departure_reason"/></td>
+                                    <td style="border: 1px solid grey;text-align:left; padding:3px;width:5%;"> <span t-field="employee.joining_date"  t-options="{'widget': 'date','format': 'dd-MM-yyyy'}"/></td>
+                                    <td style="border: 1px solid grey;text-align:left; padding:3px;width:5%;"> <span t-field="employee.departure_date" t-options="{'widget': 'date','format': 'dd-MM-yyyy'}"/></td>
+                                    <td style="border: 1px solid grey;text-align:left; padding:3px;width:5%;"> <span t-field="employee.last_check_out"  t-options="{'widget': 'date','format': 'dd-MM-yyyy'}"/> </td>
+                                    <td style="border: 1px solid grey;text-align:left; padding:3px;width:5%;"> <span t-field="employee.departure_description" /></td>
+
+                                    <td style="border: 1px solid grey;text-align:left; padding:3px;width:5%;">
+                                        <t t-foreach="request.env['hr.gratuity'].search([('employee_id', '=', employee.id)])" t-as="obj">
+                                            <t t-if="obj.employee_gratuity_amount &gt; 0">
+                                                <span t-esc="obj.employee_gratuity_amount"/>
+                                            </t>
+                                            <t t-else="">
+                                                <span>0</span>
+                                            </t>
+                                        </t>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="footer">
+                        <div class="row" style="font-size:8;text-align:center;">
+                            <div class="col">
+                                Page <span class="page"/> of <span class="topage"/>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

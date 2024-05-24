@@ -1,0 +1,57 @@
+<odoo>
+    <data>
+        <!--        <record id="hr_leave_form_inherit" model="ir.ui.view">-->
+        <!--            <field name="name">hr_leave_form_inherit</field>-->
+        <!--            <field name="model">hr.leave</field>-->
+        <!--            <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <xpath expr="//field[@name='holiday_status_id']" position="replace">-->
+        <!--                    <field name="holiday_status_id" nolabel="1"-->
+        <!--                           domain="['&amp;', ('virtual_remaining_leaves', '&gt;', 0),-->
+        <!--                            '|', ('allocation_type', 'in', ['fixed_allocation', 'no']),-->
+        <!--                            '&amp;',('allocation_type', '=', 'fixed'), ('max_leaves', '&gt;', '0')]"-->
+        <!--                           context="{'employee_id':employee_id, 'default_date_from':date_from}"-->
+        <!--                           options="{'no_create': True, 'no_open': True}" class="w-100"/>-->
+        <!--                </xpath>-->
+        <!--            </field>-->
+        <!--        </record>-->
+        <record id="hr_employee_form_inherit" model="ir.ui.view">
+            <field name="name">add_employee_children_tab</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="employee_field_changes.view_employee_form_inherited"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='bank_details']" position="after">
+                    <page string="Employee Children" name="emp_children">
+                        <field name="emp_child_ids">
+                            <tree editable="bottom">
+                                <field name="name"/>
+                                <field name="dob"/>
+                                <field name="age_in_months"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <record id="hr_leave_type_form_inherit" model="ir.ui.view">
+            <field name="name">hr_leave_type_form_inherit</field>
+            <field name="model">hr.leave.type</field>
+            <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='validity_stop']" position="after">
+                    <field name="is_parental"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="payroll_form_inherit_parental_leaves" model="ir.ui.view">
+            <field name="name">payroll_form_inherit_parental_leaves</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_modification.payroll_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='month_annual_leave']" position="after">
+                    <field name="parental_leaves" invisible="1" readonly="1" force_save="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="oe_view_partner_bank_form_inherit" model="ir.ui.view">
+        <field name="model">res.partner.bank</field>
+        <field name="inherit_id" ref="base.view_partner_bank_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='acc_number']" position="attributes">
+                <attribute name="string">IBAN Number</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_employee_form" model="ir.ui.view">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="readonly">1</attribute>
+                <attribute name="no_label">1</attribute>
+                <attribute name="required">0</attribute>
+            </xpath>
+            <xpath expr="//h1" position="before">
+                <h1>
+                    <field name="oe_emp_sequence" readonly="1"/>
+                </h1>
+            </xpath>
+            <xpath expr="//h1//field[@name='name']/.." position="after">
+                <group>
+                    <field name="firstname"/>
+                    <!-- <field
+                        name="firstname"
+                        attrs="{'required': [('lastname', '=', False)]}"
+                    /> -->
+                    <field name="lastname"/>
+                    <!-- <field
+                        name="lastname"
+                        attrs="{'required': [('firstname', '=', False)]}"
+                    /> -->
+                </group>
+            </xpath>
+            <xpath expr="//group[@name='managers']/field[@name='leave_manager_id']" position="attributes">
+                <attribute name="string">Leaves Approval Mangager</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

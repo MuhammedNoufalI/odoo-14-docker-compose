@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_hr_payslip_form_hc_hr_payroll_customization" model="ir.ui.view">
+        <field name="name">view.hr.payslip.form.inherit.hc.hr.payroll.customization</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+<!-- 
+            <xpath expr="//button[@name='action_open_work_entries']" position="attributes">
+                <attribute name="groups">base.group_no_one</attribute>
+            </xpath> -->
+
+            <xpath expr="//field[@name='date_from']" position="before">
+                <field name="payroll_period_id" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+            </xpath>
+<!--            <xpath expr="//page[@name='worked_days_input']" position="attributes">-->
+<!--                <attribute name="invisible">1</attribute>-->
+<!--            </xpath>-->
+
+        </field>
+    </record>
+
+    <record id="structure_view_form_inherit_hc_payroll" model="ir.ui.view">
+        <field name="name">structure.view.form.inherit.hc.payroll</field>
+        <field name="model">hr.payroll.structure</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_employee_grade_form"/>
+        <field name="arch" type="xml">
+
+            <!--            Hiding for the Time Been -->
+
+            <xpath expr="//field[@name='country_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <!--            <xpath expr="//field[@name='journal_id']" position="attributes">-->
+            <!--                <attribute name="invisible">1</attribute>-->
+            <!--            </xpath>-->
+            <xpath expr="//field[@name='use_worked_day_lines']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="hr_payroll_structure_type_view_tree_hc_customization" model="ir.ui.view">
+        <field name="name">hr.payroll.structure.type.tree.hc.customization</field>
+        <field name="model">hr.payroll.structure.type</field>
+        <field name="inherit_id" ref="hr_payroll.hr_payroll_structure_type_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='default_resource_calendar_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!-- <menuitem id="hr_payroll.menu_hr_payroll_work_entries_root"
+              active="False"/>
+
+    <menuitem id="hr_work_entry_contract.menu_hr_payroll_work_entries_root" active="False"/> -->
+
+    <menuitem id="hr_payroll_date_ra" name="Attendance Management"
+              parent="hr_attendance.menu_hr_attendance_root" sequence="10"
+              groups="hr_attendance.group_hr_attendance_user"/>
+
+
+    <!--    Hiding the Views and Menus-->
+<!-- 
+    <record model="ir.ui.menu" id="hr_payroll.hr_menu_salary_attachments">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="hr_payroll.menu_hr_payroll_attachment_salary_report">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="hr_payroll.menu_hr_work_entry_report">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+    </record> -->
+
+</odoo>

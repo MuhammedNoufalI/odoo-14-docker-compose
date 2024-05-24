@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="promotion_letter_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page" style="font-size:14px;">
+                         <div>
+                        <p>
+                            <h3 class="text-center">
+                                Promotion Letter
+                            </h3>
+                        </p>
+                         </div>
+                        <br/>
+                        <div class="row" style="width:100%;">
+                            <div class="col" style="width:60%;">
+                                <strong><span>To:</span></strong>
+                                <div>
+                                    <strong>
+                                        <span>Mr./Ms.</span>
+                                        <span t-field="doc.employee_id.name"/>
+                                    </strong>
+                                </div>
+                                <div>
+                                    <strong>
+                                        <span>Employee Code</span>
+                                        <span t-field="doc.employee_id.oe_emp_sequence"/>
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="col" style="width:30%;text-align:right;">
+                                <strong><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B %d,%Y')"/></strong>
+                            </div>
+                        </div>
+                        <br/>
+                        <p><strong><span>SUBJECT: EMPLOYMENT STATUS AND SALARY REVISION LETTER</span></strong></p>
+
+                        <p>
+                            <span>Dear Mr./Ms.</span><span t-field="doc.employee_id.name">,</span>
+                        </p>
+
+                        <p>
+                            We are pleased to infrom you that after evaluating your performance, we have decided to revise
+                            your employment status and salary package effective <string><span t-field="doc.date_close"/></string>,
+                            In recognition of all your hard work and loyal services. Therefore your new employment status
+                            and salary package will be as outlined below:
+                        </p>
+                        <p>
+                            Current Job Title and Current Remuneration Package per Calendar Month:
+                        </p>
+
+                        <table style="width:60%;margin-left:10%;table-layout:auto;page-break-inside:avoid;">
+                            <tr style="border:1px solid black;">
+                                <td style="width:30%;border:1px solid black;text-align:left; padding:3px;">
+                                    <span> Job Title</span>
+                                </td>
+                                <td style="width:30%;border: 1px solid black;text-align:left; padding:3px;">
+<!--                                     <span t-field="doc.contract_id"/>-->
+                                    <span t-field="doc.job_id.name"/>
+                                </td>
+                            </tr>
+                            <t t-foreach="doc.salary_rule_ids" t-as="rule">
+                                <tr style="border:1px solid black;">
+                                    <td style="width:30%;border: 1px solid black;text-align:left; padding:3px;">
+                                        <span t-esc="rule.salary_rule_id.name"/>
+                                    </td>
+                                    <td style="width:30%;border: 1px solid black;text-align:left; padding:3px;">
+                                        <span t-esc="doc.currency_id.name"/>&#160;<span t-esc="rule.amount"/><span>/-</span>
+                                    </td>
+                                </tr>
+                            </t>
+                             <tr>
+                                <td style="width:30%;border: 1px solid black;text-align:left; padding:3px;">
+                                    <span>Gross Salary</span>
+                                </td>
+                                 <td style="width:30%;border: 1px solid black;text-align:left; padding:3px;">
+                                     <span t-esc="doc.currency_id.name"/>&#160;<span t-field="doc.total_salary"/><span>/-</span>
+                                 </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <p>
+                            <strong>
+                                New Job Title and Current Remuneration Package per Calendar Month:
+                            </strong>
+                        </p>
+                        <table style="width:60%; margin-left:10%;page-break-inside:avoid;">
+                            <tr>
+                                <td style="width:30%;border: 1px solid black;text-align:left; padding:3px;">
+                                    <span> Job Title</span>
+                                </td>
+                                <td style="width:30%;border: 1px solid black;text-align:left; padding:3px;">
+                                    <span t-field="doc.new_job_id.name"/>
+                                </td>
+                            </tr>
+                            <t t-foreach="doc.new_salary_rule_ids" t-as="new_rule">
+                                <tr>
+                                    <td style="width:30%;border: 1px solid black;text-align:left; padding:3px;">
+                                        <span t-esc="new_rule.salary_rule_id.name"/>
+                                    </td>
+                                    <td style="width:30%;border: 1px solid black;text-align:left; padding:3px;">
+                                        <span t-esc="doc.currency_id.name"/>&#160;<span t-esc="new_rule.amount"/><span>/-</span>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td style="width:30%;border: 1px solid black;text-align:left; padding:3px;">
+                                    <span>Gross Salary</span>
+                                </td>
+                                 <td style="width:30%;border: 1px solid black;text-align:left; padding:3px;">
+                                     <span t-esc="doc.currency_id.name"/>&#160;<span t-field="doc.new_total_salary"/><span>/-</span>
+                                 </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <p>
+                            <strong>
+                                All other terms and conditions in your Employment Contract remain unchanged.
+                            </strong>
+                        </p>
+                        <p>
+                            We appreciate your hard work and commitment and we are confident that you will continue to bring
+                            in your brilliant contributions for the success of the company, and your career development in the future.
+                        </p>
+
+                        <p>
+                            <strong>Your sincerely,</strong>
+                        </p>
+                        <div>
+                            <span>_______________________________________________________________________________________
+                                ________________________________________________________________</span>
+                        </div>
+                        <div class="row" style="width:96%;">
+                            <div class="col" style="width:32%;">
+                                <div style="text-align:center;"><strong><span>Radouane Mahrouk</span></strong></div>
+                                <div style="text-align:center;"><strong><span>Head of Restaurants Business Unit</span></strong></div>
+                            </div>
+                            <div class="col" style="width:62%;">
+                                <div style="text-align:right;"><strong><span>Gokul Krishnan</span></strong></div>
+                                <div  style="text-align:right;"> <strong><span>Chief Financial Officer</span></strong></div>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <div>
+                            <strong><span>Employee's Signature and Date:_____________________________</span></strong>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <div class="row" style="font-size:8;text-align:center;">
+                            <div class="col">
+                                Page <span class="page"/> of <span class="topage"/>
+                            </div>
+                        </div>
+                    </div>
+                     <p style="page-break-before:False;"/>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

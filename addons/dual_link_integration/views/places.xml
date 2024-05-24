@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_dual_link_place_form" model="ir.ui.view">
+        <field name="name">view_dual_link_place_form</field>
+        <field name="model">dual.link.place</field>
+        <field name="arch" type="xml">
+            <form string="Places">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="source_ref"/>
+                            <field name="dual_link_id"/>
+                            <field name="company_id" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_dual_link_place_tree" model="ir.ui.view">
+        <field name="name">view_dual_link_place_form.tree</field>
+        <field name="model">dual.link.place</field>
+        <field name="arch" type="xml">
+            <tree string="Places">
+                <field name="name"/>
+                <field name="source_ref"/>
+                <field name="dual_link_id"/>
+                <field name="company_id" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_dual_link_place_view" model="ir.actions.act_window">
+        <field name="name">dual link</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dual.link.place</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

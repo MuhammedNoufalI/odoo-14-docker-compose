@@ -1,0 +1,112 @@
+<odoo>
+    <data>
+        <!-- this is for the Hiding the fields below Monthly Advantages in Cash in the Form view -->
+        <record id="hr_contract_view_form_employee_customization" model="ir.ui.view">
+            <field name="name">hr.contract.view.form.employee_customization</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+
+
+                <!--                End Of Service Provision - Number of Days is also hidden -->
+
+                <!--                <xpath expr="//field[@name='contract_type_id']" position="attributes">-->
+                <!--                    <attribute name="invisible">True</attribute>-->
+                <!--                </xpath>-->
+                <!--                <xpath expr="//field[@name='work_entry_source']" position="attributes">-->
+                <!--                    <attribute name="invisible">True</attribute>-->
+                <!--                </xpath>-->
+                <!--                <xpath expr="//page[@name='part_time']" position="attributes">-->
+                <!--                    <attribute name="invisible">True</attribute>-->
+                <!--                </xpath>-->
+                <!--                <xpath expr="//page[@name='information']" position="attributes">-->
+                <!--                    <attribute name="invisible">True</attribute>-->
+                <!--                </xpath>-->
+
+                <!--                <xpath expr="//field[@name='contract_type_id']" position="attributes">-->
+                <!--                    <attribute name="invisible">1</attribute>-->
+                <!--                </xpath>-->
+                <!--                <xpath expr="//field[@name='name']" position="attributes">-->
+                <!--                    <attribute name="required">0</attribute>-->
+                <!--                    <attribute name="readonly">1</attribute>-->
+                <!--                </xpath>-->
+
+                <xpath expr="//page[@name='information']" position="after">
+                    <page string="Salary Structure" name='allowances_employee_customization'>
+                         <button name="update_salary_rules" string="Update Rules" class="oe_highlight"
+                                 confirm="Are you sure you Update the Rules and Amount Given?" type="object"/>
+                        <group string="Salary" name="wage">
+                            <group>
+                                <field name="wage_type"/>
+                                <field name="total_salary"/>
+                            </group>
+                        </group>
+                        <separator string="Others" colspan="4"/>
+                        <!--                        <group string="Others" name="allowances">-->
+                        <!--                            <group string="Others" name="allowances">-->
+                        <field name="salary_rule_ids" options="{'no_open': '1'}" nolabel="1" force_save="1">
+                            <tree create="false" editable="bottom">
+                                <field name="contract_id" invisible="1"/>
+                                <field name="salary_rule_id" readonly="1" force_save="1"/>
+                                <field name="amount" decoration-bf="1" widget="monetary"
+                                />
+                            </tree>
+                        </field>
+
+                        <!--                                                    </group>-->
+                        <!--                                                </group>-->
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!--        <record id="hr_contract_inherit_kanban_no_create" model="ir.ui.view">-->
+        <!--            <field name="name">hr.contract.inherit.kanban.no.create</field>-->
+        <!--            <field name="model">hr.contract.history</field>-->
+        <!--            <field name="inherit_id" ref="hr_contract.hr_contract_history_view_kanban"/>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <xpath expr="//kanban" position="attributes">-->
+        <!--                    <attribute name="create">0</attribute>-->
+        <!--                </xpath>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <record id="hr_contract_inherit_kanban_no_create" model="ir.ui.view">
+            <field name="name">hr.contract.inherit.kanban.no.create</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="create">0</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hc_contract_salary_rule_tree_view" model="ir.ui.view">
+            <field name="name">hc.contract.salary.rule.tree.view</field>
+            <field name="model">hc.contract.salary.rule</field>
+            <field name="arch" type="xml">
+                <tree string="Contract Salary Rule">
+                    <field name="contract_id"/>
+                    <field name="salary_rule_id" readonly="1"/>
+                    <field name="amount"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_hc_contract_salary_rule" model="ir.actions.act_window">
+            <field name="name">Contract Salary Rule</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hc.contract.salary.rule</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_hc_salary_rule"
+                  name="Contract Salary Rule"
+                  action="action_hc_contract_salary_rule"
+                  groups="hr_payroll.group_hr_payroll_manager"
+                  parent="hr_work_entry_contract.menu_hr_payroll_configuration"
+        />
+
+    </data>
+</odoo>

@@ -1,0 +1,73 @@
+<odoo>
+    <data>
+
+        <record id="change_branch_wiz_views" model="ir.ui.view">
+            <field name="name">change.branch.wiz.views</field>
+            <field name="model">change.branch.wiz</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="employee_id" readonly="1"/>
+                            <field name="branch_id"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Proceed" name="change_branch"
+                                confirm="Are you sure you want to Change This Employee's Branch?" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+<!--        <record id="project_form_view_inherit" model="ir.ui.view">-->
+<!--            <field name="name">project.form.view.inherit</field>-->
+<!--            <field name="model">project.project</field>-->
+<!--            <field name="inherit_id" ref="project.edit_project"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <field name="user_id" position="replace">-->
+<!--                    <label for="user_id"/>-->
+<!--                    <div name="project_manager" class="o_row">-->
+<!--                        <field name="user_id" widget="many2one_avatar_user" readonly="1" nolabel="1"/>-->
+<!--                        <button class="btn btn-primary" name="open_set_user" type="object" string="Set Person"-->
+<!--                                context="{'default_type':'Manager'}"/>-->
+<!--                    </div>-->
+<!--                    <label for="supervisor"/>-->
+<!--                    <div name="supervisor" class="o_row">-->
+<!--                        <field name="supervisor" widget="many2one_avatar_user" readonly="1" nolabel="1"/>-->
+<!--                        <button class="btn btn-primary" name="open_set_user" type="object" string="Set Person"-->
+<!--                                context="{'default_type':'Supervisor'}"/>-->
+<!--                    </div>-->
+<!--                </field>-->
+<!--                <field name="user_id" position="attributes">-->
+<!--                    <attribute name="readonly">1</attribute>-->
+<!--                </field>-->
+<!--                <xpath expr="//page[@name='description']" position="after">-->
+<!--                    <page name="manager_history" string="Manager History">-->
+<!--                        <field name="manager_history" readonly="1">-->
+<!--                            <tree>-->
+<!--                                <field name="name"/>-->
+<!--                                <field name="start"/>-->
+<!--                                <field name="end"/>-->
+<!--                                <field name="type" invisible="1"/>-->
+<!--                                <field name="project_id" invisible="1"/>-->
+<!--                            </tree>-->
+<!--                        </field>-->
+<!--                    </page>-->
+<!--                    <page name="supervisor_history" string="Supervisor History">-->
+<!--                        <field name="supervisor_history" readonly="1">-->
+<!--                            <tree>-->
+<!--                                <field name="name"/>-->
+<!--                                <field name="start"/>-->
+<!--                                <field name="end"/>-->
+<!--                                <field name="type" invisible="1"/>-->
+<!--                                <field name="project_id" invisible="1"/>-->
+<!--                            </tree>-->
+<!--                        </field>-->
+<!--                    </page>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+    </data>
+</odoo>

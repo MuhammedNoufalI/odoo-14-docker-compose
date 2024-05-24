@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_request_delivery,request.delivery,model_request_delivery,,1,1,1,1
+access_request_pack_operation,request.pack.operation,model_request_pack_operation,,1,1,1,1
+access_transite_locations,transite.locations,model_transite_locations,,1,1,1,1

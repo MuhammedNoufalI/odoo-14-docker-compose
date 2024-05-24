@@ -1,0 +1,26 @@
+<odoo>
+    <record id="view_employee_form_inherit_hc_air_ticket" model="ir.ui.view">
+        <field name="name">view.emp.form.inherit.hc_air.ticket</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='next_appraisal_date']" position="after">
+                <field name="ticket_benefit_date"/>
+                <field name="ticket_balance"/>
+                <field name="ticket_availed"/>
+                <field name="last_ticket_availed_date"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_contract_form_inherit_hc_air_ticket" model="ir.ui.view">
+        <field name="name">hr.contract.form</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='department_id']" position="before">
+                <field name="ticket_entitlement" required="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

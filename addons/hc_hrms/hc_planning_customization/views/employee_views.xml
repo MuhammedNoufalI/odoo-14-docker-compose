@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_employee_filter_inherit_branch" model="ir.ui.view">
+        <field name="name">hr.employee.search.inherit.branch</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='job_id']" position="after">
+                <field name="branch_id"/>
+            </xpath>
+            <xpath expr="//group" position="inside">
+                <filter name="group_by_branch" string="Branch" context="{'group_by': 'branch_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
+<!--    <record model="ir.ui.menu" id="hr_contract.hr_menu_contract_history">-->
+<!--        <field name="groups_id" eval="[(6,0,[ref('hc_shift_time.make_invisible')])]"/>-->
+<!--    </record>-->
+</odoo>

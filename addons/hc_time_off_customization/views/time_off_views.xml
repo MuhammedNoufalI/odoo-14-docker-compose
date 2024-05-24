@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <record id="hr_leave_type_view_form_hc_time_off_customization" model="ir.ui.view">
+            <field name="name">hr.leave.type.view.form.hc.time.off.customization</field>
+            <field name="model">hr.leave.type</field>
+            <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='responsible_id']" position="before">
+                    <field name="include_to_net_working"/>
+                    <field name="is_applicable"/>
+                    <field name="parent_time_off_type_id"/>
+                    <field name="is_gender_based"/>
+                    <field name="gender"
+                           attrs="{'invisible': [('is_gender_based', '=', False)], 'required': [('is_gender_based', '=', True)]}"/>
+                    <field name="is_applicable_one_time"/>
+                    <field name="is_shift_weekday_leave"/>
+                    <field name="is_compensatory_timeoff_type"/>
+<!--                    <field name="prev_al_start_date"/>-->
+                    <field name="autogenerate_time_off_allocation"/>
+                    <field name="carry_forward"/>
+                </xpath>
+                <xpath expr="//form/sheet" position="inside">
+                    <notebook>
+                        <page string="Rules" name="rules">
+                            <field name="leave_type_rule_ids" nolabel="1" context="{'default_leave_type_id': active_id}">
+                                <tree string="Rules" editable="bottom">
+                                    <field name="from_days"/>
+                                    <field name="to_days"/>
+                                    <field name="total_leaves"/>
+                                    <field name="is_initial_year"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

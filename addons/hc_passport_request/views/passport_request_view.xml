@@ -1,0 +1,82 @@
+<odoo>
+    <data>
+        <record id="passport_request_form" model="ir.ui.view">
+            <field name="name">passport.request.form</field>
+            <field name="model">passport.request</field>
+            <field name="arch" type="xml">
+                <form string="Passport Request">
+                    <header>
+                        <button string="Submit" name="submit_request" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                        <button string="Manager Approval" name="manager_approval" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('state', '!=', 'submitted')]}"/>
+                        <button string="Hr Approval" name="hr_manager_approval" type="object"
+                                class="oe_highlight" groups="hr.group_hr_manager"
+                                attrs="{'invisible': [('state', '!=', 'manager_approved')]}"/>
+                        <button string="cancel" name="cancel_request" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('state', '==', 'canceled')]}"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,submitted,manager_approved,hr_approved,canceled"/>
+                    </header>
+                    <sheet string="Passport Request">
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="employee_id"/>
+                                <field name="employee_no"/>
+                                <field name="Date"/>
+                                <field name="department"/>
+                                <field name="reason_for_request"/>
+                                <field name="approved_date_from" string="Leave approved From"/>
+                                <field name="approved_date_to" string="Leave approved To"/>
+                            </group>
+                            <group>
+                                <field name="passport_required_date_from" string="Passport required From"/>
+                                <field name="passport_required_date_to" string="Passport required To"/>
+                                <field name="mobile_number"/>
+                                <field name="signature"/>
+                            </group>
+                            <group string="Employee's Manager">
+                                <field name="approved_by" string="Approved By" readonly="1"/>
+                                <field name="approval_date" string="Approved On" readonly="1"/>
+                            </group>
+                            <group string="HR Manager">
+                                <field name="hr_approval" string="Approved By" readonly="1"/>
+                                <field name="hr_approval_date" string="Approved On" readonly="1"/>
+                            </group>
+                            <group string="Transmittal Section">
+                                <field name="transmitter_name"/>
+                                <field name="remarks"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="passport_request_list">
+            <field name="name">passport.request.tree</field>
+            <field name="model">passport.request</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="reason_for_request"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="passport_request_action_window">
+            <field name="name">Passport Request</field>
+            <field name="res_model">passport.request</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem name="Passport Request" id="menu_passport_request" parent="hr.menu_hr_employee_payroll"
+                  action="passport_request_action_window"/>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_passport_request">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h3>
+                            <center>PASSPORT REQUEST FORM</center>
+                        </h3>
+                        <br/>
+                        <br/>
+                        <table style="width:100% !important;height:100%;">
+                            <tr height="30px">
+                                <td colspan="4">EMPLOYEE DETAILS</td>
+                            </tr>
+                            <tr height="35px">
+                                <td>
+                                    <t>Customer</t>
+                                </td>
+                                <td>
+                                    :
+                                    <span t-field="o.employee_id.name"/>
+                                </td>
+                                <td>
+                                    <t>Employee No</t>
+                                </td>
+                                <td>
+                                    :
+                                    <span t-field="o.employee_no"/>
+                                </td>
+                            </tr>
+                            <tr height="35px">
+                                <td>
+                                    <t>Date</t>
+                                </td>
+                                <td>
+                                    :
+                                    <span t-field="o.Date"/>
+                                </td>
+                                <td>
+                                    <t>Department/Site</t>
+                                </td>
+                                <td>
+                                    :
+                                    <span t-field="o.department"/>
+                                </td>
+                            </tr>
+                            <tr height="35px">
+                                <td>
+                                    <t>Reason for request</t>
+                                </td>
+                                <td colspan="3">
+                                    <input type="checkbox" disabled="disabled"
+                                           t-att-checked="o.reason_for_request == 'leave'"/>&#160;&#160;Annual Leave&#160;&#160;&#160;
+                                    <input type="checkbox" disabled="disabled"
+                                           t-att-checked="o.reason_for_request == 'eid'"/>&#160;&#160;EID&#160;&#160;&#160;
+                                    <input type="checkbox" disabled="disabled"
+                                           t-att-checked="o.reason_for_request == 'renewal'"/>&#160;&#160;Passport
+                                    Renewal&#160;&#160;&#160;
+                                    <input type="checkbox" disabled="disabled"
+                                           t-att-checked="o.reason_for_request == 'bank_purpose'"/>&#160;&#160;Bank
+                                    Purposes&#160;&#160;&#160;
+                                    <input type="checkbox" disabled="disabled"
+                                           t-att-checked="o.reason_for_request == 'other'"/>&#160;&#160;Others
+
+                                </td>
+                            </tr>
+                            <tr height="35px">
+                                <td colspan="4">Others(Pls. Specify):</td>
+                            </tr>
+                            <tr height="35px">
+                                <td colspan="2">
+                                    <t>Leave approved date (please specify exact leave dates):</t>
+                                </td>
+                                <td>
+                                    From:
+                                    <span t-field="o.approved_date_from"/>
+                                </td>
+                                <td>
+                                    To:
+                                    <span t-field="o.approved_date_to"/>
+                                </td>
+                            </tr>
+                            <tr height="35px">
+                                <td colspan="2">
+                                    <t>Period for which passport is required:</t>
+                                </td>
+                                <td>
+                                    From:
+                                    <span t-field="o.passport_required_date_from"/>
+                                </td>
+                                <td>
+                                    To:
+                                    <span t-field="o.passport_required_date_to"/>
+                                </td>
+                            </tr>
+                            <tr height="35px">
+                                <td>
+                                    <t>Employee's signature</t>
+                                </td>
+                                <td>
+                                    :
+                                </td>
+                                <td>
+                                    <t>Mobile No</t>
+                                </td>
+                                <td>
+                                    :
+                                    <span t-field="o.mobile_number"/>
+                                </td>
+                            </tr>
+                            <tr height="50px">
+                                <td/>
+                            </tr>
+                            <tr height="30px">
+                                <td colspan="4">
+                                    <t>APPROVED BY</t>
+                                </td>
+                            </tr>
+                            <tr height="35px">
+                                <td>
+                                    <t>Line Manager's Name</t>
+                                </td>
+                                <td colspan="3">
+                                    :
+                                    <span t-field="o.approved_by"/>
+                                </td>
+                            </tr>
+                            <tr height="35px">
+                                <td>
+                                    <t>Date</t>
+                                </td>
+                                <td colspan="3">
+                                    <span t-field="o.approval_date"/>
+                                </td>
+                            </tr>
+                            <tr height="45px">
+                                <td/>
+                            </tr>
+                            <tr height="30px">
+                                <td>
+                                    <t>HR MANAGER</t>
+                                </td>
+                            </tr>
+                            <tr height="35px">
+                                <td>
+                                    <t>Leave Verified By</t>
+                                </td>
+                                <td>
+                                    :
+                                    <span t-field="o.hr_approval"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Date
+                                </td>
+                                <td>
+                                    :
+                                    <span t-field="o.hr_approval_date"/>
+                                </td>
+                            </tr>
+                            <tr height="50px">
+                                <td></td>
+                            </tr>
+                            <tr height="30px">
+                                <td>
+                                    <t>Transmittal Section</t>
+                                </td>
+                            </tr>
+                            <tr height="35px">
+                                <td>
+                                    Name
+                                </td>
+                                <td>
+                                    :
+                                    <span t-field="o.transmitter_name"/>
+                                </td>
+                                <td>
+                                    Signature
+                                </td>
+                                <td>
+                                    :
+                                </td>
+                            </tr>
+                            <tr height="35px">
+                                <td>
+                                    Remarks
+                                </td>
+                                <td>
+                                    :
+                                    <span t-field="o.remarks"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_passport_request_form" model="ir.actions.report">
+        <field name="name">Passport Request Form</field>
+        <field name="model">passport.request</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hc_passport_request.report_passport_request</field>
+        <field name="report_file">hc_passport_request.report_passport_request</field>
+        <field name="binding_model_id" ref="hc_passport_request.model_passport_request"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

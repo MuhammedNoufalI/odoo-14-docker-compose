@@ -1,0 +1,161 @@
+<odoo>
+    <data>
+        <template id="print_attendance_report_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <p class="text-center"><strong>Attendance Report</strong></p>
+                    <div class="row">
+                        <div class="col-6">
+                            <strong>Employee</strong>:<span style="margin-left:15px" t-field="doc.employee_id"/>
+                        </div>
+                        <div class="col-6">
+                            <strong>Date</strong>:<span style="margin-left:15px" t-field="doc.date_from"/><strong style="margin:15px">TO</strong><span t-field="doc.date_to"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <strong>Total Late</strong>:<span style="margin-left:15px" t-field="doc.total_late"/>
+                        </div>
+                        <div class="col-6">
+                            <strong>Absent Deduction</strong>:<span style="margin-left:15px" t-field="doc.deduction"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <strong>Total Early</strong>:<span style="margin-left:15px" t-field="doc.total_early"/>
+                        </div>
+                        <div class="col-6">
+                            <strong>Bonus</strong>:<span style="margin-left:15px" t-field="doc.bonus"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <strong>Total Over Time</strong>:<span style="margin-left:15px" t-field="doc.total_overtime"/>
+                        </div>
+                        <div class="col-6">
+                            <strong>Late Deduction</strong>:<span style="margin-left:15px" t-field="doc.late_deduction"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <strong>Total Absent</strong>:<span style="margin-left:15px" t-field="doc.total_absent"/>
+                        </div>
+                        <div class="col-6">
+                            <strong>Early Deduction</strong>:<span style="margin-left:15px" t-field="doc.early_deduction"/>
+                        </div>
+                    </div>
+                <style>
+                            table.report_table {
+                            font-size: 14px !important;
+                            border-collapse: collapse !important;
+                            border:1px solid black;
+                            width: 100% !important;
+                            }
+                            table.report_table th {
+                            padding-right: 1px !important;
+                            border:1px solid black;
+                            text-align: center !important;
+                            background-color: #ebce6e !important;
+                            }
+                            table.report_table td {
+
+                            border:1px solid black;
+                            text-align: center !important;
+                            }
+                            table.report_table tr:nth-child(even){
+                            background-color: white !important;
+                            }
+                            table.report_table th {
+                            background-color:#b8b1ae!important;
+                            color: black !important;
+                            }
+                            tr.Border td {
+                            background-color:#f1ffab !important;
+                            border: 1px solid black;
+                            }
+                        </style>
+                    <table class="report_table" >
+                        <thead>
+                            <tr>
+                                <th class="text-center">
+                                    <strong>Date</strong>
+                                </th>
+                                <th class="text-center">
+                                    <strong>Day of Week</strong>
+                                </th>
+                                <th class="text-center">
+                                    <strong>Hour From</strong>
+                                </th>
+                                <th class="text-center">
+                                    <strong>Day of Week</strong>
+                                </th>
+                                <th class="text-center">
+                                    <strong>Hour To</strong>
+                                </th>
+                                <th class="text-center">
+                                    <strong>Check in</strong>
+                                </th>
+                                <th class="text-center">
+                                    <strong>Check out</strong>
+                                </th>
+                                <th class="text-center">
+                                    <strong>Late Check In</strong>
+                                </th>
+                                <th class="text-center">
+                                    <strong>Early Check Out</strong>
+                                </th>
+                                <th class="text-center">
+                                    <strong>Over Time</strong>
+                                </th>
+                                <th class="text-center">
+                                    <strong>Working Hours</strong>
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="doc.employee_attendance_line" t-as="l">
+                                <td class="text-right">
+                                    <span t-field="l.date"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.shift_start_day"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.hour_from"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.shift_end_day"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.hour_to"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.check_in"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.check_out"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.late"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.early"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.over_time"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.worked_hours"/>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

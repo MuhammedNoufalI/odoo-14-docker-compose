@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_inherit_mrp_bom_form_view" model="ir.ui.view">
+            <field name="name">view_inherit_mrp_bom_form_view</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+            <field name="arch" type="xml">
+                
+                <!-- position: after|before|replace|attributes|inside -->
+                <xpath expr="//notebook/page/field/tree/field[@name='product_qty']" position="after">
+                    <field name="yeild_wastage"/>
+                    <field name="yeild_wastage_amount"/>
+                </xpath>
+                
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="hc_create_employee_planning_data_cron_job" model="ir.cron">
+            <field name="name">Create Employee's In Planning</field>
+            <field name="model_id" ref="planning.model_planning_slot"/>
+            <field name="state">code</field>
+            <field name="code">model.create_employees()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field name="nextcall" eval="(DateTime.now() + relativedelta(day=1, months=1)).strftime('%Y-%m-%d 04:00:00')" />
+        </record>
+
+    </data>
+</odoo>

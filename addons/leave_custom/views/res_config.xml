@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="res_config_settings_view_form_leave" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.sale</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="1"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Leaves" string="Leaves"
+                     data-key="leave_custom">
+                    <h2>Limit Recursive Leave Request days</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="limit_last_days"/>
+                                <div class="text-muted">
+                                    Limit Recursive Leave Request days
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="limit_last_days"/>
+                                        <font color="teal">Days</font>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">journal.res.config.settings.view.form.inherit.hr.fleet</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="90"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@data-key='hr']//div[hasclass('o_settings_container')]" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+<!--                        <field name="contract_wait_period"/>-->
+                    </div>
+                    <div class="o_setting_right_pane">
+                       <label for="contract_wait_period"/>
+                                <div class="text-muted">
+                                    Waiting Period
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="contract_wait_period"/>
+                                        <font color="teal">Months</font>
+                                    </div>
+                                </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_leave_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="res_config_settings_view_form_leave"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'leave_custom', 'bin_size': False}</field>
+    </record>
+
+    <menuitem id="menu_leave_setting"
+              name="Settings"
+              parent="hr_holidays.menu_hr_holidays_configuration"
+              sequence="0"
+              action="action_leave_settings"
+    />
+
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_leave_portal,hr.leave,hr_holidays.model_hr_leave,,1,0,0,0
+access_hr_employee_portal,hr.employee,hr.model_hr_employee,,1,0,0,0
+access_hr_leave_type_portal,hr.leave.type,hr_holidays.model_hr_leave_type,,1,0,0,0
+access_hr_leave_allocation_portal,hr.leave.allocation,hr_holidays.model_hr_leave_allocation,,1,0,0,0

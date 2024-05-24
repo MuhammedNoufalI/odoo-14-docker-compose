@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_employee_view_form_hc_branch" model="ir.ui.view">
+            <field name="name">hr.employee.view.form.hc.branch</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="open_change_branch_wiz" string="Change Branch"
+                            invisible="1"
+                            groups="hr.group_hr_manager"
+                            type="object"
+                            class="oe_highlight"/>
+                </xpath>
+
+                <xpath expr="//field[@name='coach_id']" position="after">
+                    <field name="branch_id" required="1"/> <!--readonly="1"-->
+                </xpath>
+                <xpath expr="//field[@name='resource_calendar_id']" position="attributes">
+                    <attribute name="required">False</attribute>
+                </xpath>
+                <xpath expr="//field[@name='visa_expire']" position="after">
+                    <!--                <field name="cost_center_code"/>-->
+                    <field name="visa_registered_branch_id" invisible="1"/>
+                    <field name="visa_unified_number" invisible="1"/>
+                    <field name="hc_company_id" invisible="1"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="hr_employee_tree_inherit_hc_branch" model="ir.ui.view">
+            <field name="name">hr.employee.view.tree.inherit.hc.branch</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="branch_id"/>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

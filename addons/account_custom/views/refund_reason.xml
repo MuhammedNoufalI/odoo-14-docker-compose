@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="refund_reason_view_form" model="ir.ui.view">
+            <field name="name">refund.reason.form</field>
+            <field name="model">refund.reason</field>
+            <field name="arch" type="xml">
+                <form string="Refund Reason">
+                    <sheet>
+                        <group >
+                    <group >
+                        <field name="name" required="1"/>
+                    </group>
+                    </group>
+
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="refund_reason_apply" model="ir.actions.act_window">
+            <field name="name">Refund Reasons</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">refund.reason</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+        <record id="refund_reason_view_tree" model="ir.ui.view">
+            <field name="name">refund.reason.tree</field>
+            <field name="model">refund.reason</field>
+            <field name="arch" type="xml">
+                <tree string="Reason" >
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+         <menuitem
+            id="menu_refund_reason"
+            action="refund_reason_apply"
+            parent="account.menu_finance_configuration"
+            sequence="6"/>
+    </data>
+
+</odoo>

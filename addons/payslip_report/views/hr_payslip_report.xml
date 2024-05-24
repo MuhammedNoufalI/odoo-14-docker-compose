@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+        <template id="hr_payslip_report">
+            <!--            <t t-call="payslip_report.external_layout_hr_payroll">-->
+            <t t-call="web.html_container">
+                <div class="page">
+                    <link rel='stylesheet' href='/payslip_report/static/src/css/report.css'/>
+                    <div class="row">
+                        <center>
+                            <h1 class="p3 ft0">Payroll Report</h1>
+                            <!--                            <hr style="height:5px; border:none; color:#333; background-color:#333"/>-->
+                            <!--                            <h>From-->
+                            <!--                                <span t-esc="date_from"/>-->
+                            <!--                                To-->
+                            <!--                                <span t-esc="date_to"/>-->
+                            <!--                            </h>-->
+                            <!--                            <t t-if="date_word">-->
+                            <!--                                <h4>Month / Year :-->
+                            <!--                                    <span t-esc="date_word"/>-->
+                            <!--                                </h4>-->
+                            <!--                            </t>-->
+                            <table width="100%" class="tb0 table">
+                                <t t-set="res" t-value="get_data"/>
+                                <thead>
+                                    <tr>
+                                        <t t-foreach="res['column_headings']" t-as="h">
+                                            <th class="text-center td5"
+                                                style="background:#005cc4;color:white; padding:5px;">
+                                                <span t-esc="h"/>
+                                            </th>
+                                        </t>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="res['data']" t-as="d">
+                                        <tr>
+                                            <t t-foreach="d" t-as="t">
+                                                <td class="text-center td2" style="border: 1px solid lightgrey;">
+                                                    <span t-esc="t"/>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </center>
+                        <style>
+                            .total_table td {padding-bottom: 5px;}
+                        </style>
+                        <div class="row">
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <t t-foreach="res['total_sum']" t-as="total_val">
+                                <table width="100%" class="table table-bordered total_table">
+                                    <thead>
+                                        <tr>
+                                            <td width="15%" style="text-align: right;">Total-Headcount</td>
+                                            <td width="10%" style="text-align: right;">-</td>
+                                            <td width="25%"></td>
+                                            <td width="25%"></td>
+                                            <td width="25%"></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="15%" style="text-align: right;">Total-Gross Salary</td>
+                                            <td width="10%" style="text-align: right;">
+                                                <span t-esc="total_val['total_gross']"/>
+                                            </td>
+                                            <td width="25%"></td>
+                                            <td width="25%"></td>
+                                            <td width="25%"></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="15%" style="text-align: right;">Total-Net Salary</td>
+                                            <td width="10%" style="text-align: right;">
+                                                <span t-esc="total_val['total_net']"/>
+                                            </td>
+                                            <td width="25%" style="text-align: center;">
+                                                Prepared &amp; Reviewed by:
+                                            </td>
+                                            <td width="25%" style="text-align: center;">
+                                                Reviewed &amp; Approved by:
+                                            </td>
+                                            <td width="25%" style="text-align: center;">
+                                                Reviewed &amp; Approved by:
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="15%" style="text-align: right;">Gross Charge-Salary</td>
+                                            <td width="10%" style="text-align: right;">
+                                                <span t-esc="total_val['total_gross_charge']"/>
+                                            </td>
+                                            <td width="25%" style="text-align: center;">
+                                                HR Manager
+                                            </td>
+                                            <td width="25%" style="text-align: center;">
+                                                Head of Business Unit
+                                            </td>
+                                            <td width="25%" style="text-align: center;">
+                                                Group CFO
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="15%" style="text-align: right;">Business Unit Salary</td>
+                                            <td width="10%" style="text-align: right;">
+                                                <span t-esc="total_val['business_unit']"/>
+                                            </td>
+                                            <td width="25%"></td>
+                                            <td width="25%"></td>
+                                            <td width="25%"></td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </t>
+                        </div>
+
+                    </div>
+                    <br/>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

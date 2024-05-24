@@ -1,0 +1,587 @@
+<odoo>
+    <data>
+        <template id="hr_resignation_report_dem">
+            <t t-call="web.html_container">
+                <t t-call="web.internal_layout">
+                    <t t-foreach="docs" t-as="o">
+                        <t t-set="data" t-value="o.get_data()"/>
+                        <div class="page">
+                            <style>
+                                .background_color{background-color: #deebf7;}
+                                .border_color{border: 1px solid black;}
+                                .heading_size {font-size: 20px;}
+                                .grey_bg{background-color: #f2f2f2}
+                                <!--                            .border_lr{border-right: 1px solid black; border-left: 1px solid black;}-->
+                                tr th {padding-left: 2px;border-right: 1px solid black; border-left: 1px solid black;}
+                                .normal_font th {font-weight: normal!important;}
+                                .i_t_w {width: 25%;}
+                                .br_n{border-right:none;}
+                                .bl_n{border-left:none;}
+                                .f_border{border:1px solid black;}
+                                .b_border{border-bottom:1px solid black;}
+                                .f_normal th {font-weight:normal!important;}
+                                .f_nor {font-weight:normal!important;}
+
+                            </style>
+                            <table width="100%">
+                                <tbody>
+                                    <!-- Heading Row -->
+                                    <tr>
+                                        <th colspan="4" class="text-center border_color
+                                        font-weight-bold background_color
+                                        heading_size">
+                                            <span t-field="o.employee_id.company_id.name"/>
+                                        </th>
+                                    </tr>
+
+                                    <!-- Data Rows -->
+
+                                    <tr class="border_color">
+                                        <th colspan="1" class="grey_bg">
+                                            EMPLOYEE NAME
+                                        </th>
+                                        <th colspan="3" class="f_nor">
+                                            <span t-field="o.employee_id.name"/>
+                                        </th>
+                                    </tr>
+
+                                    <tr class="border_color">
+                                        <th colspan="1" class="grey_bg">
+                                            POSITION
+                                        </th>
+                                        <th colspan="3">
+                                            <span t-field="o.employee_id.job_id.name"/>
+                                        </th>
+                                    </tr>
+
+                                    <tr class="border_color">
+                                        <th colspan="1" class="grey_bg">
+                                            DEPARTMENT
+                                        </th>
+                                        <th colspan="3" class="f_nor">
+                                            <span t-field="o.employee_id.department_id.name"/>
+                                        </th>
+                                    </tr>
+
+                                    <tr class="border_color">
+                                        <th colspan="1" class="grey_bg">
+                                            REASON OF SEPARATION
+                                        </th>
+                                        <th colspan="3" class="f_nor">
+                                            <span t-field="o.reason"/>
+                                        </th>
+                                    </tr>
+
+                                    <tr class="border_color">
+                                        <th width="35%" class="grey_bg">
+                                            EMP.CODE
+                                        </th>
+                                        <th width="15%" class="f_nor">
+                                            <span t-field="o.employee_id.oe_emp_sequence"/>
+                                        </th>
+                                        <th width="30%" class="grey_bg border_lr">
+                                            CONTRACT TYPE
+                                        </th>
+                                        <th width="20%" class="text-center font-weight-normal">
+                                            <span t-field="o.employee_id.contract_type"/>
+                                        </th>
+                                    </tr>
+
+                                    <tr class="border_color">
+                                        <th width="35%" class="grey_bg">
+                                            JOIN DATE
+                                        </th>
+                                        <th width="15%" class="f_nor">
+                                            <span t-field="o.employee_id.joining_date"/>
+                                        </th>
+                                        <th width="30%" class="grey_bg border_lr">
+                                            BASIC SALARY
+                                        </th>
+                                        <th width="20%" class="text-center font-weight-normal">
+                                            <span t-field="o.employee_id.contract_id.basic"
+                                                  t-if="o.employee_id.contract_id"/>
+                                        </th>
+                                    </tr>
+
+                                    <tr class="border_color">
+                                        <th width="35%" class="grey_bg">
+                                            EXIT DATE
+                                        </th>
+                                        <th width="15%">
+                                            <span t-field="o.expected_revealing_date"/>
+                                        </th>
+                                        <th width="30%" class="grey_bg border_lr">
+                                            LIVE OUT ALLOWANCE
+                                        </th>
+                                        <th width="20%" class="text-center font-weight-normal">
+                                            <span t-esc="data.get('living_out_allowance')"/>
+                                        </th>
+                                    </tr>
+
+                                    <tr class="border_color">
+                                        <th width="35%" class="grey_bg">
+                                            YEARS IN SERVICE
+                                        </th>
+                                        <th width="15%">
+                                            <span t-esc="data.get('years_in_service')"/>
+                                        </th>
+                                        <th width="30%" class="grey_bg border_lr">
+                                            OTHER ALLOWANCE
+                                        </th>
+                                        <th width="20%" class="text-center font-weight-normal">
+                                            <span t-esc="data.get('other_allowance')"/>
+                                        </th>
+                                    </tr>
+                                     <tr class="border_color">
+                                        <th width="35%" class="grey_bg">
+                                            TOTAL WORKED DAYS &lt;5 YEARS
+                                        </th>
+                                        <th width="15%">
+                                            <span t-esc="data.get('total_worked_days_lt')"/>
+                                        </th>
+                                       <th width="30%" class="grey_bg border_lr">
+                                            TOTAL SALARY
+                                        </th>
+                                        <th width="20%" class="text-center font-weight-normal">
+                                            <span t-field="o.employee_id.contract_id.wage"/>
+                                        </th>
+                                    </tr>
+                                     <tr class="border_color">
+                                        <th width="35%" class="grey_bg">
+                                            TOTAL WORKED DAYS >5 YEARS
+                                        </th>
+                                        <th width="15%">
+                                            <span t-esc="data.get('total_worked_days_gt')"/>
+                                        </th>
+                                         <th width="30%" class="grey_bg border_lr">
+                                            SALARY PER DAY
+                                        </th>
+                                        <th width="20%" class="text-center font-weight-normal">
+                                            <span t-esc="data.get('per_day_wage')"/>
+                                        </th>
+                                    </tr>
+                                          <tr class="border_color">
+                                        <th width="35%" class="grey_bg">
+                                            TOTAL WORKED DAYS
+                                        </th>
+                                        <th width="15%">
+                                            <span t-esc="data.get('total_worked_days_lt')+data.get('total_worked_days_gt')"/>
+                                        </th>
+                                         <th width="30%" class="grey_bg border_lr">
+                                            GRATUITY PER DAY
+                                        </th>
+                                        <th width="20%" class="text-center font-weight-normal">
+                                            <span t-esc="data.get('gratuity_per_day')"/>
+                                        </th>
+                                    </tr>
+                                     <tr class="border_color">
+                                        <th width="35%" class="grey_bg">
+                                            TOTAL WORKED YEARS
+                                        </th>
+                                        <th width="15%">
+                                            <span t-esc="data.get('total_worked_years')"/>
+                                        </th>
+                                         <th width="30%" class="grey_bg border_lr">
+                                            ELIGIBLE GRATUITY DAYS &lt;5 YEARS
+                                        </th>
+                                        <th width="20%" class="text-center font-weight-normal">
+                                            <span t-esc="data.get('grt_days_in_5_tenure')"/>
+                                        </th>
+
+                                    </tr>
+                                     <tr class="border_color">
+                                        <th width="35%" class="grey_bg">
+                                            DAYS IN THE MONTH
+                                        </th>
+                                        <th width="15%">
+                                            30
+                                        </th>
+                                                 <th width="30%" class="grey_bg border_lr">
+                                            ELIGIBLE GRATUITY DAYS &gt;5 YEARS
+                                        </th>
+                                        <th width="20%" class="text-center font-weight-normal">
+                                            <span t-esc="data.get('grt_more_5_tenure')"/>
+                                        </th>
+
+                                    </tr>
+
+                                    <tr class="border_color">
+                                        <th width="35%" class="grey_bg">
+                                            ABSENT DAYS IN TENURE&lt;5 Years
+                                        </th>
+                                        <th width="15%">
+                                            <span t-esc="data.get('lev_in_5_tenure')"/>
+                                        </th>
+                                        <th width="35%" class="grey_bg">
+                                            TICKET ENTITLEMENT
+                                        </th>
+                                        <th width="15%"  class="text-center  font-weight-normal">
+                                            <span t-esc="data.get('ticket_entitlement')"/>
+                                        </th>
+
+                                    </tr>
+
+                                    <tr class="border_color">
+                                        <th width="35%" class="grey_bg">
+                                            ABSENT DAYS IN TENURE &gt;5 Years
+                                        </th>
+                                        <th width="15%">
+                                            <span t-esc="data.get('lev_more_5_tenure')"/>
+                                        </th>
+                                         <th width="35%" class="grey_bg">
+                                            TICKETS UTILIZED
+                                        </th>
+                                        <th width="15%" class="text-center  font-weight-normal">
+                                            <span t-esc="data.get('ticket_utilized')"/>
+                                        </th>
+
+                                    </tr>
+
+
+                                    <!-- Empty row -->
+                                    <tr>
+                                        <th colspan="4" style="color: white;">
+                                            Empty row
+                                        </th>
+                                    </tr>
+
+                                    <!-- next data rows heading -->
+                                    <tr class="background_color border_color">
+                                        <th colspan="2" class="text-center">SALARY CALCULATION</th>
+                                        <th colspan="2" class="text-center">TICKET CALCULATION</th>
+                                    </tr>
+                                    <!--data rows -->
+                                    <tr class="normal_font border_color">
+                                        <th colspan="1">DAYS WORKED IN THE FINAL MONTH</th>
+                                        <th colspan="1" class="text-center font-weight-bold">
+                                            <span t-esc="data.get('final_month_days')"/>
+                                        </th>
+                                        <th colspan="1">ENTER DATE ENTITLEMENT CHANGED</th>
+                                        <th colspan="1">
+                                            <span t-field="o.employee_id.ticket_benefit_date"/>
+                                        </th>
+                                    </tr>
+                                    <tr class="normal_font border_color">
+                                        <th colspan="1">ELIGIBLE MONTH'S SALARY</th>
+                                        <th colspan="1" class="text-center font-weight-bold">
+                                            <span t-esc="data.get('eligible_month_salary')"/>
+                                        </th>
+                                         <th colspan="1">TICKET BALANCE</th>
+                                        <th colspan="1"><span t-esc="data.get('ticket_balance')"/></th>
+                                    </tr>
+
+                                    <!-- Empty row -->
+                                    <tr>
+                                        <th colspan="4" style="color: white;">
+                                            Empty row
+                                        </th>
+                                    </tr>
+
+
+                                    <!-- leave salary calculation -->
+                                    <tr class="background_color border_color">
+                                        <th colspan="2" class="text-center">LEAVE SALARY CALCULATION</th>
+                                        <th colspan="2" class="text-center">GRATUITY CALCULATION</th>
+                                    </tr>
+                                    <tr class="normal_font border_color">
+                                        <th colspan="1">TOTAL LEAVE DAYS</th>
+                                        <th colspan="1" class="text-center font-weight-bold">
+                                            <span t-esc="data.get('allocated_leave')"/>
+                                        </th>
+                                        <th colspan="1">GRATUITY ENTITLEMENT &lt;5 YEARS</th>
+                                        <th colspan="1">
+                                            <span t-esc="data.get('gratuity_amount_5_years')"/>
+                                        </th>
+                                    </tr>
+                                    <tr class="normal_font border_color">
+                                        <th colspan="1">NO. OF LEAVE DAYS UTILIZED</th>
+                                        <th colspan="1" class="text-center font-weight-bold">
+                                            <span t-esc="data.get('utilized_leaves')"/>
+                                        </th>
+                                        <th colspan="1">GRATUITY ENTITLEMENT &gt;5 YEARS</th>
+                                        <th colspan="1">
+                                            <span t-esc="data.get('gratuity_amount_more_5_years')"/>
+                                        </th>
+                                    </tr>
+                                    <tr class="normal_font border_color">
+                                        <th colspan="1">BALANCE LEAVE DAYS</th>
+                                        <th colspan="1" class="text-center font-weight-bold">
+                                            <span t-esc="data.get('leave_balance')"/>
+                                        </th>
+                                        <th colspan="1">TOTAL PAYABLE GRATUITY FOR YEARS</th>
+                                        <th colspan="1">
+                                            <span t-esc="data.get('total_payable_gratuity')"/>
+                                        </th>
+                                    </tr>
+                                    <tr class="normal_font border_color">
+                                        <th colspan="1">TOTAL AMOUNT</th>
+                                        <th colspan="1" class="text-center font-weight-bold">
+                                            <span t-esc="data.get('total_leave_amount')"/>
+                                        </th>
+                                        <th colspan="1"></th>
+                                        <th colspan="1"></th>
+                                    </tr>
+
+                                    <!-- Empty row -->
+                                    <tr>
+                                        <th colspan="4" style="color: white;">
+                                            Empty row
+                                        </th>
+                                    </tr>
+
+                                    <!-- Earning and Deduction -->
+                                    <tr class="background_color border_color">
+                                        <th colspan="2" class="text-center">EARNINGS</th>
+                                        <th colspan="2" class="text-center">DEDUCTIONS</th>
+                                    </tr>
+                                    <tr class="normal_font border_color">
+                                        <th colspan="1">MONTH SALARY</th>
+                                        <th colspan="1" class="text-center font-weight-bold">
+                                            <span t-esc="data.get('previous_month_salary')"/>
+                                        </th>
+                                        <th colspan="1">SALARY ADVANCE / LOAN TAKEN</th>
+                                        <th colspan="1">
+                                            <span t-esc="data.get('loan_amount')"/>
+                                        </th>
+                                    </tr>
+                                    <tr class="normal_font border_color">
+                                        <th colspan="1">PREVIOUS MONTH SALARY / ONE MONTH NOTICE</th>
+                                        <th colspan="1" class="text-center font-weight-bold">0.00
+                                        </th>
+                                        <th colspan="1">ASSET RECOVERY / TRAINING AGREEMENT</th>
+                                        <th colspan="1">
+                                            <span t-field="o.other_deduction"/>
+                                        </th>
+                                    </tr>
+                                    <tr class="normal_font border_color">
+                                        <th colspan="1">LEAVE SALARY</th>
+                                        <th colspan="1" class="text-center font-weight-bold">
+                                            <span t-esc="data.get('total_leave_amount')"/>
+                                        </th>
+                                        <th colspan="1">NON-SERVED NOTICE PERIOD</th>
+                                        <th colspan="1">0.00</th>
+                                    </tr>
+                                    <tr class="normal_font border_color">
+                                        <th colspan="1">BONUS / TIPS / OTHER ARREARS</th>
+                                        <th colspan="1" class="text-center font-weight-bold">
+                                            <span t-field="o.other_bonus"/>
+                                        </th>
+                                        <th colspan="1"></th>
+                                        <th colspan="1"></th>
+                                    </tr>
+                                    <tr class="normal_font border_color">
+                                        <th colspan="1">GRATUITY</th>
+                                        <th colspan="1" class="text-center font-weight-bold">
+                                            <span t-esc="data.get('total_payable_gratuity')"/>
+                                        </th>
+                                        <th colspan="1"></th>
+                                        <th colspan="1"></th>
+                                    </tr>
+                                    <tr class="normal_font border_color">
+                                        <th colspan="1">TOTAL EARNINGS</th>
+                                        <th colspan="1" class="text-center font-weight-bold">
+                                            <span t-esc="data.get('total_earnings')"/>
+                                        </th>
+                                        <th colspan="1">TOTAL DEDUCTIONS</th>
+                                        <th colspan="1">
+                                            <span t-esc="data.get('total_deduction')"/>
+                                        </th>
+                                    </tr>
+
+                                    <!-- empty row -->
+                                    <tr>
+                                        <th colspan="4" style="color: white;">
+                                            Empty row
+                                        </th>
+                                    </tr>
+
+                                    <!-- Remarks Row -->
+                                    <tr>
+                                        <th colspan="4" class="text-center
+                                     border_color background_color">
+                                            REMARKS
+                                        </th>
+                                    </tr>
+                                    <tr class="border_color">
+                                        <td colspan="4" class="pl-2" style="height: 50px;">
+                                            <span t-field="o.remarks"/>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Full and FINAL SETTLEMENT -->
+                                    <tr class="background_color border_color">
+                                        <th colspan="2" class="text-center">FULL &amp; FINAL SETTLEMENT AMOUNT</th>
+                                        <th colspan="2" class="text-center font-weight-bold">
+                                            <span t-field="o.env.company.currency_id.name"/>
+                                            <span t-esc="data.get('final_amount')"/>
+                                        </th>
+                                    </tr>
+
+                                    <!-- empty row -->
+                                    <tr>
+                                        <th colspan="4" style="color: white; border-bottom:1px solid white;">
+                                            Empty row
+                                        </th>
+                                    </tr>
+
+                                    <!-- Gross Charge Summary -->
+                                    <tr>
+                                        <th colspan="3" class="text-center border_color background_color">
+                                            CROSS CHARGE SUMMARY
+                                        </th>
+                                        <th colspan="1"
+                                            style="border:none; border-right: 1px solid black!important;"></th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2" class="background_color b_border">
+                                            <table style="width: 100%;">
+                                                <tr>
+                                                    <th colspan="1" class="i_t_w bl_n">BUSINESS UNIT
+                                                    </th>
+                                                    <th colspan="1" class="i_t_w text-center">START DATE</th>
+                                                    <th colspan="1" class="i_t_w text-center">END DATE</th>
+                                                    <th colspan="1" class="i_t_w br_n text-center">YEARS WORKED</th>
+                                                </tr>
+                                            </table>
+                                        </th>
+                                        <th colspan="1" class="background_color text-center b_border">CROSS CHARGE
+                                            AMOUNT
+                                        </th>
+                                        <th colspan="1" class="border:none;"></th>
+                                    </tr>
+                                    <t t-foreach="o.cross_charge_lines" t-as="line">
+                                        <tr class="f_normal">
+                                            <th colspan="2" class="b_border">
+
+                                                <table style="width: 100%;">
+                                                    <tr>
+                                                        <th colspan="1" class="i_t_w bl_n">
+                                                            <span t-field="line.business_unit.name"/>
+                                                        </th>
+                                                        <th colspan="1" class="i_t_w text-center">
+                                                            <span t-field="line.start_date"/>
+                                                        </th>
+                                                        <th colspan="1" class="i_t_w text-center">
+                                                            <span t-field="line.end_date"/>
+                                                        </th>
+                                                        <th colspan="1" class="i_t_w br_n text-center">
+                                                            <span t-field="line.years_worked"/>
+                                                        </th>
+                                                    </tr>
+                                                </table>
+
+                                            </th>
+                                            <th colspan="1" class="text-center b_border">
+                                                <span t-field="line.cross_amount"/>
+                                            </th>
+                                            <th colspan="1" class="border:none;"></th>
+
+                                        </tr>
+                                    </t>
+
+                                    <!--Total -->
+
+                                    <tr>
+                                        <th colspan="2" class="b_border">
+                                            <table style="width: 100%;">
+                                                <tr>
+                                                    <th colspan="3" style="width: 75%;" class="bl_n text-center">Total
+                                                    </th>
+                                                    <th colspan="1" style="width: 25%;" class="br_n text-center">
+
+                                                    </th>
+                                                </tr>
+                                            </table>
+                                        </th>
+                                        <th colspan="1" class="text-center b_border">
+                                            <span t-field="o.amount_total"/>
+                                        </th>
+                                        <th colspan="1" class="border:none;"></th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" style="color: white;">
+                                            Empty row
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" class="text-center
+                                     border_color background_color">
+                                            APPROVALS
+                                        </th>
+                                    </tr>
+                                    <tr class="f_normal">
+                                        <th colspan="2">
+                                            <table style="width: 100%;">
+                                                <tr>
+                                                    <th class='i_t_w text-center'
+                                                        style="border-left:none; font-weight:normal; height:80px; vertical-align: bottom; vertical-align: bottom;">
+                                                        PREPARED -
+                                                        HRA / HRE
+                                                    </th>
+                                                    <th class='i_t_w text-center'
+                                                        style=" border-right:none;width:25%; font-weight:normal; height:100px; vertical-align: bottom;">
+                                                        CHECKED &amp; APPROVED - HRM
+                                                    </th>
+                                                </tr>
+                                            </table>
+                                        </th>
+                                        <th colspan="2">
+                                            <table style="width: 100%;">
+                                                <tr>
+                                                    <th class="i_t_w text-center"
+                                                        style=" border-left:none; width:35%; font-weight:normal; height:100px; vertical-align: bottom;">
+                                                        CHECKED &amp; APPROVED - HOBU/GM
+                                                    </th>
+                                                    <th colspan="1" class="i_t_w text-center"
+                                                        style=" border-right:none;width:40%; font-weight:normal; height:100px; vertical-align: bottom;">
+                                                        CHECKED &amp; APPROVED
+                                                    </th>
+                                                </tr>
+                                            </table>
+                                        </th>
+                                    </tr>
+
+                                    <tr>
+                                        <th colspan="4" class="text-center border_color background_color">
+                                            EMPLOYEE CONSENT
+                                        </th>
+                                    </tr>
+                                    <tr class="f_normal">
+                                        <th colspan="4" class="text-left pl-2 border_color">
+                                            I agree to the full and final settlement amount and request it to be
+                                            sent to my bank account mentioned below:
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="1" style="border-right: 1px solid black;"></th>
+                                        <th colspan="1"></th>
+                                        <th colspan="1" class="grey_bg b_border">BANK NAME</th>
+                                        <th colspan="1" class="b_border">
+                                            <span t-field="o.employee_id.agent_id.name"/>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="1" class='b_border' style="font-weight:normal;">Signature</th>
+                                        <th colspan="1" class='b_border' style="font-weight:normal;">Date</th>
+                                        <th colspan="1" class="grey_bg b_border">BANK ACCOUNT NUMBER</th>
+                                        <th colspan="1" class="b_border">
+                                            <span t-field="o.employee_id.bank_account_id.acc_number"/>
+                                        </th>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

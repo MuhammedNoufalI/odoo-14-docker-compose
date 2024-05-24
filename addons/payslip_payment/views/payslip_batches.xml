@@ -1,0 +1,66 @@
+<odoo>
+  <data>
+      <record id="action_payment_payslips_list_view" model="ir.actions.act_window">
+            <field name="name">Payments</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.payment</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('payslip_id','=',active_id)]</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+
+              </p><p>
+
+              </p>
+            </field>
+      </record>
+
+     <record id="view_account_payment_form_inherit_payslips" model="ir.ui.view">
+            <field name="name">view_account_payment_form_inherit_payslips</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='date']" position="after">
+                    <field name="payslip_id" invisible="1"/>
+                </xpath>
+
+
+            </field>
+        </record>
+
+       <!-- Inherit Form View to Modify it -->
+       <record id="view_inherit_payslip_payment_inherit_form" model="ir.ui.view">
+           <field name="name">view_inherit_payslip_payment_inherit_form</field>
+           <field name="model">hr.payslip</field>
+           <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+           <field name="arch" type="xml">
+
+               <!-- position: after|before|replace|attributes|inside -->
+               <xpath expr="//button[@name='refund_sheet']" position="after">
+                    <button name="open_payment_screen" type="object" class="btn-primary" string="Register Payment" context="{'default_amount':total_net_salary}" attrs="{'invisible':['|',('state','not in',('done')),('total_net_salary','=',0)]}"/>
+
+               </xpath>
+               <xpath expr="//field[@name='state']" position="replace">
+                   <field name="state" widget="statusbar" statusbar_visible="draft,posted,reconciled,paid,cancelled"/>
+
+               </xpath>
+
+             <xpath expr="//div[@class='oe_button_box']" position="inside">
+                    <button class="oe_stat_button" name="%(payslip_payment.action_payment_payslips_list_view)d" type="action"  attrs="{'invisible':['|',('state','not in',('done','paid')),('total_net_salary','=',0)]}" icon="fa-bars">
+                        <field name="payment_count" widget="statinfo" string="Payments"/>
+                    </button>
+                    <button class="oe_stat_button" name="open_statements_screen" type="object"  attrs="{'invisible':['|',('state','not in',('done','paid')),('total_net_salary','=',0)]}" icon="fa-bars">
+                        <field name="statement_count" widget="statinfo" string="Statements"/>
+                    </button>
+               </xpath>
+               <xpath expr="//field[@name='name']" position="after">
+
+                        <field name="total_net_salary" invisible="0"/>
+                   <field name="currency_id" options="{'no_create': True, 'no_open': True}" groups="base.group_multi_currency" invisible="1"/>
+               </xpath>
+
+           </field>
+       </record>
+  </data>
+</odoo>

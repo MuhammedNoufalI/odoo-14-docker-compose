@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <record id="action_leave_allocation_first_approve" model="ir.actions.server">
+            <field name="name">Approve / First Approve</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_hr_leave_allocation"/>
+            <field name="binding_model_id" ref="model_hr_leave_allocation"/>
+            <field name="state">code</field>
+            <field name="code">records.first_approval()</field>
+        </record>
+        <record id="action_leave_allocation_second_approve" model="ir.actions.server">
+            <field name="name">Action Validate / Second Approve</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_hr_leave_allocation"/>
+            <field name="binding_model_id" ref="model_hr_leave_allocation"/>
+            <field name="state">code</field>
+            <field name="code">records.second_approval()</field>
+        </record>
+    </data>
+</odoo>

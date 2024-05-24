@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_employee_view_form_employee_attendance_integration" model="ir.ui.view">
+        <field name="name">hr.employee.view.employee.contract.customization.ext</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_appraisal.hr_employee_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//button[@name='action_send_appraisal_request']" position="after">
+                <button name="save_emp_to_device" groups="hr.group_hr_manager" string="Register To Attendance Device" type="object" default_focus="1"
+                        class="oe_highlight"/>
+                <button name="link_emp_to_device" groups="hr.group_hr_manager" string="Link To Attendance Device" type="object" default_focus="1"
+                        class="oe_highlight"/>
+                <button name="unlink_emp_from_device" groups="hr.group_hr_manager" string="Unlink From Attendance Device" type="object"
+                        default_focus="1"
+                        class="oe_highlight"/>
+            </xpath>
+            <xpath expr="//field[@name='joining_date']" position="after">
+                    <field name="face_scan_image" widget="binary"/>
+                <field name="is_registered" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
+
+

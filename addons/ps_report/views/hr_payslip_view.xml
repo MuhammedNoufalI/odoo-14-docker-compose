@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_hr_payslip_form_inherit_pyslip_report" model="ir.ui.view">
+            <field name="name">hr.payslip.form.inherit</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Employee Leave Details" attrs="{'invisible': [('leave_data_view', '=', True)]}">
+                        <group>
+                            <group>
+                                <field name="leave_data_view" invisible="1"/>
+                                <field name="worked_days"/>
+                                <field name="leave_days"/>
+                                <field name="total_days"/>
+                            </group>
+                            <group>
+                                <field name="unpaid_days"/>
+                                <field name="sick_days"/>
+                            </group>
+                        </group>
+
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

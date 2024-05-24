@@ -1,0 +1,28 @@
+<odoo>
+
+    <record id="hr_employee_inherit_hash" model="ir.ui.view">
+        <field name="name">hr.employee.view.form.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='hr_settings']" position="before">
+                <page name="emp_doc" string="Employee documents">
+                    <!--                        <group>-->
+                    <field name="field_names_computed"/>
+                    <!--                        </group>-->
+                </page>
+            </xpath>
+<!--            <xpath expr="//field[@name='address_home_id']" position="attributes">-->
+<!--                <attribute name="required">1</attribute>-->
+<!--            </xpath>-->
+            <xpath expr="//sheet/div[@name='button_box']" position="inside">
+                <button type="action"
+                        name="%(hc_emp_docs.employee_documents_active_window)d"
+                        class="oe_stat_button"
+                        icon="fa-list" string="Employee Documents">
+                </button>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_attendance_admin,hr.attendance.admin,hr_attendance.model_hr_attendance,hr_attendance.group_hr_attendance_manager,1,1,1,1
+access_hr_attendance_user,hr.attendance.user,hr_attendance.model_hr_attendance,hr_attendance.group_hr_attendance_user,1,0,0,0
+access_hr_attendance_system_user,hr.attendance.system.user,hr_attendance.model_hr_attendance,base.group_user,1,0,0,0
+access_hr_resource_calendar_admin,hr.employee.resource.calendar.admin,resource.model_resource_calendar,hr_attendance.group_hr_attendance_manager,1,1,1,1
+access_hr_resource_calendar_user,hr.employee.resource.calendar.user,resource.model_resource_calendar,base.group_user,1,0,0,0
+access_hc_raw_attendance_admin,access.hc.raw.attendance.admin,hc_shift_time.model_hc_raw_attendance,base.group_system,1,1,1,1
+access_hc_raw_attendance_user,access.hc.raw.attendance.user,hc_shift_time.model_hc_raw_attendance,base.group_user,1,0,0,0
+access_hc_attendance_exception_admin,access.hc.attendance.exception.admin,hc_shift_time.model_hc_attendance_exception,hr_attendance.group_hr_attendance_user,1,1,1,1
+access_hc_over_time_type_attendance_manager,access.hc.over.time.type,hc_shift_time.model_hc_over_time_type,hr_attendance.group_hr_attendance_manager,1,1,1,1
+access_hc_over_time_type,access.hc.over.time.type,hc_shift_time.model_hc_over_time_type,base.group_user,1,0,0,0

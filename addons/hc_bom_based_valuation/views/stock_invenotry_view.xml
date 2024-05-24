@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_product_category_form_inherit" model="ir.ui.view">
+        <field name="name">view.product.category.form.inherit</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <group name="first" position="after">
+                <group>
+                    <group string="Account Gain and Lose">
+                        <field name="account_gain_id"
+                               domain="[('internal_type','=','other'),('deprecated', '=', False)]"/>
+                        <field name="account_lose_id"
+                               domain="[('internal_type','=','other'),('deprecated', '=', False)]"/>
+                    </group>
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>

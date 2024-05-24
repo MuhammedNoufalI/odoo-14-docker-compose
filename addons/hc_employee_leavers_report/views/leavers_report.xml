@@ -1,0 +1,17 @@
+<?xml  version="1.0"?>
+<odoo>
+        <record id="action_leavers_report" model="ir.actions.act_window">
+                <field name="name">Employee Leavers Report</field>
+                <field name="res_model">hr.leavers.report</field>
+                <field name="view_mode">form</field>
+                <field name="target">new</field>
+        </record>
+        <menuitem id="menu_leavers_report"
+                  name="Employee Leavers Report"
+                  action="action_leavers_report"
+                  parent="hr.hr_menu_hr_reports"
+                  groups="base.group_user"
+                  sequence="4"/>
+
+</odoo>
+

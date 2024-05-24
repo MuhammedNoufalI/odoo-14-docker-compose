@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model='ir.ui.view' id='view_zk_teco_attendance_form'>
+            <field name="name">view.zk.teco.attendance.form</field>
+            <field name="model">zk.teco.attendance</field>
+            <field name="arch" type="xml">
+                <form string="Import ZK_Teco Attendances">
+                    <group>
+                        <group>
+                            <field name="company_id" options="{'no_edit': True, 'no_create': True}"/>
+                            <field name="filter_by" widget="radio"/>
+                            <field name="from_date"
+                                   attrs="{'required': [('filter_by', 'in', ('single_date', 'date_range'))],'invisible': [('filter_by', 'not in', ('single_date', 'date_range'))]}"/>
+                            <field name="to_date"
+                                   attrs="{'required': [('filter_by', '=', 'date_range')],'invisible': [('filter_by', '!=', 'date_range')]}"/>
+                            <field name="from_datetime"
+                                   attrs="{'required': [('filter_by', '=', 'time_range')],'invisible': [('filter_by', '!=', 'time_range')]}"/>
+                            <field name="to_datetime"
+                                   attrs="{'required': [('filter_by', '=', 'time_range')],'invisible': [('filter_by', '!=', 'time_range')]}"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="import_zk_teco_attendance" type="object" default_focus="1"
+                                string="Import ZK_Teco Attendances" class="btn-success"/>
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model='ir.actions.act_window' id='action_zk_teco_attendance'>
+            <field name="name">Import ZK_Teco Attendances</field>
+            <field name="res_model">zk.teco.attendance</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_zk_teco_attendance_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+                name="Import ZK_Teco Attendances"
+                parent="hr_attendance.menu_hr_attendance_settings"
+                id="menu_import_zk_teco_attendances"
+                action="action_zk_teco_attendance"
+                sequence="91"/>
+    </data>
+</odoo>

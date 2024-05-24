@@ -1,0 +1,392 @@
+<odoo>
+
+    <template id="website_hr_employee_portal">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Employee</t>
+            <div style="" id="wrap"
+                 class="content">
+
+                <form action="/my/employee/data/insert" method="post"
+                      style="font-family: Times New Roman, Times, serif;">
+                    <table width="40%" height="50px" border="0px" cellpadding="0px"
+                           cellspacing="1px"
+                           align="center">
+                        <tr style="padding-top:12px;">
+                            <td>
+                                <span style="font-family: Times New Roman, Times, serif;
+                                    color:#229954;font-weight: bold;font-size:35pt;align:center;">
+                                    <center>
+                                        Employee Profile
+                                    </center>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div t-if="error_message" class="alert alert-danger" role="alert">
+                                <t t-foreach="error_message" t-as="err">
+                                    <t t-esc="err"/>
+                                    <br/>
+                                </t>
+                            </div>
+                        </div>
+<!--                        <br></br>-->
+                        <div class="col-lg-12">
+                            <a href="/my/payslip/history" target="_self">
+                                <button style="margin:5px;font-size:16pt;" type="button"
+                                        class="btn btn-success float-left">Payslips
+                                </button>
+                            </a> <a href="/my/custody/requests" target="_self">
+                                <button style="margin:5px;font-size:16pt;" type="button"
+                                        class="btn btn-success float-left">Custody
+                                </button>
+                            </a>
+                            <a href="/my/leaves/history" target="_self">
+                                <button style="margin:5px;font-size:16pt;" type="button"
+                                        class="btn btn-success float-left">Leaves
+                                </button>
+                            </a>
+                             <a href="/my/loan/requests" target="_self">
+                                <button style="margin:5px;font-size:16pt;" type="button"
+                                        class="btn btn-success float-left">Loans
+                                </button>
+                            </a>
+
+                            <a href="/attendances" target="_self">
+                                <button style="margin:5px;font-size:16pt;" type="button"
+                                        class="btn btn-success float-left">Attendance
+                                </button>
+                            </a>
+                        </div>
+                        <t t-if="message">
+                            <div class="alert alert-success" role="alert">
+                                <t style="padding-left:20px;" t-esc="message"/>
+                            </div>
+                        </t>
+                        <div style="width:100%">
+                            <h2 style="float: left;">
+                                <br></br>
+                                <br></br>
+                                <span style="padding-left:20px;color:black;" t-field="employee.name"/>
+                            </h2>
+
+                            <img t-if="employee.image_1920" style="float: right;padding-right:20px;"
+                                 t-att-src="image_data_uri(employee.image_1920)"
+                                 height="150" width="150"/>
+                        </div>
+                        <br/>
+                        <div t-attf-class="form-group col-xl-6">
+                            <label class="col-form-label" for="full_name" style="color:black;font-size:12pt;">Full Name
+                            </label>
+                            <input type="text" name="full_name" t-attf-class="form-control"
+                                   t-att-value="employee.name"/>
+                        </div>
+
+                        <div t-attf-class="form-group col-xl-6">
+                            <label class="col-form-label" for="gender" style="color:black;font-size:12pt;">Gender
+                            </label>
+                            <input type="text" name="gender" style="text-transform: capitalize;" readonly=""
+                                   t-attf-class="form-control"
+                                   t-att-value="employee.gender"/>
+                        </div>
+
+                        <div t-attf-class="form-group col-xl-6">
+                            <label class="col-form-label" for="marital" style="color:black;font-size:12pt;">Marital
+                                Status
+                            </label>
+                            <select class="form-control" style="text-transform: capitalize;" name="marital"
+                                    required="">
+                                <t t-foreach="marital" t-as="l">
+                                    <t t-if="l == employee.marital">
+                                        <option style="text-transform: capitalize;" t-att-value="l" selected="">
+                                            <t style="text-transform: capitalize;" t-esc="l"/>
+                                        </option>
+                                    </t>
+                                    <t t-else="">
+                                        <option style="text-transform: capitalize;" t-att-value="l">
+                                            <t style="text-transform: capitalize;" t-esc="l"/>
+                                        </option>
+                                    </t>
+                                </t>
+                            </select>
+                        </div>
+
+                        <div t-attf-class="form-group col-xl-6">
+                            <label class="col-form-label" for="country_id" style="color:black;font-size:12pt;">
+                                Nationality
+                            </label>
+                            <input type="text" name="country_id" readonly="" t-attf-class="form-control"
+                                   t-att-value="employee.country_id.name"/>
+                        </div>
+
+                        <div t-attf-class="form-group col-xl-6">
+                            <label class="col-form-label" for="identification" style="color:black;font-size:12pt;">
+                                Identification
+                                NO.
+                            </label>
+                            <input type="text" name="identification" readonly="" t-attf-class="form-control"
+                                   t-att-value="employee.identification_id"/>
+                        </div>
+
+                        <div t-attf-class="form-group col-xl-6">
+                            <label class="col-form-label" for="birthday" style="color:black;font-size:12pt;">Date of
+                                Birth
+                            </label>
+                            <input type="date" name="birthday" t-attf-class="form-control"
+                                   t-att-value="employee.birthday"/>
+                        </div>
+
+                        <div t-attf-class="form-group col-xl-6">
+                            <label class="col-form-label" for="place_of_birth" style="color:black;font-size:12pt;">Place
+                                of Birth
+                            </label>
+                            <input type="text" name="place_of_birth" t-attf-class="form-control"
+                                   t-att-value="employee.place_of_birth"/>
+                        </div>
+
+
+                        <div class="clearfix"/>
+
+                        <input type="hidden" name="redirect" t-att-value="redirect"/>
+                    </div>
+                    <style>
+                        /* Style the tab */
+                        .tab {
+                        overflow: hidden;
+                        border: 1px solid #ccc;
+                        background-color: #f1f1f1;
+                        }
+
+                        /* Style the buttons that are used to open the tab content */
+                        .tab button {
+                        background-color: inherit;
+                        float: left;
+                        border: none;
+                        outline: none;
+                        cursor: pointer;
+                        padding: 14px 16px;
+                        transition: 0.3s;
+                        }
+
+                        /* Change background color of buttons on hover */
+                        .tab button:hover {
+                        background-color: #ddd;
+                        }
+
+                        /* Create an active/current tablink class */
+                        .tab button.active {
+                        background-color: #ccc;
+                        }
+
+                        /* Style the tab content */
+                        .tabcontent {
+                        display: none;
+                        padding: 6px 12px;
+                        border: 1px solid #ccc;
+                        border-top: none;
+                        }
+                        body {
+                        background-color: brown;
+                        padding: 40px;
+
+                        }
+                        .content {
+                        position: relative;
+                        bottom: 0;
+                        background: white;
+                        color: #f1f1f1;
+                        width: 100%;
+                        padding: 20px;
+                        }
+                    </style>
+                    <div class="row tab">
+                        <button class="tablinks" onclick="openCity(event, 'contact_info');return false;">Contact
+                            Information
+                        </button>
+                        <button class="tablinks" onclick="openCity(event, 'work_info');return false;">Work Information
+                        </button>
+
+                    </div>
+
+                    <!-- Tab content -->
+                    <div id="contact_info" class="tabcontent">
+
+                        <div class="row">
+                            <div t-attf-class="form-group col-xl-6">
+                                <label class="col-form-label" for="email"
+                                       style="color:black;font-size:12pt;">Work Email
+                                </label>
+                                <input type="email" name="email" t-attf-class="form-control"
+                                       t-att-value="employee.work_email" readonly=""/>
+
+                            </div>
+
+                            <div t-attf-class="form-group col-xl-6">
+                                <label class="col-form-label" for="phone"
+                                       style="color:black;font-size:12pt;">Work Phone
+                                </label>
+                                <input type="tel" name="phone" t-attf-class="form-control"
+                                       t-att-value="employee.work_phone" readonly=""/>
+                            </div>
+                            <div t-attf-class="form-group col-xl-6">
+                                <label class="col-form-label" for="location"
+                                       style="color:black;font-size:12pt;">Work
+                                    Location
+                                </label>
+                                <input type="text" name="location" t-attf-class="form-control"
+                                       t-att-value="employee.work_location" readonly=""/>
+                            </div>
+
+                            <div t-attf-class="form-group col-xl-6">
+                                <label class="col-form-label" for="mobile"
+                                       style="color:black;font-size:12pt;">Work Mobile
+                                </label>
+                                <input type="tel" name="mobile" t-attf-class="form-control"
+                                       t-att-value="employee.mobile_phone" readonly=""/>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div id="work_info" class="tabcontent">
+                        <div class="row">
+                            <div t-attf-class="form-group col-xl-6">
+                                <label class="col-form-label" for="job" style="color:black;font-size:12pt;">
+                                    Job Title
+                                </label>
+                                <input type="text" name="job" t-attf-class="form-control"
+                                       t-att-value="employee.job_id.name" readonly=""/>
+                            </div>
+                            <div t-attf-class="form-group col-xl-6">
+                                <label class="col-form-label" for="department"
+                                       style="color:black;font-size:12pt;">
+                                    Department
+                                </label>
+                                <input type="text" name="department" t-attf-class="form-control"
+                                       t-att-value="employee.department_id.name" readonly=""/>
+                            </div>
+
+                            <div t-attf-class="form-group col-xl-6">
+                                <label class="col-form-label" for="manager"
+                                       style="color:black;font-size:12pt;">Manager
+                                </label>
+                                <input type="text" name="manager" t-attf-class="form-control"
+                                       t-att-value="employee.parent_id.name" readonly=""/>
+                            </div>
+                            <div t-attf-class="form-group col-xl-6"/>
+                            <div t-attf-class="form-group col-xl-6">
+                                <label class="col-form-label" for="study_school"
+                                       style="color:black;font-size:12pt;">School
+                                </label>
+                                <input type="text" name="study_school" t-attf-class="form-control"
+                                       t-att-value="employee.study_school"/>
+                            </div>
+
+                            <div t-attf-class="form-group col-xl-6">
+                                <label class="col-form-label" for="study_field"
+                                       style="color:black;font-size:12pt;">Field
+                                    of
+                                    Study
+                                </label>
+                                <input type="text" name="study_field" t-attf-class="form-control"
+                                       t-att-value="employee.study_field"/>
+                            </div>
+
+
+                            <div t-attf-class="form-group col-xl-6">
+                                <label class="col-form-label" for="certificate"
+                                       style="color:black;font-size:12pt;">
+                                    Certificate
+                                    Level
+                                </label>
+                                <select class="form-control" style="text-transform: capitalize;"
+                                        name="certificate" required="">
+                                    <t t-foreach="level" t-as="l">
+                                        <t t-if="l == employee.certificate">
+                                            <option style="text-transform: capitalize;" t-att-value="l"
+                                                    selected="">
+                                                <t style="text-transform: capitalize;" t-esc="l"/>
+                                            </option>
+                                        </t>
+                                        <t t-else="">
+                                            <option style="text-transform: capitalize;" t-att-value="l">
+                                                <t style="text-transform: capitalize;" t-esc="l"/>
+                                            </option>
+                                        </t>
+                                    </t>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script type="text/javascript">
+                        function openCity(evt, cityName) {
+                        // Declare all variables
+                        var i, tabcontent, tablinks;
+
+                        // Get all elements with class="tabcontent" and hide them
+                        tabcontent = document.getElementsByClassName("tabcontent");
+                        for (i = 0; i &lt; tabcontent.length; i++) {
+                        tabcontent[i].style.display = "none";
+                        }
+
+                        // Get all elements with class="tablinks" and remove the class "active"
+                        tablinks = document.getElementsByClassName("tablinks");
+                        for (i = 0; i &lt; tablinks.length; i++) {
+                        tablinks[i].className = tablinks[i].className.replace(" active", "");
+                        }
+
+                        // Show the current tab, and add an "active" class to the button that opened the tab
+                        document.getElementById(cityName).style.display = "block";
+                        evt.currentTarget.className += " active";
+                        }
+                    </script>
+
+                    <div class="clearfix">
+                        <button type="submit" class="btn btn-success float-right mb32 ">
+                            Confirm
+                            <span class="fa fa-long-arrow-right"/>
+                        </button>
+
+
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="website_thankyou_portal">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h1 class="text-center">Thank You!</h1>
+                                <p class="text-center">
+                                    Your update has been posted successfully.
+                                </p>
+                            </div>
+
+                        </div>
+                        <div class="row" id="o_recruitment_thank_cta">
+                            <div class="col-lg-12 text-center mt32 mb32">
+                                In the meantime,
+                                <h3 class="mt8 mb32">Look around on our website:</h3>
+                                <a role="button" href="/" class="btn btn-success btn-lg">Continue To Our
+                                    Website
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+
+    </template>
+
+
+</odoo>

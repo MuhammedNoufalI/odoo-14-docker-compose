@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="employee_attendance_form" model="ir.ui.view">
+            <field name="name">employee.attendance.form</field>
+            <field name="model">employee.attendance</field>
+            <field name="arch" type="xml">
+                <form string="Form">
+                    <header>
+                        <button name="compute_attendance" string="Compute" class="oe_highlight"  type="object"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1" readonly="1"/>
+                                <field name="employee_id"/>
+                                <field name="department_id"/>
+                            </group>
+                            <group>
+                                <field name="date_from" required="1"/>
+                                <field name="date_to" required="1"/>
+                            </group>
+                            <group>
+                                <field name="total_late" widget="float_time"/>
+                                <field name="total_early" widget="float_time"/>
+                                <field name="total_overtime" widget="float_time"/>
+                                <field name="total_absent" />
+                            </group>
+                            <group>
+                                <field name="deduction" widget="float_time"/>
+                                <label for="bonus"/>
+                                <div class="row">
+                                    <field name="bonus" widget="float_time" class="oe_inline"/>
+                                    <button name="button_leave_request" string="Leave Request"  attrs="{'invisible':[('bonus','=',0)]}" type="object"/>
+                                    <button name="button_allocation_request" string="Allocation Request"  attrs="{'invisible':[('bonus','=',0)]}" type="object"/>
+                                </div>
+                                <field name="late_deduction" widget="float_time"/>
+                                <field name="early_deduction" widget="float_time"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Lines">
+                                <field name="employee_attendance_line" readonly="1">
+                                    <tree edit="0" editable="bottom">
+                                        <field name="date"/>
+                                        <field name="shift_start_day"/>
+                                        <field name="hour_from" />
+                                        <field name="shift_end_day"/>
+                                        <field name="hour_to"/>
+                                        <field name="check_in"/>
+                                        <field name="check_out"/>
+                                        <field name="late" widget="float_time"/>
+                                        <field name="repeate_late" invisible="1"/>
+                                        <field name="repeate_early" invisible="1"/>
+                                        <field name="early" widget="float_time"/>
+                                        <field name="over_time" widget="float_time"/>
+                                        <field name="worked_hours" widget="float_time"/>
+                                    </tree>
+                                </field>
+
+                            </page>
+                            <page string="Absent">
+                                <field name="employee_absent_line" readonly="1">
+                                    <tree>
+                                        <field name="date"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="employee_attendance_tree" model="ir.ui.view">
+            <field name="name">employee.attendance.tree</field>
+            <field name="model">employee.attendance</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="department_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="employee_attendance_search" model="ir.ui.view">
+            <field name="name">employee.attendance.search</field>
+            <field name="model">employee.attendance</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="employee_id"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="department_id"/>
+                    <filter name="employee_id"
+                          string="Employee"
+                          context="{'group_by': 'employee_id'}"
+                          />
+                    <filter name="department_id"
+                          string="Department"
+                          context="{'group_by': 'department_id'}"
+                          />
+                </search>
+            </field>
+        </record>
+
+        <record id="employee_attendance_tree_action" model="ir.actions.act_window">
+            <field name="name">Employee Attendance</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">employee.attendance</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+        <menuitem id="action_menu_employee_attendance" name="Employee Attendance" parent="gm_hr_custom.attendace_menu_setting" action="employee_attendance_tree_action" sequence="90"/>
+    </data>
+</odoo>

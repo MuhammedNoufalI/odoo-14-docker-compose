@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+
+access_report_mrp_bom_structure_excel_all_product_excel,custom_report_mrp_bom_structure_excel_all_product_excel,model_report_mrp_bom_structure_excel_all_product_excel,mrp.group_mrp_user,1,1,1,0
+

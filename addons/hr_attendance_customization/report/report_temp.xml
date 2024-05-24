@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="hr_emp_att_report_tmp_id">
+            <t t-call="web.html_container">
+                <t t-call="web.internal_layout">
+                    <style>
+                        .table_custom th {font-size: 10.5px;
+                        text-align: center;border: 1px solid black;
+                        padding: 5px;}
+                        .table_custom td{font-size: 10.5px;
+                        text-align: center;border: 1px solid black;
+                        padding: 5px;}
+
+                    </style>
+                    <div class="page">
+                        <table width="100%">
+                            <thead>
+                                <tr>
+                                    <th width="100%" class="text-center">
+                                        <span t-esc="date_from" class="pr-2"/>
+                                        To
+                                        <span t-esc="date_to" class="pl-2"/>
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <table class="table_custom" width="100%">
+                            <thead>
+                                <th width="6%">Employee ID</th>
+                                <th width="9%">Name</th>
+                                <th width="9%">Department</th>
+                                <th width="10%">Business Entity Name</th>
+                                <th width="10%">Sign-In Date &amp; Time</th>
+                                <th width="10%">Sign-Out Date &amp; Time</th>
+                                <th width="10%">Sign-In Location</th>
+                                <th width="10%">Sign-Out Location</th>
+                                <th width="10%">Sign-In Device ID</th>
+                                <th width="10%">Sign-Out-Device ID</th>
+                                <th width="6%">Total Hours</th>
+                            </thead>
+                            <t t-foreach="attendances" t-as="l">
+                                <tbody>
+                                    <td>
+                                        <span t-esc="l.employee_id.oe_emp_sequence"/>
+                                    </td>
+                                    <td class="text-left pl-1">
+                                        <span t-esc="l.employee_id.name"/>
+                                    </td>
+                                    <td class="text-left pl-1">
+                                        <span t-esc="l.employee_id.department_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="l.employee_id.business_unit"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="l.check_in"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="l.check_out"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="l.login_location"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="l.logout_location"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="l.login_device_id"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="l.logout_device_id"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="l.worked_hours"
+                                              t-options='{"widget": "float", "precision": 2}'/>
+                                    </td>
+                                </tbody>
+                            </t>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

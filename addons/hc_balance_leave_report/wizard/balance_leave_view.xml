@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="balance_leave_wizard_form_view" model="ir.ui.view">
+            <field name="name">Balance Leave view Form</field>
+            <field name="model">leave.balance.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Leave Balance">
+                    <group>
+                        <field name="employee_ids" widget="many2many_tags"/>
+                        <field name="date" required="1"/>
+                    </group>
+                    <footer>
+                        <button string="Print" name="print_excel_report" type="object" class="btn-default"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_window_balance_leave_wizard" model="ir.actions.act_window">
+            <field name="name">Balance Leave view Form</field>
+            <field name="res_model">leave.balance.wiz</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="balance_leave_wizard_form_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem name="Leave Balance Report" id="menu_print_leave_balance_report"
+                  action="action_window_balance_leave_wizard"
+                  sequence="210" parent="hr_holidays.menu_hr_holidays_report"/>
+
+    </data>
+</odoo>
+

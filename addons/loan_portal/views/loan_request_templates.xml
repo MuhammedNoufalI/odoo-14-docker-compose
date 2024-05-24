@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="requests_followup" name="Loan requests">
+        <t t-call="portal.portal_layout">
+            <t t-set="wrap_classes" t-value="'o_portal_bg_dark'"/>
+            <t t-call="portal.portal_record_layout">
+                <t t-set="card_header">
+                    <div class="row no-gutters">
+                        <div class="col-md">
+                            <h5 class="mb-1 mb-md-0">
+                                <span t-field="loan_request_id.name"/>
+                                <small class="text-muted">(#<span t-field="loan_request_id.id"/>)
+                                </small>
+                            </h5>
+                        </div>
+                        <div class="col-md text-md-right">
+                            <strong class="text-right">Status:</strong>
+                            <span t-field="loan_request_id.state" class=" badge badge-pill badge-info"
+                                  title="Current stage of this request"/>
+                        </div>
+
+                        <div class="col-md text-md-center">
+                            <strong class="text-right">Employee:</strong>
+                            <small>
+                                <span t-field="loan_request_id.employee_id"/>
+                            </small>
+
+                        </div>
+                        <div class="col-md text-md-center">
+                            <strong class="text-right">Payment Start Date:</strong>
+                            <small>
+                                <span t-field="loan_request_id.payment_date"/>
+                            </small>
+
+                        </div>
+                        <div class="col-md text-md-center">
+                            <strong class="text-right">Loan Amount:</strong>
+                            <small>
+                                <span t-field="loan_request_id.loan_amount"/>
+                            </small>
+
+                        </div>
+                    </div>
+                </t>
+                <t t-set="card_body">
+                    <div class="row mb-4">
+                        <strong class="col-lg-2">Created on</strong>
+                        <span class="col-lg-10" t-field="loan_request_id.create_date" t-options='{"widget": "date"}'/>
+                    </div>
+
+                    <div class="row mb-4" t-if="loan_request_id.create_uid">
+                        <strong class="col-lg-2">Created By</strong>
+                        <div class="col-lg-10">
+                            <div class="row">
+                                <div class="col pl-sm-0">
+                                    <div t-field="loan_request_id.create_uid.name"
+                                    />
+                                </div>
+                                <div class="col flex-grow-0 pr-3">
+                                    <img t-if="loan_request_id.create_uid.image_1920" class="rounded-circle o_portal_contact_img"
+                                         t-attf-src="data:image/png;base64,#{loan_request_id.create_uid.image_1920}"
+                                         alt="Contact"/>
+                                    <img t-else="" class="rounded-circle o_portal_contact_img"
+                                         src="/web/static/src/img/user_menu_avatar.png" alt="Contact"/>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="o_portal_messages_container mt32">
+                        <h4>Message and communication history</h4>
+                        <t t-call="portal.message_thread">
+                            <!--                            <t t-set="token" t-value="request_id.access_token"/>-->
+                            <t t-set="object" t-value="loan_request_id"/>
+                        </t>
+                    </div>
+
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="portal_my_home_menu_loan_requests" name="Portal layout : Loan Requests menu entries"
+              inherit_id="portal.portal_breadcrumbs" priority="55">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="loan_request_id"
+                t-attf-class="breadcrumb-item #{'active ' if not loan_request_id else ''}">
+                <a t-attf-href="/my/loan/requests?{{ keep_query() }}">Requests</a>
+            </li>
+            <li t-if="loan_request_id" class="breadcrumb-item active">
+                #
+                <span t-field="loan_request_id.name"/>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="my_loan_requests" name="Requests">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Requests</t>
+            </t>
+            <div>
+                <div class="btn-group btn-block mb16" style="margin: 1em">
+                    <a id="submit-ticket" t-attf-href="/loan/request/form">
+                        <button t-attf-class="btn btn-primary #{'col-md-10' if multi_type else 'col-md-12'}">
+                            Create a Request
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <t class="col-lg-14">
+                <h4 style="color:black;">My Loan Requests</h4>
+            </t>
+            <t t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th class="text-left">Loan Name</th>
+                        <th class="text-center">Employee</th>
+                        <th class="text-center">Loan Amount</th>
+                        <th class="text-center">Date</th>
+                        <th class="text-center">State</th>
+                    </tr>
+                </thead>
+                <t t-foreach="my_requests" t-as="line">
+                    <tr>
+                        <td class="text-left">
+                            <a t-attf-href="/loan/request/#{line.id}?#{keep_query()}">
+                                <span t-esc="line.name"/>
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <span t-field="line.employee_id"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-field="line.loan_amount"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-field="line.date"/>
+                        </td>
+                        <td class="text-center">
+                            <span class="badge badge-pill badge-info" t-esc="line.state"/>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="loan_portal_request_form">
+        <t t-call="portal.portal_layout">
+            <t t-set="additional_title">Loan Request</t>
+            <h4 style="color:#CA6F1E;">Loan Request</h4>
+            <form action="/loan/request/create" id="loans" enctype="multipart/form-data" method="post"
+                  data-model_name="hr.loan">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                <t t-if="pass_message">
+                    <div class="row" role="alert">
+                        <div class="container">
+                            <div clas="row">
+                                <div class="col-8 alert alert-success">
+                                    <h5 class="text-center" t-if="request_id">
+                                        <i class="fa fa-check-circle fa-2x text-success" role="img" aria-label="Success"
+                                           title="Success"/>
+                                    </h5>
+                                    <t t-if="request_id">
+                                        <h5 class="text-center">
+                                            Your Request Number is
+                                            <a t-attf-href="/loan/request/#{request_id.id}">
+                                                #
+                                                <span t-esc="request_id.name"/>
+                                            </a>
+                                            Request Creation Successfully Done! .
+                                        </h5>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                <t t-if="message">
+                    <div class="alert alert-danger" role="alert">
+                        <t t-esc="message"/>
+                    </div>
+                </t>
+                <t t-if="warn_message">
+                    <div class="alert alert-warning" role="alert">
+                        <t t-esc="warn_message"/>
+                    </div>
+                </t>
+                <div class="row o_portal_details">
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div t-if="error_message" class="alert alert-danger" role="alert">
+                                    <t t-foreach="error_message" t-as="err">
+                                        <t t-esc="err"/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                            <div t-attf-class="form-group col-xl-6">
+                                <label class="col-form-label" for="employee" id="employee">Employee</label>
+                                <select class="form-control o_website_form_input" id="employee" name="employee" required="1">
+                                    <option t-esc="employee.name" t-att-value="employee.id"/>
+                                    <t t-foreach="employees" t-as="obj">
+                                        <option t-esc="obj.name" t-att-value="obj.id"></option>
+                                    </t>
+                                </select>
+                            </div>
+                            <div t-attf-class="form-group col-xl-6">
+                                <label class="col-form-label" for="date" readonly="">Date</label>
+                                <input type="date" name="date" t-attf-class="form-control"
+                                       t-att-value="default_values.get('date', '')" readonly="1"/>
+                            </div>
+                            <div t-attf-class="form-group col-xl-6">
+                                <label class="col-form-label" for="department" >Department</label>
+                                <input type="text" class="form-control o_website_form_input"
+                                       t-att-value="department"  id="department" readonly="1"
+                                       name="department"/>
+                            </div>
+                            <div t-attf-class="form-group col-xl-6">
+                                <label class="col-form-label" for="job" >Job Position</label>
+                                <input type="text" class="form-control o_website_form_input"
+                                       t-att-value="job"  id="job" readonly="1"
+                                       name="job"/>
+                            </div>
+                            <div t-attf-class="form-group col-xl-6" id="purpose">
+                                <label class="col-form-label" for="loan_amount">Loan Amount</label>
+                                <input type="number" class="form-control o_website_form_input"
+                                       t-att-value="default_values.get('loan_amount',0.0)" required="1"
+                                       name="loan_amount"/>
+                            </div>
+                            <div t-attf-class="form-group col-xl-6">
+                                <label class="col-form-label" for="installment">Installment</label>
+                                <input type="number" name="installment" t-attf-class="form-control"
+                                       t-att-value="default_values.get('installment', 1)" required="0"/>
+                            </div>
+                            <div t-attf-class="form-group col-xl-6">
+                                <label class="col-form-label" for="start_date" readonly="">Payment Start Date</label>
+                                <input type="date" name="start_date" t-attf-class="form-control"
+                                       t-att-value="default_values.get('start_date', '')" required="1"/>
+                            </div>
+
+                            <div class="clearfix"/>
+                            <input type="hidden" name="redirect" t-att-value="redirect"/>
+                        </div>
+
+                        <div class="clearfix">
+                            <button type="submit"
+                                    class="btn btn-secondary float-right mb32">
+                                Create
+                                <span class="fa fa-long-arrow-right"/>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </t>
+    </template>
+</odoo>
